@@ -37,7 +37,7 @@ CREATE TABLE `ar_internal_metadata` (
 
 LOCK TABLES `ar_internal_metadata` WRITE;
 /*!40000 ALTER TABLE `ar_internal_metadata` DISABLE KEYS */;
-INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2019-05-02 22:35:50.267596','2019-05-02 22:35:50.267596');
+INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2019-05-02 23:55:24.368587','2019-05-02 23:55:24.368587');
 /*!40000 ALTER TABLE `ar_internal_metadata` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +254,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `index_users_on_websocket_token` (`websocket_token`),
   KEY `index_users_on_customer_id` (`customer_id`),
   KEY `index_users_on_unsubscribe_token` (`unsubscribe_token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,6 +263,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'email','admin@null.com','$2a$11$d7hGEQm7o2qid5hON.w5GeIw5tYbmDru.gRRToQn9QhRsysEd43Sq',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Roger','Waters',NULL,NULL,'admin@null.com',1000,NULL,'842fefd8c58645ce59604d07f48a6a868ec6e9b01cf2aa837a8b1b054a7d',NULL,'350505814100bb06097158c22e0909bd40a3fa1c9813fabc278aaf0f3d4d',NULL,'{}','2019-05-02 23:55:30','2019-05-02 23:55:30',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,4 +308,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-02 16:35:53
+-- Dump completed on 2019-05-02 17:55:30

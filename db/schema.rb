@@ -27,18 +27,9 @@ ActiveRecord::Schema.define(version: 2018_09_19_225441) do
     t.string "email2"
     t.string "email3"
     t.boolean "active"
-    t.integer "parent_id"
-    t.integer "lft", null: false
-    t.integer "rgt", null: false
-    t.integer "depth", default: 0, null: false
-    t.integer "children_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["depth"], name: "index_customers_on_depth"
-    t.index ["lft"], name: "index_customers_on_lft"
     t.index ["name"], name: "index_customers_on_name"
-    t.index ["parent_id"], name: "index_customers_on_parent_id"
-    t.index ["rgt"], name: "index_customers_on_rgt"
   end
 
   create_table "delayed_jobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|

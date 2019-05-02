@@ -33,5 +33,29 @@ module Server
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    #to skip assets, scaffolds.css, test framework, helpers, view
+    #https://stackoverflow.com/a/28962604/5874744
+    config.generators do |g|
+      g.template_engine nil #to skip views
+      g.test_framework  nil #to skip test framework
+      g.assets  false
+      g.helper false
+      g.stylesheets false
+    end
+
+    config.middleware.insert_before 0, Rack::Cors do
+       allow do
+         origins '*'
+         resource '*',
+         :headers => :any,
+         :methods => [:get, :post, :options, :delete, :head, :patch],
+         :expose  => ['access-token', 'expiry', 'token-type', 'uid', 'client', 'app-version', 'notification']
+       end
+    end
+
+    config.serve_static_asstets = true
+
+    config.action_cable.allowed_request_origins = ENV["ACTION_CABLE_ALLOWED_REQUEST_ORIGINS"]&.split(",")&.map(&:strip)
   end
 end
