@@ -1,3 +1,21 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :customers
+  mount_devise_token_auth_for 'User', at: 'auth'
+
+  mount ActionCable.server => '/cable'
+
+  resources :users do
+    member do
+      get :next_notification
+      post :acknowledge_notification
+      get :download_data
+    end
+  end
+
+  resources :notifications
+
+  post "resetpassword", controller: 'users', action: 'reset_password'
+  post "unsubscribe", controller: 'users', action: 'unsubscribe'
+
+  resources :audits, only: [:index, :show, :update]
 end
