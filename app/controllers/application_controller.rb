@@ -7,7 +7,7 @@ class ApplicationController < ActionController::API
   before_action :set_paper_trail_whodunnit
   before_action :set_up_headers
   before_action :log_headers
-  before_action :authenticate_user, unless: :allow_unauthenticated
+  before_action :authenticate_user!, unless: :allow_unauthenticated
   before_action :configure_permitted_parameters, if: :devise_controller?
   after_action :set_up_notification
 

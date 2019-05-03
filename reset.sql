@@ -37,7 +37,7 @@ CREATE TABLE `ar_internal_metadata` (
 
 LOCK TABLES `ar_internal_metadata` WRITE;
 /*!40000 ALTER TABLE `ar_internal_metadata` DISABLE KEYS */;
-INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2019-05-02 23:55:24.368587','2019-05-02 23:55:24.368587');
+INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2019-05-02 23:58:41.558650','2019-05-02 23:58:41.558650');
 /*!40000 ALTER TABLE `ar_internal_metadata` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,20 +64,11 @@ CREATE TABLE `customers` (
   `email2` varchar(255) DEFAULT NULL,
   `email3` varchar(255) DEFAULT NULL,
   `active` tinyint(1) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `lft` int(11) NOT NULL,
-  `rgt` int(11) NOT NULL,
-  `depth` int(11) NOT NULL DEFAULT '0',
-  `children_count` int(11) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_customers_on_depth` (`depth`),
-  KEY `index_customers_on_lft` (`lft`),
-  KEY `index_customers_on_name` (`name`),
-  KEY `index_customers_on_parent_id` (`parent_id`),
-  KEY `index_customers_on_rgt` (`rgt`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `index_customers_on_name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,6 +77,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` VALUES (1,'The Three Broomsticks','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-05-02 23:58:45','2019-05-02 23:58:45'),(2,'The Brewery','Somewhere else in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-05-02 23:58:45','2019-05-02 23:58:45'),(3,'The Conservatory','Somewhere in Paris',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-05-02 23:58:46','2019-05-02 23:58:46'),(4,'Demos','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-05-02 23:58:46','2019-05-02 23:58:46');
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +246,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `index_users_on_websocket_token` (`websocket_token`),
   KEY `index_users_on_customer_id` (`customer_id`),
   KEY `index_users_on_unsubscribe_token` (`unsubscribe_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,7 +255,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'email','admin@null.com','$2a$11$d7hGEQm7o2qid5hON.w5GeIw5tYbmDru.gRRToQn9QhRsysEd43Sq',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Roger','Waters',NULL,NULL,'admin@null.com',1000,NULL,'842fefd8c58645ce59604d07f48a6a868ec6e9b01cf2aa837a8b1b054a7d',NULL,'350505814100bb06097158c22e0909bd40a3fa1c9813fabc278aaf0f3d4d',NULL,'{}','2019-05-02 23:55:30','2019-05-02 23:55:30',NULL);
+INSERT INTO `users` VALUES (1,'email','admin@null.com','$2a$11$ck2GzMjEa/Qjjmvw4Oxxme2eaOd5l69UIG3RXmZHo.pnsogb7fvKi',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Roger','Waters',NULL,NULL,'admin@null.com',1000,NULL,'146bc76fc0f9b6dbef4eb41b448bf5bfd56116a5bc87908a59f1845ad829',NULL,'04fdd6e47555bea18c21bfe49ae59498ad5bb1d6c31802e1e63f78a41e66',NULL,'{}','2019-05-02 23:58:45','2019-05-02 23:58:45',NULL),(2,'email','supervisor_c_w_s@null.com','$2a$11$qpb5G5TW0CKOEDu1PyTBUu6oQ7Len7sOg/7pCCdLWXoqxXDdRR8Dm',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Dani','Litani',NULL,NULL,'supervisor_c_w_s@null.com',300,NULL,'00b01863026165655466b4bf0cb5d9bd2b8b583e89fc08d0fecb8c1f713b',NULL,'e448232b7f43a3f383213425c4eae22a675c7123b72df4cbf407ab8703a1',NULL,'{}','2019-05-02 23:58:45','2019-05-02 23:58:45',1),(3,'email','manager_c_w_s@null.com','$2a$11$pGiMvaG/Ewc4E/H/dhmKc.xS0l/cbfQb3ncppkHPh.O0bayGmeY2m',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Bryan','Adams',NULL,NULL,'manager_c_w_s@null.com',200,NULL,'1d0134f1c7fa76ff1525f310e475772e37bcc0907b6ebeb2c76cf88dcf6e',NULL,'a5b81322ddceb97efeb39cabba9bc604503c883ef201099bd050727f21ef',NULL,'{}','2019-05-02 23:58:45','2019-05-02 23:58:45',1),(4,'email','regular_c_w_s@null.com','$2a$11$2g4wDCAxmqFzE9dLp7jMb.CSe1yUiMVwQN8xr6YahMLwl4jTBvx3S',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Edie','Brickell',NULL,NULL,'regular_c_w_s@null.com',100,NULL,'15bf0691086b1a6579230add6e06890672f4bcdc9f4923d6f98fd16d0e70',NULL,'cfc34b7b5a9b53fa33fd3bd82e63ed89e572e6f9f43552eea982c27def9d',NULL,'{}','2019-05-02 23:58:45','2019-05-02 23:58:45',1),(5,'email','regular_s@null.com','$2a$11$fIPFE8nI5Mxo.WyrMn11Du..JIUUZZL6KGI2OjwvG1HiSK2I3qr12',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Susanna','Hoffs',NULL,NULL,'regular_s@null.com',100,NULL,'c85da04e89ff776073ceb4a8a3f5870712202f864628e1e68b5df723b2f2',NULL,'4a158f5fa794e18ff09fe696a54b816609a81861f8b56eb6b365aba7de73',NULL,'{}','2019-05-02 23:58:46','2019-05-02 23:58:46',2),(6,'email','manager_c_wo_s@null.com','$2a$11$/viGfdZMTnFp.F0GGQtgQuW7JmflmcD6Xl/nE3JciWCmmzfJ1HKg.',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Fred','Chopin',NULL,NULL,'manager_c_wo_s@null.com',200,NULL,'5d4e1b793c536658ddd4ba7e21a14f9c7ed55e7e552ba42769d869cb2c54',NULL,'58dcf111dd5dffcb854c30e3463bdf401cbd554a94d0ec185741790c0a33',NULL,'{}','2019-05-02 23:58:46','2019-05-02 23:58:46',3),(7,'email','demo@null.com','$2a$11$vejk5ApAUaUolGJ7lkNtqOoNYtOPhNbAUdcedm9JIBHdyk3kv5Ljq',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Brandi','Carlile',NULL,NULL,'demo@null.com',100,NULL,'3c98a4515b37ef469052b6b69d5e936d5fc560ea611e28f81ab09ce535fb',NULL,'ca2dc7e79cfe78cfee36152cc614332260410c028974d165428c5be5e8b8',NULL,'{}','2019-05-02 23:58:46','2019-05-02 23:58:46',4);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,4 +300,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-02 17:55:30
+-- Dump completed on 2019-05-02 17:58:46

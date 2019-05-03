@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :first_name, :last_name, :email, :role, :customer_name, :customer_id, :tutorial_number
+  attributes :id, :first_name, :last_name, :email, :role, :customer_name, :customer_id
   attributes :permissions, :wst, :server
 
   def permissions
@@ -15,7 +15,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def customer_name
-    object.customer&.name || "Rennicks"
+    object.customer&.name || "Binary Trees"
   end
 end
 
