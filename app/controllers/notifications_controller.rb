@@ -1,8 +1,10 @@
 class NotificationsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:index]
 
   # GET /notifications
   def index
+    @notifications = current_user.notifications
+
     if !params[:search].blank?
       @notifications = @notifications&.search(params[:search])
     end
