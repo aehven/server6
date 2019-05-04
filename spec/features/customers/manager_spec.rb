@@ -3,7 +3,7 @@ require "rails_helper"
 xfeature "Manager permissions on customers: " do
   let(:login_component) { LoginComponent.new }
   let(:menu) { MenuComponent.new }
-  let(:dashboard) { DashboardComponent.new }
+  let(:home) { HomeComponent.new }
   let(:customer_list) { CustomerListComponent.new(find("app-customer-list")) }
   let(:customer) { CustomerComponent.new }
 
@@ -11,14 +11,14 @@ xfeature "Manager permissions on customers: " do
     user = User.manager.first
     login_component.sign_in user
 
-    dashboard.wait
+    home.wait
     expect(menu.has?("Customers")).to be_falsy
   end
 
   scenario "try to get disallowed stuff" do
     user = User.manager.first
     login_component.sign_in user
-    dashboard.wait
+    home.wait
 
     visit "/#/customers"
     sleep 0.5

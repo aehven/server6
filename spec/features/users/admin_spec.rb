@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Admin permissions on users: " do
   let(:login_component) { LoginComponent.new }
   let(:menu) { MenuComponent.new }
-  let(:dashboard) { DashboardComponent.new }
+  let(:home) { HomeComponent.new }
   let(:user_list) { UserListComponent.new(find("app-user-list")) }
   let(:user) { UserComponent.new }
 
@@ -11,7 +11,7 @@ feature "Admin permissions on users: " do
     current_user = User.admin.first
     login_component.sign_in current_user
 
-    dashboard.wait
+    home.wait
     menu.users
     user_list.wait
 
@@ -22,7 +22,7 @@ feature "Admin permissions on users: " do
     current_user = User.admin.first
     login_component.sign_in current_user
 
-    dashboard.wait
+    home.wait
     menu.users
     user_list.wait
 
@@ -44,7 +44,7 @@ feature "Admin permissions on users: " do
     current_user = User.admin.first
     login_component.sign_in current_user
 
-    dashboard.wait
+    home.wait
     menu.users
     user_list.wait
 
@@ -71,7 +71,7 @@ feature "Admin permissions on users: " do
     current_user = User.admin.first
     login_component.sign_in current_user
 
-    dashboard.wait
+    home.wait
     menu.users
     user_list.wait
     user_list.new_item("User")
@@ -93,7 +93,7 @@ feature "Admin permissions on users: " do
     expect(page).to have_text "Gustav Holst at The Brewery"
 
     menu.sign_out
-    dashboard.wait
+    home.wait
 
     current_user = User.find_by(email: "gholst@null.com")
     login_component.sign_in current_user

@@ -3,7 +3,7 @@ require "rails_helper"
 xfeature "Manager permissions on users: " do
   let(:login_component) { LoginComponent.new }
   let(:menu) { MenuComponent.new }
-  let(:dashboard) { DashboardComponent.new }
+  let(:home) { HomeComponent.new }
   let(:user_list) { UserListComponent.new(find("app-user-list")) }
   let(:user) { UserComponent.new }
 
@@ -11,7 +11,7 @@ xfeature "Manager permissions on users: " do
     current_user = User.manager.first
     login_component.sign_in current_user
 
-    dashboard.wait
+    home.wait
     menu.users
     user_list.wait
 
@@ -22,7 +22,7 @@ xfeature "Manager permissions on users: " do
     current_user = User.manager.first
     login_component.sign_in current_user
 
-    dashboard.wait
+    home.wait
     menu.users
     user_list.wait
 
@@ -44,7 +44,7 @@ xfeature "Manager permissions on users: " do
     current_user = User.manager.first
     login_component.sign_in current_user
 
-    dashboard.wait
+    home.wait
     menu.users
     user_list.wait
 
@@ -73,7 +73,7 @@ xfeature "Manager permissions on users: " do
     current_user = User.manager.first
     login_component.sign_in current_user
 
-    dashboard.wait
+    home.wait
     menu.users
     user_list.wait
     user_list.new_item("User")
@@ -98,7 +98,7 @@ xfeature "Manager permissions on users: " do
   scenario "try to get disallowed stuff" do
     user = User.manager.first
     login_component.sign_in user
-    dashboard.wait
+    home.wait
 
     visit "/#/user/6"
     sleep 0.5

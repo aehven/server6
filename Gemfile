@@ -26,6 +26,11 @@ group :development, :test do
   gem 'faker'
   gem 'factory_bot_rails'
   gem 'mailcatcher-api' #note that mailcatcher itself has to be installed outside the gemfile because from inside we end up with a very old version due to a dependency bug
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'selenium-webdriver'
+  gem 'rb-readline'
 end
 
 group :development do

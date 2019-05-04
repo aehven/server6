@@ -4,7 +4,7 @@ feature "Signing In: " do
   let(:login_component) { LoginComponent.new }
   let(:menu) { MenuComponent.new }
   let(:user) { FactoryBot.create(:user) }
-  let(:dashboard) { DashboardComponent.new }
+  let(:home) { HomeComponent.new }
 
   scenario "failure" do
     login_component.sign_in_creds user.email, "wrong password"

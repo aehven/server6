@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Show audit list: " do
   let(:login_component) { LoginComponent.new }
   let(:menu) { MenuComponent.new }
-  let(:dashboard) { DashboardComponent.new }
+  let(:home) { HomeComponent.new }
   let(:user) { User.first }
   let(:audit) { AuditComponent.new }
   let(:audit_list) { AuditListComponent.new(find("app-audit-list")) }
@@ -11,7 +11,7 @@ feature "Show audit list: " do
   scenario "empty then create then click in" do
     login_component.sign_in user
 
-    dashboard.wait
+    home.wait
     menu.audit
     audit_list.wait
 

@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Regular permissions on customers: " do
   let(:login_component) { LoginComponent.new }
   let(:menu) { MenuComponent.new }
-  let(:dashboard) { DashboardComponent.new }
+  let(:home) { HomeComponent.new }
   let(:customer_list) { CustomerListComponent.new(find("app-customer-list")) }
   let(:customer) { CustomerComponent.new }
 
@@ -11,29 +11,29 @@ feature "Regular permissions on customers: " do
     user = User.regular.first
     login_component.sign_in user
 
-    dashboard.wait
+    home.wait
     expect(menu.has?("Customers")).to be_falsy
   end
 
   scenario "try to get disallowed stuff" do
     user = User.regular.first
     login_component.sign_in user
-    dashboard.wait
+    home.wait
 
     visit "/#/customers"
     sleep 0.5
-    expect(page.current_url.include? "dashboard").to be true
+    expect(page.current_url.include? "home").to be true
 
     visit "/#/customer/1"
     sleep 0.5
-    expect(page.current_url.include? "dashboard").to be true
+    expect(page.current_url.include? "home").to be true
 
     visit "/#/customer/2"
     sleep 0.5
-    expect(page.current_url.include? "dashboard").to be true
+    expect(page.current_url.include? "home").to be true
 
     visit "/#/customer/3"
     sleep 0.5
-    expect(page.current_url.include? "dashboard").to be true
+    expect(page.current_url.include? "home").to be true
   end
 end

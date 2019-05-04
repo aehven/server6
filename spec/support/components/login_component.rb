@@ -16,7 +16,7 @@ class LoginComponent < BaseComponent
     show
 
     fill_in 'Email', :with => user.email
-    fill_in 'Password', :with => "ribLeaDO"
+    fill_in 'Password', :with => "password"
 
     click_button 'Sign In'
 

@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Admin permissions on customers: " do
   let(:login_component) { LoginComponent.new }
   let(:menu) { MenuComponent.new }
-  let(:dashboard) { DashboardComponent.new }
+  let(:home) { HomeComponent.new }
   let(:customer_list) { CustomerListComponent.new(find("app-customer-list")) }
   let(:customer) { CustomerComponent.new }
 
@@ -11,7 +11,7 @@ feature "Admin permissions on customers: " do
     user = User.admin.first
     login_component.sign_in user
 
-    dashboard.wait
+    home.wait
     menu.customers
     customer_list.wait
 
@@ -22,7 +22,7 @@ feature "Admin permissions on customers: " do
     user = User.admin.first
     login_component.sign_in user
 
-    dashboard.wait
+    home.wait
     menu.customers
     customer_list.wait
 
@@ -44,7 +44,7 @@ feature "Admin permissions on customers: " do
 
     initial_customer_count = Customer.count
 
-    dashboard.wait
+    home.wait
     menu.customers
     customer_list.wait
 
@@ -88,7 +88,7 @@ feature "Admin permissions on customers: " do
     user = User.admin.first
     login_component.sign_in user
 
-    dashboard.wait
+    home.wait
     menu.customers
     customer_list.wait
     customer_list.new_item("Customer")

@@ -3,7 +3,7 @@ require "rails_helper"
 feature "User List: " do
   let(:login_component) { LoginComponent.new }
   let(:menu) { MenuComponent.new }
-  let(:dashboard) { DashboardComponent.new }
+  let(:home) { HomeComponent.new }
   let(:user) { UserComponent.new }
   let(:user_list) { UserListComponent.new(find("app-user-list")) }
 
@@ -12,7 +12,7 @@ feature "User List: " do
 
     current_user = User.first
     login_component.sign_in current_user
-    dashboard.wait
+    home.wait
 
     menu.users
     user_list.wait

@@ -28,30 +28,6 @@ RSpec.configure do |config|
 
   config.filter_rails_from_backtrace!
 
-#####################################
-#
-# password_reset_spec[1:2] - known email - shows how a user
-# created in the spec is not found in the db when using
-# DatabaseCleaner.  Unless this can work, we continue
-# to use reset_db method below.
-#
-# config.use_transactional_fixtures = false
-#
-# config.before(:each) do
-#   DatabaseCleaner.clean_with(:truncation)
-#   Rails.application.load_seed
-# end
-#
-# config.before(:each) do
-#   DatabaseCleaner.start
-# end
-#
-# config.append_after(:each) do
-#   DatabaseCleaner.clean
-# end
-
-#####################################
-
   config.before(:each) do
     reset_db
     bring_window_to_front unless ENV['STAY_BACK']
@@ -89,8 +65,8 @@ RSpec.configure do |config|
 
   Capybara.configure do |cconfig|
     cconfig.default_driver = :selenium_chrome
-    cconfig.app_host = "http://rennicks"
-    cconfig.asset_host = "http://rennicks"
+    cconfig.app_host = "http://#{ENV['NICKNAME']}"
+    cconfig.asset_host = "http://#{ENV['NICKNAME']}"
     cconfig.default_max_wait_time = 3
     cconfig.run_server = false
   end

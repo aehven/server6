@@ -6,7 +6,7 @@ feature "Reset password: " do
   let(:reset_do) { ResetDoComponent.new }
   let(:user) { FactoryBot.create(:user) }
   let(:menu) { MenuComponent.new }
-  let(:dashboard) { DashboardComponent.new }
+  let(:home) { HomeComponent.new }
 
   scenario "unknown email" do
     login_component.forgot_password
@@ -42,12 +42,12 @@ feature "Reset password: " do
 
     reset_do.submit_change("new password")
 
-    dashboard.wait
+    home.wait
 
     menu.sign_out
 
     login_component.sign_in_creds user.email, "new password"
 
-    dashboard.wait
+    home.wait
   end
 end

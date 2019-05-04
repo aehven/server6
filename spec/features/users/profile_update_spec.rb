@@ -5,13 +5,13 @@ feature "Updating Profile: " do
   let(:menu) { MenuComponent.new }
   let(:user) { UserComponent.new }
   let(:user_list) { UserListComponent.new(find("app-user-list")) }
-  let(:dashboard) { DashboardComponent.new }
+  let(:home) { HomeComponent.new }
 
   scenario "update" do
     current_user = User.first
 
     login_component.sign_in current_user
-    dashboard.wait
+    home.wait
 
     menu.profile
     user.wait
@@ -32,14 +32,14 @@ feature "Updating Profile: " do
     login_component.show
 
     login_component.sign_in_creds "paul@null.com", "rspec password"
-    dashboard.wait
+    home.wait
   end
 
   scenario "cancel" do
     current_user = User.first
 
     login_component.sign_in current_user
-    dashboard.wait
+    home.wait
 
     menu.profile
     user.wait
@@ -60,8 +60,8 @@ feature "Updating Profile: " do
     menu.sign_out
     login_component.show
 
-    login_component.sign_in_creds "admin@null.com", "ribLeaDO"
-    dashboard.wait
+    login_component.sign_in_creds "admin@null.com", "password"
+    home.wait
   end
 
 

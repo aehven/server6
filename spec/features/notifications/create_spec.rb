@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Create notification: " do
   let(:login_component) { LoginComponent.new }
   let(:menu) { MenuComponent.new }
-  let(:dashboard) { DashboardComponent.new }
+  let(:home) { HomeComponent.new }
   let(:notification) { NotificationComponent.new }
   let(:notification_list) { NotificationListComponent.new(find("app-notification-list")) }
   let(:current_user) { User.first }
@@ -14,7 +14,7 @@ feature "Create notification: " do
 
   scenario "create notification for email only" do
     login_component.sign_in current_user
-    dashboard.wait
+    home.wait
 
     menu.notifications
     notification_list.wait
@@ -38,7 +38,7 @@ feature "Create notification: " do
 
   scenario "create notification for in-app only" do
     login_component.sign_in current_user
-    dashboard.wait
+    home.wait
 
     menu.notifications
     notification_list.wait
@@ -60,7 +60,7 @@ feature "Create notification: " do
 
   scenario "create notification for email and in-app" do
     login_component.sign_in current_user
-    dashboard.wait
+    home.wait
 
     menu.notifications
     notification_list.wait
