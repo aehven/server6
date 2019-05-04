@@ -62,5 +62,10 @@ class MenuComponent < BaseComponent
   def sign_out
     open
     find(".nav-item", text: "Sign Out", match: :prefer_exact).click
+    if(ENV['BTSTC_ALLOW_ANONYMOUS_USERS'] == "true")
+      find_link "Log in"
+    else
+      find_button "Sign In"
+    end
   end
 end
