@@ -93,8 +93,8 @@ feature "Show audit list: " do
     expect(item).to have_text "Create\nCustomer"
     expect(item).to have_text "id initialized to #{new_customer.id}"
     expect(item).to have_text "name initialized to #{new_customer.name}"
-    expect(item).to have_text "lft initialized to #{new_customer.lft}"
-    expect(item).to have_text "rgt initialized to #{new_customer.rgt}"
+    # expect(item).to have_text "lft initialized to #{new_customer.lft}"
+    # expect(item).to have_text "rgt initialized to #{new_customer.rgt}"
 
     item = audit_list.item(0)
     expect(item).to have_text "Create\nNotification"
@@ -166,8 +166,8 @@ feature "Show audit list: " do
     expect(item).to have_text "Create\nCustomer"
     expect(item).to have_text "id initialized to #{new_customer.id}"
     expect(item).to have_text "name initialized to #{name0}"
-    expect(item).to have_text "lft initialized to #{new_customer.lft}"
-    expect(item).to have_text "rgt initialized to #{new_customer.rgt}"
+    # expect(item).to have_text "lft initialized to #{new_customer.lft}"
+    # expect(item).to have_text "rgt initialized to #{new_customer.rgt}"
 
     item = audit_list.item(1)
     expect(item).to have_text "Update\nCustomer #{name0}"
