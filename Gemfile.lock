@@ -61,8 +61,6 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.1, >= 2.1.4)
-    awesome_nested_set (2.1.6)
-      activerecord (>= 3.0.0)
     bcrypt (3.1.12)
     bootsnap (1.4.4)
       msgpack (~> 1.0)
@@ -232,7 +230,6 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
-  awesome_nested_set
   bootsnap (>= 1.4.2)
   cancancan
   daemons

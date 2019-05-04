@@ -3,7 +3,7 @@ class UserSerializer < ActiveModel::Serializer
   attributes :permissions, :wst, :server
 
   def permissions
-    object.permissions
+    flatten_hash(object.permissions).keys.map(&:to_s)
   end
 
   def wst
@@ -16,6 +16,13 @@ class UserSerializer < ActiveModel::Serializer
 
   def customer_name
     object.customer&.name || "Binary Trees"
+  end
+
+  # https://stackoverflow.com/a/40667799/5874744
+  def flatten_hash(param, prefix=nil)
+    param.each_pair.reduce({}) do |a, (k, v)|
+      v.is_a?(Hash) ? a.merge(flatten_hash(v, "#{prefix}#{k}.")) : a.merge("#{prefix}#{k}".to_sym => v)
+    end
   end
 end
 
