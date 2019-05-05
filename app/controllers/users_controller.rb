@@ -60,7 +60,7 @@ class UsersController < ApplicationController
 
   def acknowledge_notification
     @user = User.find(params[:id])
-    @user.acknowledge_notification
+    @user.acknowledge_notification(params[:notification_id])
     head :no_content
   end
 
