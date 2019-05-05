@@ -64,4 +64,25 @@ module Helpers
 
     page.execute_script(script, element.native)
   end
+
+  # thanks to https://coderwall.com/p/bkrg8a/ruby-wait_while
+  def wait_for_this(opts={}, &block)
+    defaults = {
+      timeout: 5
+    }
+    options = defaults.merge(opts)
+
+    start = Time.now
+    while (result = !block.call)
+      break if (Time.now - start).to_i >= options[:timeout]
+      sleep(0.3)
+    end
+
+    if(options[:tag])
+      puts "wait_for_this [#{options[:tag]}] waited #{(Time.now - start).to_i} seconds."
+    end
+
+    !result
+  end
+
 end

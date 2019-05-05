@@ -7,7 +7,8 @@ feature "Create notification: " do
   let(:notification) { NotificationComponent.new }
   let(:notification_list) { NotificationListComponent.new(find("app-notification-list")) }
   let(:current_user) { User.first }
-  
+  let(:snack_bar) { SnackBarComponent.new }
+
   before(:each) do
     clear_mailbox
   end
@@ -55,7 +56,18 @@ feature "Create notification: " do
 
     verify_no_email
 
-    expect(in_app_notification).to eq "in-app only text\nOK"
+    snack_bar.wait
+    expect(snack_bar.text).to eq "in-app only text\nOK"
+
+    expect(NotificationsUser.first.attributes).to eq ({"id"=>1, "notification_id"=>1, "user_id"=>1, "acknowledged_at"=>nil})
+
+    snack_bar.acknowledge
+
+    wait_for_this { !NotificationsUser.first.reload.acknowledged_at.nil? && NotificationsUser.first.reload.acknowledged_at > 5.seconds.ago }
+
+    menu.profile
+
+    expect(page).not_to have_css(snack_bar.selector)
   end
 
   scenario "create notification for email and in-app" do
@@ -82,6 +94,7 @@ feature "Create notification: " do
       body: "both text",
       place: User.count) #email to the first user should be in the User.count position down because it went out first
 
-    expect(in_app_notification).to eq "both text\nOK"
+      snack_bar.wait
+      expect(snack_bar.text).to eq "both text\nOK"
   end
 end

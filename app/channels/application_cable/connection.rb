@@ -7,7 +7,7 @@ module ApplicationCable
 
     def connect
       self.current_user = find_verified_user_wst
-      `say "action cable connected for #{current_user.first_name}"`
+      # `say "cable connected for #{current_user.first_name}"`
       logger.add_tags 'ActionCable', current_user.id
     end
 
