@@ -59,11 +59,12 @@ feature "Admin permissions on customers: " do
 
     # deleting the first customer also deletes its sub-customer,
     # so expect -2
+    # -1 without nested customers
 
-    expect(customer_list.item_count).to eq initial_customer_count-2
+    expect(customer_list.item_count).to eq initial_customer_count-1
     expect(page).not_to have_text customer_name
 
-    expect(Customer.count).to eq initial_customer_count-2
+    expect(Customer.count).to eq initial_customer_count-1
 
     initial_customer_count = Customer.count
 
@@ -77,11 +78,11 @@ feature "Admin permissions on customers: " do
     customer.delete(true)
 
     customer_list.wait
-    expect(customer_list.item_count).to eq 1 # demo customer remains at this point
+    expect(customer_list.item_count).to eq 2 # demo customer remains at this point
 
     expect(page).not_to have_text customer_name
 
-    expect(Customer.count).to eq 1 # demo customer remains at this point
+    expect(Customer.count).to eq 2 # demo customer remains at this point
   end
 
   scenario "can create customers" do

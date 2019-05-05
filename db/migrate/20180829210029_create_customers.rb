@@ -16,8 +16,6 @@ class CreateCustomers < ActiveRecord::Migration[5.2]
       t.string :email3
       t.boolean :active
 
-      # for awesome_nested_set goodness
-      # not working in rails 6
       # t.integer :parent_id, null: true, index: true
       # t.integer :lft, null: false, index: true
       # t.integer :rgt, null: false, index: true

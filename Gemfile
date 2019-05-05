@@ -15,7 +15,7 @@ gem 'cancancan'
 gem 'active_model_serializers'
 gem 'will_paginate'
 gem 'redis-rails'
-# gem 'awesome_nested_set' # incorrec dependency on AR 4, even though there appears to a checkin in 3.1.1 that removes that dependency; still not working with rails 6
+# gem 'awesome_nested_set', git: "https://github.com/collectiveidea/awesome_nested_set", tag: "v3.1.4" # incorrec dependency on AR 4, even though there appears to a checkin in 3.1.1 that removes that dependency; still not working with rails 6
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'paper_trail'
