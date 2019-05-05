@@ -39,9 +39,9 @@ RSpec.configure do |config|
     `afplay /System/Library/Sounds/Funk.aiff`
   end
 
-  config.after(:each) do
-    print "\a"
-  end
+  # config.after(:each) do
+  #   print "\a"
+  # end
 
   # copied from screenshot gem rspec.rb line ~93
   config.after(type: :feature) do |example_from_block_arg|
