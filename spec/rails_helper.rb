@@ -34,9 +34,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    `afplay /System/Library/Sounds/Bottle.aiff`
-    `afplay /System/Library/Sounds/Frog.aiff`
-    `afplay /System/Library/Sounds/Funk.aiff`
+    spawn "afplay /System/Library/Sounds/Bottle.aiff; afplay /System/Library/Sounds/Frog.aiff; afplay /System/Library/Sounds/Funk.aiff"
   end
 
   # config.after(:each) do
@@ -48,9 +46,9 @@ RSpec.configure do |config|
     example = config.respond_to?(:expose_current_running_example_as) ? example_from_block_arg : self.example
 
     if(example.exception)
-      `afplay /System/Library/Sounds/Basso.aiff`
+      spawn "afplay /System/Library/Sounds/Basso.aiff"
     else
-      `afplay /System/Library/Sounds/Glass.aiff`
+      spawn "afplay /System/Library/Sounds/Glass.aiff"
     end
   end
 
