@@ -1,0 +1,39 @@
+# https://github.com/laserlemon/figaro
+defaults: &defaults
+  APP_VERSION: '0.0'
+
+  ALLOW_ANONYMOUS_USERS: "false"
+
+  #ENV vars to send to the client when logging in, must start with BTSTC_
+  # BTSTC_....
+
+  DELAYED_JOB_PERIOD: "5"
+  DELAYED_JOB_PREFIX: development
+  DELAYED_JOB_WORKERS_COUNT: "1"
+
+  MAIL_SENDER: 'aehven@binarytrees.biz'
+
+  SMTP_DOMAIN:         binarytrees.biz
+  SMTP_PASSWORD:
+  SMTP_PORT:           '1025'
+  SMTP_STARTTLS_AUTO:  'false'
+  SMTP_URL:            localhost
+  SMTP_USERNAME:
+  SMTP_AUTHENTICATION: "plain"
+
+  USERS_BELONG_TO_CUSTOMERS: "false"
+
+development:
+  <<: *defaults
+  ACTION_CABLE_ALLOWED_REQUEST_ORIGINS: http://generic
+
+  DATABASE_URL: mysql2://aehven:cypress@localhost:3306/generic_develop
+  DEFAULT_URL_HOST: http://generic
+  DELAYED_JOB_PERIOD: "3"
+
+test:
+  <<: *defaults
+  DELAYED_JOB_PERIOD: "3"
+
+production:
+  <<: *defaults
