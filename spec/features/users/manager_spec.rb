@@ -89,7 +89,7 @@ xfeature "Manager permissions on users: " do
     expect(page).to have_text "Gustav Holst"
 
     menu.sign_out
-    login_component.wait
+    login_component.show
 
     current_user = User.find_by(email: "gholst@null.com")
     login_component.sign_in current_user
