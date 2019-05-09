@@ -22,8 +22,6 @@ feature "Regular permissions on users: " do
 
     visit "/#/user/5"
     sleep 0.5
-    # Permission denied redirects to login page, and that
-    # redirects to home because we're already logged in.
-    expect(page.current_url.include? "home").to be true
+    home.wait
   end
 end

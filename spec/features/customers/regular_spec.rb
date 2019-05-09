@@ -22,18 +22,18 @@ feature "Regular permissions on customers: " do
 
     visit "/#/customers"
     sleep 0.5
-    expect(page.current_url.include? "home").to be true
+    home.wait
 
     visit "/#/customer/1"
     sleep 0.5
-    expect(page.current_url.include? "home").to be true
+    home.wait
 
     visit "/#/customer/2"
     sleep 0.5
-    expect(page.current_url.include? "home").to be true
+    home.wait
 
     visit "/#/customer/3"
     sleep 0.5
-    expect(page.current_url.include? "home").to be true
+    home.wait
   end
 end
