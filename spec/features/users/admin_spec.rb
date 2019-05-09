@@ -81,19 +81,21 @@ feature "Admin permissions on users: " do
     user.email = "gholst@null.com"
     user.role = "Admin"
 
-    #if a customer's user, no admin option and reverts to regular
-    user.customer = "The Brewery"
-    expect(user.role).to eq "Regular"
+    if ENV['USERS_BELONG_TO_CUSTOMERS'] == "true"
+      #if a customer's user, no admin option and reverts to regular
+      user.customer = "The Brewery"
+      expect(user.role).to eq "Regular"
+    end
 
     user.password = "password"
     user.passwordConfirmation = "password"
     user.submit
 
     user_list.wait
-    expect(page).to have_text "Gustav Holst at The Brewery"
+    expect(page).to have_text "Gustav Holst#{' at The Brewery' if ENV['USERS_BELONG_TO_CUSTOMERS'] == 'true'}"
 
     menu.sign_out
-    home.wait
+    login_component.wait
 
     current_user = User.find_by(email: "gholst@null.com")
     login_component.sign_in current_user

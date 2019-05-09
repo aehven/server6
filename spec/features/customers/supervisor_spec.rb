@@ -8,6 +8,8 @@ xfeature "Supervisor permissions on customers: " do
   let(:customer) { CustomerComponent.new }
 
   scenario "can index customer and descendants" do
+    skip "No customers in this app" if ENV['USERS_BELONG_TO_CUSTOMERS'] != "true"
+
     user = User.supervisor.first
     login_component.sign_in user
 
@@ -21,6 +23,8 @@ xfeature "Supervisor permissions on customers: " do
   end
 
   scenario "can read and update customer and descendants" do
+    skip "No customers in this app" if ENV['USERS_BELONG_TO_CUSTOMERS'] != "true"
+
     user = User.supervisor.first
     login_component.sign_in user
 
@@ -41,6 +45,8 @@ xfeature "Supervisor permissions on customers: " do
   end
 
   scenario "can destroy descendant customers only" do
+    skip "No customers in this app" if ENV['USERS_BELONG_TO_CUSTOMERS'] != "true"
+
     user = User.supervisor.first
     login_component.sign_in user
 
@@ -70,6 +76,8 @@ xfeature "Supervisor permissions on customers: " do
   end
 
   scenario "can create subcustomers" do
+    skip "No customers in this app" if ENV['USERS_BELONG_TO_CUSTOMERS'] != "true"
+
     user = User.supervisor.first
     login_component.sign_in user
 
@@ -90,6 +98,8 @@ xfeature "Supervisor permissions on customers: " do
   end
 
   scenario "try to get disallowed stuff" do
+    skip "No customers in this app" if ENV['USERS_BELONG_TO_CUSTOMERS'] != "true"
+
     user = User.supervisor.first
     login_component.sign_in user
     home.wait

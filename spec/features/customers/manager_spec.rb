@@ -16,6 +16,8 @@ xfeature "Manager permissions on customers: " do
   end
 
   scenario "try to get disallowed stuff" do
+    skip "No customers in this app" if ENV['USERS_BELONG_TO_CUSTOMERS'] != "true"
+
     user = User.manager.first
     login_component.sign_in user
     home.wait

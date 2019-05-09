@@ -8,6 +8,8 @@ feature "Admin permissions on customers: " do
   let(:customer) { CustomerComponent.new }
 
   scenario "can index all customers" do
+    skip "No customers in this app" if ENV['USERS_BELONG_TO_CUSTOMERS'] != "true"
+
     user = User.admin.first
     login_component.sign_in user
 
@@ -19,6 +21,8 @@ feature "Admin permissions on customers: " do
   end
 
   scenario "can read and update all customers" do
+    skip "No customers in this app" if ENV['USERS_BELONG_TO_CUSTOMERS'] != "true"
+
     user = User.admin.first
     login_component.sign_in user
 
@@ -39,6 +43,8 @@ feature "Admin permissions on customers: " do
   end
 
   scenario "can destroy all customers" do
+    skip "No customers in this app" if ENV['USERS_BELONG_TO_CUSTOMERS'] != "true"
+
     user = User.admin.first
     login_component.sign_in user
 
@@ -86,6 +92,8 @@ feature "Admin permissions on customers: " do
   end
 
   scenario "can create customers" do
+    skip "No customers in this app" if ENV['USERS_BELONG_TO_CUSTOMERS'] != "true"
+
     user = User.admin.first
     login_component.sign_in user
 
