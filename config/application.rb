@@ -56,6 +56,9 @@ module Server
 
     config.serve_static_asstets = true
 
-    config.action_cable.allowed_request_origins = ENV["ACTION_CABLE_ALLOWED_REQUEST_ORIGINS"]&.split(",")&.map(&:strip)
+    # for web app only
+    # config.action_cable.allowed_request_origins = ENV["ACTION_CABLE_ALLOWED_REQUEST_ORIGINS"]&.split(",")&.map(&:strip)
+    # for connections from cordova apps also
+    config.action_cable.disable_request_forgery_protection = true
   end
 end
