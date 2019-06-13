@@ -60,5 +60,9 @@ module Server
     # config.action_cable.allowed_request_origins = ENV["ACTION_CABLE_ALLOWED_REQUEST_ORIGINS"]&.split(",")&.map(&:strip)
     # for connections from cordova apps also
     config.action_cable.disable_request_forgery_protection = true
+
+    config.cache_store = :redis_store, ENV['REDIS_URL']
+    config.active_record.cache_versioning = false
+    config.active_job.queue_adapter = :delayed_job
   end
 end
