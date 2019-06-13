@@ -20,6 +20,8 @@ class LoginComponent < BaseComponent
   end
 
   def sign_in(user)
+    user.update_attributes(tac_agreed_at: Time.now)
+
     show
 
     fill_in 'Email', :with => user.email
@@ -30,7 +32,9 @@ class LoginComponent < BaseComponent
     sleep 2 #wait for cable
   end
 
-  def sign_in_creds(email, password)
+  def sign_in_creds(email, password, auto_tac=true)
+    User.find_by(email: email)&.update_attributes(tac_agreed_at: Time.now) if auto_tac
+
     show
 
     fill_in 'Email', :with => email

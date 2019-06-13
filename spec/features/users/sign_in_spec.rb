@@ -7,7 +7,7 @@ feature "Signing In: " do
   let(:home) { HomeComponent.new }
 
   scenario "success" do
-    login_component.sign_in_creds user.email, "password"
+    login_component.sign_in_creds user.email, "password", false
 
     expect(page).to have_css("h3", text: "Please agree to the terms and conditions below to proceed.")
     expect(page).to have_text "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
