@@ -37,7 +37,7 @@ CREATE TABLE `ar_internal_metadata` (
 
 LOCK TABLES `ar_internal_metadata` WRITE;
 /*!40000 ALTER TABLE `ar_internal_metadata` DISABLE KEYS */;
-INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2019-06-12 23:58:44.320679','2019-06-12 23:58:44.320679');
+INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2019-07-05 22:22:00.362959','2019-07-05 22:22:00.362959');
 /*!40000 ALTER TABLE `ar_internal_metadata` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `customers` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_customers_on_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,6 +77,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` VALUES (1,'The Three Broomsticks','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-07-05 22:22:01','2019-07-05 22:22:01'),(2,'The Brewery','Somewhere else in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-07-05 22:22:02','2019-07-05 22:22:02'),(3,'The Conservatory','Somewhere in Paris',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-07-05 22:22:02','2019-07-05 22:22:02'),(4,'Demos','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-07-05 22:22:02','2019-07-05 22:22:02');
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,12 +240,12 @@ CREATE TABLE `users` (
   `customer_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_users_on_uid_and_provider` (`uid`,`provider`),
+  UNIQUE KEY `index_users_on_confirmation_token` (`confirmation_token`),
   UNIQUE KEY `index_users_on_email` (`email`),
   UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`),
-  UNIQUE KEY `index_users_on_confirmation_token` (`confirmation_token`),
   UNIQUE KEY `index_users_on_websocket_token` (`websocket_token`),
-  KEY `index_users_on_unsubscribe_token` (`unsubscribe_token`),
-  KEY `index_users_on_customer_id` (`customer_id`)
+  KEY `index_users_on_customer_id` (`customer_id`),
+  KEY `index_users_on_unsubscribe_token` (`unsubscribe_token`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -254,7 +255,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'email','admin@null.com','$2a$11$BBnHVFQXYPl9KHRwy.pg7OCz96L3u46yOH1c0g5bNwq35gUA3XTRK',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Roger','Waters',NULL,NULL,'admin@null.com',1000,NULL,'108651108608f105a02030c0b1c08bb3022eda2551e60cb47d8d425c80fe',NULL,'fdd1cab1e1fea2f57a8e5aeea529eb9031085134fa391ac8b964d13d2272',NULL,'{}','2019-06-12 23:58:44','2019-06-12 23:58:44',NULL),(2,'email','supervisor_c_w_s@null.com','$2a$11$WupaJ2Z0duduuwdcZQTaSeHoLicx/vsj3Pn2/IbtIi065rPCsKo5e',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Dani','Litani',NULL,NULL,'supervisor_c_w_s@null.com',300,NULL,'f3dd14fe4cc169bbff4387e4ad376895a441c0b2bf9d7f84af4414706f37',NULL,'d59a0b5610f8639eb1576dfeea985849b93eee14f6a52f546ec4119faca0',NULL,'{}','2019-06-12 23:58:44','2019-06-12 23:58:44',NULL),(3,'email','manager_c_w_s@null.com','$2a$11$3JG/ZyuDTm/kWI5SPulr5.R0l5GWffBsp6Dlk50x6QbfiNOFwFihy',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Bryan','Adams',NULL,NULL,'manager_c_w_s@null.com',200,NULL,'993cf700008464b41f874708b9ae28c5a2534793d25a48c4a43b53933ff4',NULL,'94de33f8fc9f7f53dc03465b17e0dbe3e2ea88295574e85839b380e67945',NULL,'{}','2019-06-12 23:58:45','2019-06-12 23:58:45',NULL),(4,'email','regular_c_w_s@null.com','$2a$11$t33fzRTqVxd8vMGTqTi9GOkIy/LT6ltAa5uG3w5fjr4qIxU/ieaGC',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Edie','Brickell',NULL,NULL,'regular_c_w_s@null.com',100,NULL,'f13d9c2e00f837da0599f791d75f06f4d0863de280b4bff047c8781b30ee',NULL,'6faf479578d090123b28b4643a2c75d2c3baabed38f6a4949ffd91d52d96',NULL,'{}','2019-06-12 23:58:45','2019-06-12 23:58:45',NULL),(5,'email','regular_s@null.com','$2a$11$jCWfDZxS8Ydz.Dk6Madbq.5UzT6EsCMqSVwUyQQXkSIsJbyQVvVmy',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Susanna','Hoffs',NULL,NULL,'regular_s@null.com',100,NULL,'1e17b67cc009ef3b7f8eac688e0b88f6aa51f9ff8ac2813e8be5732d128b',NULL,'5f85788b080f555b27cdc20c01ead9a24082bd76d6bd8b9cb7d3eadac069',NULL,'{}','2019-06-12 23:58:45','2019-06-12 23:58:45',NULL),(6,'email','manager_c_wo_s@null.com','$2a$11$VZRNGkmjHiooVCMXwcvcDenHdKostz40mprnRhs7Gb/cijzbS/I6K',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Fred','Chopin',NULL,NULL,'manager_c_wo_s@null.com',200,NULL,'b9199e212b172ae6761d601a74be6a018edb0a31af68e55961daab87826e',NULL,'d535fc0d47e69be2519f37c79f8008383818c21d2ccfddbf07107c34eead',NULL,'{}','2019-06-12 23:58:45','2019-06-12 23:58:45',NULL),(7,'email','demo@null.com','$2a$11$ukowBMh8wDWC8AOJkcnNzejb7n2a8Noopxfh5Ca5jpu6MEvAhX9qG',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Brandi','Carlile',NULL,NULL,'demo@null.com',100,NULL,'55d3356885a0cd5e912cf58c7b4780689d2498b3c99beea08187bf9206fe',NULL,'a06f0ed68d10c654ba7913dae0358ad8cea21bf89a9bed8641750da455ef',NULL,'{}','2019-06-12 23:58:46','2019-06-12 23:58:46',NULL);
+INSERT INTO `users` VALUES (1,'email','admin@null.com','$2a$11$Yp7BmNG3MTsJU.xgiY0J/uCZ06XdV3AfLQLXNLTTIZEa3iPNTwWUy',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Roger','Waters',NULL,NULL,'admin@null.com',1000,NULL,'dfd35eda2a3f748e11a5b085ccb00d931979bd85032fb1c3d1739c3f76b4',NULL,'376163d6a7c8a8a8f288cf1ef48664de83ee8bbfa73424131caa1faa31d4',NULL,'{}','2019-07-05 22:22:01','2019-07-05 22:22:01',NULL),(2,'email','supervisor_c_w_s@null.com','$2a$11$xBuPKN1RPtywHm9cP6JN7e3Ld9mxDa.63M6FMB9uDHZeqUGKcbGry',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Dani','Litani',NULL,NULL,'supervisor_c_w_s@null.com',300,NULL,'93927821cbb601c39284245a352bb8cac844cc0915cda5a96bf00cd5dc4d',NULL,'e9b9a9be561b9cdae9c2ad1ea0f16913172d4d1580aa8755d5081cf87359',NULL,'{}','2019-07-05 22:22:02','2019-07-05 22:22:02',1),(3,'email','manager_c_w_s@null.com','$2a$11$5tpejtN9/xR5OyN39q5IEu9Kc8sy1dvW2QoIqGYjI588GjtirOfDq',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Bryan','Adams',NULL,NULL,'manager_c_w_s@null.com',200,NULL,'3083a0086d8f637ae12efef6f910d27493a24e61a9f88bc8cf3cb59b6abb',NULL,'570175c859e9ef355f8e3800cd88b19d48bfd456216b62bc42506aeef02f',NULL,'{}','2019-07-05 22:22:02','2019-07-05 22:22:02',1),(4,'email','regular_c_w_s@null.com','$2a$11$CKK/yPbz0Z64Xz/9t1RHwu.bV4KNWvPFTB13Hi.wZOhWeat/Nq7za',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Edie','Brickell',NULL,NULL,'regular_c_w_s@null.com',100,NULL,'583a81edd4a8d5eb66793c0fdc4447c52f1e98ae1cc5900d78ddaf03dfe5',NULL,'cdb32f10e1635ada5de6b0a100b060ca1b8779a4235d5fb44dde1f06f89c',NULL,'{}','2019-07-05 22:22:02','2019-07-05 22:22:02',1),(5,'email','regular_s@null.com','$2a$11$aY3w.i8smhhc1.l8RY3TAevaYi34P53fQNF4siAIWoYnZkbF1IAlm',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Susanna','Hoffs',NULL,NULL,'regular_s@null.com',100,NULL,'0e905bf5c1486c25a868b0d3caf92534141b3a7c4d589b1836164c79c494',NULL,'16f4e9c38dd986e5440a19d9694778ca5718ada001a6c2c2931c974b12cb',NULL,'{}','2019-07-05 22:22:02','2019-07-05 22:22:02',2),(6,'email','manager_c_wo_s@null.com','$2a$11$Mp47x4Pn7/VWF3Xq7G0H3ONXai0LLaQaP65GJfqbrwAWlQruQwM..',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Fred','Chopin',NULL,NULL,'manager_c_wo_s@null.com',200,NULL,'e832145c7a4088ef9117a98022824638613cbd59a939448c349c4e7da2a2',NULL,'4ba892dd3a565038cdf482b2156a31e92631dacd666e63bf8a881d94e23e',NULL,'{}','2019-07-05 22:22:02','2019-07-05 22:22:02',3),(7,'email','demo@null.com','$2a$11$cDNG8hcsk82q64qPoGZSyeQArB0ybk72/4Q7g50TZUCObs47xfn0.',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Brandi','Carlile',NULL,NULL,'demo@null.com',100,NULL,'a08b6db5f06ebf085a9e56b7f196de1b641f4c23542d4fb253ed1def6e36',NULL,'10d6850c9b754d9e9b0a2e6e5f37939737e1564ed6f765d88a219bac97f3',NULL,'{}','2019-07-05 22:22:02','2019-07-05 22:22:02',4);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,4 +300,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-12 17:59:29
+-- Dump completed on 2019-07-05 16:22:02
