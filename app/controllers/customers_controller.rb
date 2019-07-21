@@ -4,7 +4,7 @@ class CustomersController < ApplicationController
   # GET /customers
   def index
     authorize! :index, Customer
-    
+
     if current_user.admin?
       @customers = Customer.all
     else
@@ -23,11 +23,11 @@ class CustomersController < ApplicationController
       @customers = @customers.map{|c| [c.id, c.name]}
     end
 
-    @count = @customers&.count
+    total = @customers&.count
 
     @customers = @customers&.paginate(per_page: params[:per_page], page: params[:page]) unless params[:name_and_ids_only]
 
-    render json: {customers: @customers, count: @count}
+    render json: @customers, each_serializer: CustomerSerializer, meta: {total: total}, adapter: :json
   end
 
   # GET /customers/1

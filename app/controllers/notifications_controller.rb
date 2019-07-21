@@ -9,9 +9,11 @@ class NotificationsController < ApplicationController
       @notifications = @notifications&.search(params[:search])
     end
 
-    @count = @notifications&.count
+    total = @notifications&.count
+
     @notifications = @notifications&.paginate(per_page: params[:per_page], page: params[:page])
-    render json: {notifications: @notifications, count: @count}
+
+    render json: @notifications, each_serializer: NotificationSerializer, meta: {total: total}, adapter: :json
   end
 
   # GET /notifications/1

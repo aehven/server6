@@ -1,7 +1,7 @@
 class Customer < ApplicationRecord
   has_paper_trail skip: [:updated_at, :created_at]
 
-  # acts_as_nested_set
+  acts_as_nested_set
 
   has_many :users
 

@@ -130,4 +130,12 @@ class User < ApplicationRecord
   def to_s
     "#{first_name} #{last_name} (#{email})"
   end
+
+  def self.current
+    Thread.current[:user]
+  end
+
+  def self.current=(user)
+    Thread.current[:user] = user
+  end
 end

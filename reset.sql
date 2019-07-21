@@ -37,7 +37,7 @@ CREATE TABLE `ar_internal_metadata` (
 
 LOCK TABLES `ar_internal_metadata` WRITE;
 /*!40000 ALTER TABLE `ar_internal_metadata` DISABLE KEYS */;
-INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2019-07-05 22:22:00.362959','2019-07-05 22:22:00.362959');
+INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2019-07-21 14:51:59.771238','2019-07-21 14:51:59.771238');
 /*!40000 ALTER TABLE `ar_internal_metadata` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,10 +64,19 @@ CREATE TABLE `customers` (
   `email2` varchar(255) DEFAULT NULL,
   `email3` varchar(255) DEFAULT NULL,
   `active` tinyint(1) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `lft` int(11) NOT NULL,
+  `rgt` int(11) NOT NULL,
+  `depth` int(11) NOT NULL DEFAULT '0',
+  `children_count` int(11) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_customers_on_name` (`name`)
+  KEY `index_customers_on_depth` (`depth`),
+  KEY `index_customers_on_lft` (`lft`),
+  KEY `index_customers_on_name` (`name`),
+  KEY `index_customers_on_parent_id` (`parent_id`),
+  KEY `index_customers_on_rgt` (`rgt`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -77,7 +86,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'The Three Broomsticks','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-07-05 22:22:01','2019-07-05 22:22:01'),(2,'The Brewery','Somewhere else in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-07-05 22:22:02','2019-07-05 22:22:02'),(3,'The Conservatory','Somewhere in Paris',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-07-05 22:22:02','2019-07-05 22:22:02'),(4,'Demos','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-07-05 22:22:02','2019-07-05 22:22:02');
+INSERT INTO `customers` VALUES (1,'The Three Broomsticks','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,4,0,0,'2019-07-21 14:52:01','2019-07-21 14:52:02'),(2,'The Brewery','Somewhere else in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,2,3,1,0,'2019-07-21 14:52:01','2019-07-21 14:52:02'),(3,'The Conservatory','Somewhere in Paris',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,5,6,0,0,'2019-07-21 14:52:02','2019-07-21 14:52:02'),(4,'Demos','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,8,0,0,'2019-07-21 14:52:02','2019-07-21 14:52:02');
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,7 +264,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'email','admin@null.com','$2a$11$Yp7BmNG3MTsJU.xgiY0J/uCZ06XdV3AfLQLXNLTTIZEa3iPNTwWUy',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Roger','Waters',NULL,NULL,'admin@null.com',1000,NULL,'dfd35eda2a3f748e11a5b085ccb00d931979bd85032fb1c3d1739c3f76b4',NULL,'376163d6a7c8a8a8f288cf1ef48664de83ee8bbfa73424131caa1faa31d4',NULL,'{}','2019-07-05 22:22:01','2019-07-05 22:22:01',NULL),(2,'email','supervisor_c_w_s@null.com','$2a$11$xBuPKN1RPtywHm9cP6JN7e3Ld9mxDa.63M6FMB9uDHZeqUGKcbGry',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Dani','Litani',NULL,NULL,'supervisor_c_w_s@null.com',300,NULL,'93927821cbb601c39284245a352bb8cac844cc0915cda5a96bf00cd5dc4d',NULL,'e9b9a9be561b9cdae9c2ad1ea0f16913172d4d1580aa8755d5081cf87359',NULL,'{}','2019-07-05 22:22:02','2019-07-05 22:22:02',1),(3,'email','manager_c_w_s@null.com','$2a$11$5tpejtN9/xR5OyN39q5IEu9Kc8sy1dvW2QoIqGYjI588GjtirOfDq',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Bryan','Adams',NULL,NULL,'manager_c_w_s@null.com',200,NULL,'3083a0086d8f637ae12efef6f910d27493a24e61a9f88bc8cf3cb59b6abb',NULL,'570175c859e9ef355f8e3800cd88b19d48bfd456216b62bc42506aeef02f',NULL,'{}','2019-07-05 22:22:02','2019-07-05 22:22:02',1),(4,'email','regular_c_w_s@null.com','$2a$11$CKK/yPbz0Z64Xz/9t1RHwu.bV4KNWvPFTB13Hi.wZOhWeat/Nq7za',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Edie','Brickell',NULL,NULL,'regular_c_w_s@null.com',100,NULL,'583a81edd4a8d5eb66793c0fdc4447c52f1e98ae1cc5900d78ddaf03dfe5',NULL,'cdb32f10e1635ada5de6b0a100b060ca1b8779a4235d5fb44dde1f06f89c',NULL,'{}','2019-07-05 22:22:02','2019-07-05 22:22:02',1),(5,'email','regular_s@null.com','$2a$11$aY3w.i8smhhc1.l8RY3TAevaYi34P53fQNF4siAIWoYnZkbF1IAlm',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Susanna','Hoffs',NULL,NULL,'regular_s@null.com',100,NULL,'0e905bf5c1486c25a868b0d3caf92534141b3a7c4d589b1836164c79c494',NULL,'16f4e9c38dd986e5440a19d9694778ca5718ada001a6c2c2931c974b12cb',NULL,'{}','2019-07-05 22:22:02','2019-07-05 22:22:02',2),(6,'email','manager_c_wo_s@null.com','$2a$11$Mp47x4Pn7/VWF3Xq7G0H3ONXai0LLaQaP65GJfqbrwAWlQruQwM..',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Fred','Chopin',NULL,NULL,'manager_c_wo_s@null.com',200,NULL,'e832145c7a4088ef9117a98022824638613cbd59a939448c349c4e7da2a2',NULL,'4ba892dd3a565038cdf482b2156a31e92631dacd666e63bf8a881d94e23e',NULL,'{}','2019-07-05 22:22:02','2019-07-05 22:22:02',3),(7,'email','demo@null.com','$2a$11$cDNG8hcsk82q64qPoGZSyeQArB0ybk72/4Q7g50TZUCObs47xfn0.',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Brandi','Carlile',NULL,NULL,'demo@null.com',100,NULL,'a08b6db5f06ebf085a9e56b7f196de1b641f4c23542d4fb253ed1def6e36',NULL,'10d6850c9b754d9e9b0a2e6e5f37939737e1564ed6f765d88a219bac97f3',NULL,'{}','2019-07-05 22:22:02','2019-07-05 22:22:02',4);
+INSERT INTO `users` VALUES (1,'email','admin@null.com','$2a$11$KFH1OM4Sr6.w7SwxrxIsW.ADjcM4Xb/48tUX22YFbE8/eXYAGmsLm',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Roger','Waters',NULL,NULL,'admin@null.com',1000,NULL,'42ff03b6ba7ede03965ff9521b10802308d9140265acb461c58b0a1f7c43',NULL,'17051603bb14a901472c27a55e3e150cbbc04edac75e9385deb005c18d69',NULL,'{}','2019-07-21 14:52:01','2019-07-21 14:52:01',NULL),(2,'email','supervisor_c_w_s@null.com','$2a$11$LU3E9Q1kfuhebQeC5LzMpOlcMxL0qNqjWqk6krGw460zuNlnM9/l2',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Dani','Litani',NULL,NULL,'supervisor_c_w_s@null.com',300,NULL,'0cec2763b5d44b612b733179be4dfa22b6f9ab942310e1f557e89ae92823',NULL,'83493d329e033a554c5c246b6b0e15c33452b9240fba9b1b6c6482c359a1',NULL,'{}','2019-07-21 14:52:01','2019-07-21 14:52:01',1),(3,'email','manager_c_w_s@null.com','$2a$11$TO7PBKoFJQl5pcxudv3dlOHD6NLpYJgyMkxinA0oEjLdWNg4AhZJ6',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Bryan','Adams',NULL,NULL,'manager_c_w_s@null.com',200,NULL,'b907f08644678093fbfd0f5f3eb57435f84b533f51d91b1d31e4ce3455d2',NULL,'4c7371805af36250eb2415abf1eea9c9d315cd8d3da822e60dcd12362e92',NULL,'{}','2019-07-21 14:52:01','2019-07-21 14:52:01',1),(4,'email','regular_c_w_s@null.com','$2a$11$YyX/2jInsi4K1SpH6YgfDOjUNG6tcMq2Pxm9D0tq6eiVdbY9fTShy',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Edie','Brickell',NULL,NULL,'regular_c_w_s@null.com',100,NULL,'1c2e5f07055ac041449e8ea91879d4b5d4a05c4a9ac126aa0129040da536',NULL,'42073250c90baccb02408ab79a43aba0c72f4b3b38676e8d4c44b7dd9af0',NULL,'{}','2019-07-21 14:52:01','2019-07-21 14:52:01',1),(5,'email','regular_s@null.com','$2a$11$KF5QFPpzwoG6eBr.rBt.n.BQg5FVbkunMewAyGuTZaDEnjePSa5IC',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Susanna','Hoffs',NULL,NULL,'regular_s@null.com',100,NULL,'0793b7fd2b2b8a9ad3527d4b21b6a91f90e555e4663120e3e21aca20c9b4',NULL,'f03ff113d8fc3183b551f3a7b75415eb10ba6172fe7df7fce07fbbf4b7d8',NULL,'{}','2019-07-21 14:52:02','2019-07-21 14:52:02',2),(6,'email','manager_c_wo_s@null.com','$2a$11$7czmtGHKf8SqzECjElCwUeRLr8t53.w0yJaFK1.aQRldamA75HSze',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Fred','Chopin',NULL,NULL,'manager_c_wo_s@null.com',200,NULL,'a33d3209fe70792a94a21e37023e50881599d92c08b250389a56955b3a33',NULL,'ea64a449785d450d55c96fa3e13c1608d7d6a8db86e018d68d988d362d4b',NULL,'{}','2019-07-21 14:52:02','2019-07-21 14:52:02',3),(7,'email','demo@null.com','$2a$11$etf1mgFMpmo2H0z/JmUZUOl/oGc26WyuHe0tKUyCyd3CmdrEOkWtC',NULL,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Brandi','Carlile',NULL,NULL,'demo@null.com',100,NULL,'dea5c993cca2b4552b7e6eaf4867848fd06590c0b91142a457f3ad401eea',NULL,'de7bfbcdf10b6829c9449972249aa1e4f08034b5153fb1d3f34243c945d8',NULL,'{}','2019-07-21 14:52:02','2019-07-21 14:52:02',4);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,4 +309,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-05 16:22:02
+-- Dump completed on 2019-07-21  8:52:02

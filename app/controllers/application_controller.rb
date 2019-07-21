@@ -8,6 +8,7 @@ class ApplicationController < ActionController::API
   before_action :set_up_headers
   before_action :log_headers
   before_action :authenticate_user!, unless: :allow_unauthenticated
+  before_action :set_current_user
   before_action :configure_permitted_parameters, if: :devise_controller?
   after_action :set_up_notification
 
@@ -28,6 +29,7 @@ class ApplicationController < ActionController::API
     logger.error exception.backtrace.join("\n")
     session[:exception] = exception
 
+
     render json: {exception_class: exception.class.name, exception: exception.to_s}, status: :internal_server_error
   end
 
@@ -36,6 +38,7 @@ class ApplicationController < ActionController::API
   end
 
   rescue_from CanCan::AccessDenied do |exception|
+    logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
     render json: {}, status: :forbidden
   end
 
@@ -61,5 +64,9 @@ class ApplicationController < ActionController::API
   def configure_permitted_parameters
     logger.info("configure_permitted_parameters")
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
+  end
+
+  def set_current_user
+    User.current = current_user
   end
 end

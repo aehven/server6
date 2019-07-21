@@ -20,7 +20,7 @@ User.create!(first_name: "Edie", last_name: "Brickell", email: "regular_c_w_s@nu
 brewery = Customer.create!(name: "The Brewery", address1: "Somewhere else in Hogsmeade") if ENV['USERS_BELONG_TO_CUSTOMERS'] == 'true'
 User.create!(first_name: "Susanna", last_name: "Hoffs", email: "regular_s@null.com", password: "password", role: "regular", customer: brewery)
 
-# brewery.move_to_child_of broomsticks
+brewery.move_to_child_of broomsticks
 
 # manager in customer without sub
 cons = Customer.create!(name: "The Conservatory", address1: "Somewhere in Paris") if ENV['USERS_BELONG_TO_CUSTOMERS'] == 'true'
