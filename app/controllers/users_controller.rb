@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
     total = @users&.count
 
-    @users = @users&.paginate(per_page: params[:per_page], page: params[:page])
+    @users = @users.order(:last_name)&.paginate(per_page: params[:per_page], page: params[:page])
 
     render json: @users, each_serializer: UserSerializer, meta: {total: total}, adapter: :json
   end

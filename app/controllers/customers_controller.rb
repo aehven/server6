@@ -25,7 +25,7 @@ class CustomersController < ApplicationController
 
     total = @customers&.count
 
-    @customers = @customers&.paginate(per_page: params[:per_page], page: params[:page]) unless params[:name_and_ids_only]
+    @customers = @customers.order("lft ASC")&.paginate(per_page: params[:per_page], page: params[:page]) unless params[:name_and_ids_only]
 
     render json: @customers, each_serializer: CustomerSerializer, meta: {total: total}, adapter: :json
   end
