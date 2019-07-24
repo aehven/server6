@@ -131,11 +131,19 @@ class User < ApplicationRecord
     "#{first_name} #{last_name} (#{email})"
   end
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   def self.current
     Thread.current[:user]
   end
 
   def self.current=(user)
     Thread.current[:user] = user
+  end
+
+  def can_access_customer?(cid)
+    (self.customer_id == cid) || (self.can?(:access, :sub_customers) && (self.customer.self_and_descendants.map(&:id).include? cid))
   end
 end

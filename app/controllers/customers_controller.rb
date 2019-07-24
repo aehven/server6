@@ -19,10 +19,6 @@ class CustomersController < ApplicationController
       @customers = @customers&.search(params[:search])
     end
 
-    if(params[:names_and_ids_only])
-      @customers = @customers.map{|c| [c.id, c.name]}
-    end
-
     total = @customers&.count
 
     @customers = @customers.order("lft ASC")&.paginate(per_page: params[:per_page], page: params[:page]) unless params[:name_and_ids_only]
@@ -64,6 +60,6 @@ class CustomersController < ApplicationController
 
   private
     def customer_params
-      params.require(:customer).permit(:name, :address1, :address2)
+      params.require(:customer).permit(:name, :address1, :address2, :parent_id)
     end
 end

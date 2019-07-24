@@ -29,8 +29,14 @@ class Ability
         can :access, :sub_customers
 
       when "manager"
+        can :access, :sub_customers
+
         can :manage, User do |u|
-          u.customer.nil? or u.customer == user.customer
+          u.new_record? or user.can_access_customer? u.customer_id
+        end
+
+        can :manage, Customer do |customer|
+          customer.new_record? or user.can_access_customer? customer.id
         end
 
       when "regular"

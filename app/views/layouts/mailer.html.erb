@@ -43,7 +43,7 @@
     <%= yield %>
 
     <div class="unsubscribe">
-      <a href="<%= ENV['DEFAULT_URL_HOST'] %>/#/unsubscribe?token=<%= @user.unsubscribe_token %>">Unsusbscribe</a>
+      Click here to <a href="<%= ENV['DEFAULT_URL_HOST'] %>/#/unsubscribe?token=<%= @user.unsubscribe_token %>">Unsusbscribe.</a>
     </div>
   </body>
 </html>
