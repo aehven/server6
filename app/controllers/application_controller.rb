@@ -10,7 +10,6 @@ class ApplicationController < ActionController::API
   before_action :authenticate_user!, unless: :allow_unauthenticated
   before_action :set_current_user
   before_action :configure_permitted_parameters, if: :devise_controller?
-  after_action :set_up_notification
 
   def allow_unauthenticated
     if((controller_name == "sessions" and action_name == "create") ||
@@ -48,11 +47,6 @@ class ApplicationController < ActionController::API
 
   def set_up_headers
     response.headers['app-version'] = VERSION
-  end
-
-  def set_up_notification
-    next_notification = current_user&.next_notification
-    response.headers['notification'] = "#{NotificationSerializer.new(next_notification).attributes.to_json}" if next_notification
   end
 
   def log_headers
