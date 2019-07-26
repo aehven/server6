@@ -114,6 +114,12 @@ class User < ApplicationRecord
 
   def acknowledge_notification(id)
     notifications_users.where(notification_id: id).first.update_attribute(:acknowledged_at, DateTime.now)
+
+    notification_id = next_notification&.id
+
+    if(notification_id)
+      ActionCableNotificationJob.set(wait: 5).perform_later(user_id: self.id, notification_id: notification_id)
+    end
   end
 
   def unsubscribed?

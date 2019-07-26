@@ -8,7 +8,7 @@ class Notification < ApplicationRecord
 
   scope :current, -> {where("expires_at > ? or expires_at is null", DateTime.now).order("id desc")}
 
-  after_create :assign_to_all_users
+  # after_create :assign_to_all_users
   after_create :send_email, if: :email
 
   enum level: [:Info, :Warning, :Error]
