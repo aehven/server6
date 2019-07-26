@@ -11,6 +11,7 @@ class CreateNotifications < ActiveRecord::Migration[5.2]
       t.boolean :sms
       t.string :action
       t.string :href
+      t.integer :duration
     end
 
     create_table :notifications_users do |t|

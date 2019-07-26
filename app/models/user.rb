@@ -149,7 +149,7 @@ class User < ApplicationRecord
 
   def after_sign_in_callback
     Rails.logger.info "USER SIGNED IN: #{self.email}"
-    ActionCableNotificationJob.set(wait: 5).perform_later(self.id, "Signed in as #{self.email}")
-# EventJob.set(wait_until: @event.end).perform_later(@event.id)
+    notification = Notification.create!(title: "Sign-in", text: "Signed in as #{self.email}", level: :Info, in_app: true, duration: 2, users: [self])
+    ActionCableNotificationJob.set(wait: 5).perform_later(self.id, notification.id)
   end
 end
