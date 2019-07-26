@@ -146,4 +146,10 @@ class User < ApplicationRecord
   def can_access_customer?(cid)
     (self.customer_id == cid) || (self.can?(:access, :sub_customers) && (self.customer.self_and_descendants.map(&:id).include? cid))
   end
+
+  def after_sign_in_callback
+    Rails.logger.info "USER SIGNED IN: #{self.email}"
+    ActionCableNotificationJob.set(wait: 5).perform_later(self.id, "Signed in as #{self.email}")
+# EventJob.set(wait_until: @event.end).perform_later(@event.id)
+  end
 end
