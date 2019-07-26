@@ -15,6 +15,9 @@ class NotificationChannel < ApplicationCable::Channel
   end
 
   def send_first_pending_notification
+    # if there's a pending notification, send it.  If there are more than one, the next one will be
+    # queued up after the first is acknowledged (see user#acknowledge_notification)
+
     notification = current_user.next_notification
     if(notification)
       ActionCableNotificationJob.set(wait: 10).perform_later(user_id: current_user.id, notification_id: notification.id)
