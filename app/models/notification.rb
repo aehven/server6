@@ -9,7 +9,8 @@ class Notification < ApplicationRecord
   scope :current, -> {where("expires_at > ? or expires_at is null", DateTime.now).order("id desc")}
 
   # after_create :assign_to_all_users
-  # after_create :send_email, if: :email
+  after_create :send_in_app, if: :in_app
+  after_create :send_email, if: :email
 
   enum level: [:Info, :Warning, :Error]
 
@@ -30,6 +31,12 @@ class Notification < ApplicationRecord
       EmailNotificationJob.perform_later(self)
     rescue => e
       Rails.logger.error("#{e.backtrace.join('\n')}")
+    end
+  end
+
+  def send_in_app
+    if(users.count > 0)
+      ActionCableNotificationJob.set(wait: 10).perform_later(user_id: id, notification_id: notification.id)
     end
   end
 end

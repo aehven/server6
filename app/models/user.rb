@@ -113,7 +113,7 @@ class User < ApplicationRecord
   end
 
   def acknowledge_notification(id)
-    notifications_users.where(notification_id: id).first.update_attribute(:acknowledged_at, DateTime.now)
+    notifications_users.where(notification_id: id).first&.update_attribute(:acknowledged_at, DateTime.now)
 
     notification_id = next_notification&.id
 
@@ -154,6 +154,12 @@ class User < ApplicationRecord
   end
 
   def after_sign_in_callback
-    Rails.logger.debug "USER SIGNED IN: #{self.email}"
+    # if there's a pending notification, send it.  If there are more than one, the next one will be
+    # queued up after the first is acknowledged (see user#acknowledge_notification)
+
+    notification = next_notification
+    if(notification)
+      ActionCableNotificationJob.set(wait: 10).perform_later(user_id: id, notification_id: notification.id)
+    end
   end
 end
