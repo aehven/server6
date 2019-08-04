@@ -72,10 +72,14 @@ RSpec.configure do |config|
   Capybara.register_driver :selenium_chrome do |app|
     options = Selenium::WebDriver::Chrome::Options.new
 
-    capHash = {loggingPrefs: { browser: 'ALL'}}
+    #without w3c:false, we can't look at logs in sign_component_spec.
+    #see https://github.com/SeleniumHQ/selenium/issues/7270
+    #headless mode also doesn't work without this set to false
+
+    capHash = {loggingPrefs: { browser: 'ALL'}, chromeOptions: {w3c: false}}
 
     if(ENV['H'])
-      capHash[:chromeOptions] = { args: %w(headless disable-gpu) }
+      capHash[:chromeOptions][:args] = %w(headless disable-gpu)
     else
       options.add_argument("--window-size=1000,1000") #(x,y)
     end
