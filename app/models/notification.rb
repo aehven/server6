@@ -36,7 +36,11 @@ class Notification < ApplicationRecord
 
   def send_in_app
     if(users.count > 0)
-      ActionCableNotificationJob.set(wait: 10).perform_later(user_id: id, notification_id: notification.id)
+      ActionCableNotificationJob.perform_later(user_ids: [user_ids], notification_id: self.id)
     end
+  end
+
+  def broadcast_in_app
+    ActionCableNotificationJob.perform_later(user_ids: "all", notification_id: self.id)
   end
 end

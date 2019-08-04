@@ -118,7 +118,7 @@ class User < ApplicationRecord
     notification_id = next_notification&.id
 
     if(notification_id)
-      ActionCableNotificationJob.set(wait: 5).perform_later(user_id: self.id, notification_id: notification_id)
+      ActionCableNotificationJob.set(wait: 5).perform_later(user_ids: [self.id], notification_id: notification_id)
     end
   end
 
@@ -159,7 +159,7 @@ class User < ApplicationRecord
 
     notification = next_notification
     if(notification)
-      ActionCableNotificationJob.set(wait: 10).perform_later(user_id: id, notification_id: notification.id)
+      ActionCableNotificationJob.set(wait: 10).perform_later(user_ids: [id], notification_id: notification.id)
     end
   end
 end

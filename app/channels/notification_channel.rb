@@ -10,4 +10,3 @@ class NotificationChannel < ApplicationCable::Channel
     NotificationChannel.broadcast_to "notifications_for_#{current_user.id}", NotificationSerializer.new(notification).attributes
   end
 end
-# NotificationChannel.broadcast_to User.first, "hi"
