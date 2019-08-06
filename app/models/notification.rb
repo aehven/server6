@@ -6,7 +6,14 @@ class Notification < ApplicationRecord
 
   validates :text, presence: true
 
+  scope :email, -> {where("notifications.email = 1")}
+  scope :in_app, -> {where("notifications.in_app = 1")}
+  scope :sms, -> {where("notifications.sms = 1")}
+
   scope :current, -> {where("expires_at > ? or expires_at is null", DateTime.now).order("id desc")}
+  scope :acknowledgeable, -> {where(duration: nil)}
+  scope :acknowledged, -> {acknowledgeable.includes(:notifications_users).preload(:notifications_users).where("notifications_users.acknowledged_at is not null")}
+  scope :unacknowledged, -> {acknowledgeable.includes(:notifications_users).preload(:notifications_users).where("notifications_users.acknowledged_at is null")}
 
   # after_create :assign_to_all_users
   after_create :send_in_app, if: :in_app

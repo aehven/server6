@@ -104,12 +104,12 @@ class User < ApplicationRecord
     self.websocket_token = SecureRandom.hex(30)
   end
 
-  def has_notification?
-    !notifications_users.regular.current.unacknowledged.empty?
-  end
+  # def has_notification?
+  #   !notifications_users.regular.current.unacknowledged.empty?
+  # end
 
   def next_notification
-    notifications_users.current.in_app.unacknowledged.first&.notification
+    notifications.current.in_app.unacknowledged.first
   end
 
   def acknowledge_notification(id)
