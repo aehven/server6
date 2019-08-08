@@ -101,7 +101,6 @@ class BaseComponent
     end
   end
 
-
   def form_selects(array_of_field_names)
     array_of_field_names.each do |field|
       symbol_name = field.downcase.tr(" ", "_")
@@ -115,5 +114,29 @@ class BaseComponent
         find(".mat-option-text", text: value).click
       end
     end
+  end
+
+  def select_open(name)
+    find("mat-select[formcontrolname='#{name}']").click
+  end
+
+  def select_close(name)
+    find("mat-select[formcontrolname='#{name}']").send_keys(:escape)
+  end
+
+  def select_options(name)
+    select_open(name)
+    options = find_all(".mat-option-text").map(&:text)
+    select_close(name)
+    return options
+  end
+
+  def select_value(name)
+    find("mat-select[formcontrolname='#{name}']").find(".mat-select-value").text
+  end
+
+  def set_select_value(name, value)
+    select_open(name)
+    find(".mat-option-text", text: value).click
   end
 end
