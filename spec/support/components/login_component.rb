@@ -1,6 +1,6 @@
 class LoginComponent < BaseComponent
   def wait
-    page.find_button "Sign In"
+    find_button "SIGN IN", disabled: true
   end
 
   def show
@@ -11,7 +11,7 @@ class LoginComponent < BaseComponent
       # wait_for_this { User.find_by(email: "demo@null.com").last_sign_in_at != nil }
       page.find ".got-anonymous-overlay", visible: false
       page.find_link "Log in", wait: 5
-      click_on "Log in"
+      click_on "SIGN IN"
     else
       visit '/login'
     end
@@ -27,7 +27,7 @@ class LoginComponent < BaseComponent
     fill_in 'Email', :with => user.email
     fill_in 'Password', :with => "password"
 
-    click_button 'Sign In'
+    click_button 'SIGN IN'
 
     sleep 2 #wait for cable
   end
@@ -40,7 +40,7 @@ class LoginComponent < BaseComponent
     fill_in 'Email', :with => email
     fill_in 'Password', :with => password
 
-    click_on 'Sign In'
+    click_on 'SIGN IN'
   end
 
   def forgot_password
