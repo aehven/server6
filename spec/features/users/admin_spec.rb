@@ -4,7 +4,7 @@ feature "Admin permissions on users: " do
   let(:login_component) { LoginComponent.new }
   let(:menu) { MenuComponent.new }
   let(:home) { HomeComponent.new }
-  let(:user_list) { UserListComponent.new(find("app-user-list")) }
+  let(:user_list) { UserListComponent.new(find("app-users")) }
   let(:user) { UserComponent.new }
 
   scenario "can index all users" do
@@ -12,7 +12,7 @@ feature "Admin permissions on users: " do
     login_component.sign_in current_user
 
     home.wait
-    menu.users
+    menu.select "Users"
     user_list.wait
 
     expect(user_list.item_count).to eq 7

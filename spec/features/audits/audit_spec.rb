@@ -12,7 +12,7 @@ feature "Show audit list: " do
     login_component.sign_in user
 
     home.wait
-    menu.audit
+    menu.select "Audit"
     audit_list.wait
 
     expect(audit_list.item_count).to eq 0

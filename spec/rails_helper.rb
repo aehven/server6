@@ -94,7 +94,7 @@ RSpec.configure do |config|
   end
 
   Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
-    return if ENV['SKIP_SCREENSHOTS']
+    return if (ENV['SKIP_SCREENSHOTS'] || ENV['SKIP_SCREENSHOT'])
     "screenshots/#{example.file_path.split("/").last}_#{example.full_description.gsub(/\:|\s+/, '-').gsub(/^.*\/spec\//,'')}" ##{example.file_path}-
   end
 
