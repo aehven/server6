@@ -1,7 +1,6 @@
 class MenuComponent < BaseComponent
   def wait
-    # page.find ".got-menu", visible: false
-    sleep 0.2
+    sleep 0.5
   end
 
   def open
@@ -31,5 +30,11 @@ class MenuComponent < BaseComponent
         find_button "Sign In"
       end
     end
+
+    sleep 0.5
+  end
+
+  def method_missing(m, *args, &block)
+    select m.to_s.titleize
   end
 end

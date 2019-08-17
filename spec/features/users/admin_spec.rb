@@ -12,7 +12,7 @@ feature "Admin permissions on users: " do
     login_component.sign_in current_user
 
     home.wait
-    menu.select "Users"
+    menu.users
     user_list.wait
 
     expect(user_list.item_count).to eq 7

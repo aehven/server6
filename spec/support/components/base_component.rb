@@ -51,7 +51,7 @@ class BaseComponent
   end
 
   def edit
-    click_on "Edit"
+    find_button("Edit").click
     sleep 1
   end
 

@@ -18,7 +18,7 @@ class UserComponent < BaseComponent
   end
 
   def email
-    find("input[formcontrolname='email']").value
+    find_field("Email").value
   end
   def email=(value)
     fill_in 'Email', with: value

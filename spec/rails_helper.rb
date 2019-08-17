@@ -8,7 +8,10 @@ require 'rspec/rails'
 
 require 'factory_bot'
 require 'faker'
-require 'capybara-screenshot/rspec'
+
+unless (ENV['SKIP_SCREENSHOTS'] || ENV['SKIP_SCREENSHOT'])
+  require 'capybara-screenshot/rspec'
+end
 
 require Rails.root.join('spec/support/components/base_component.rb')
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
@@ -94,7 +97,6 @@ RSpec.configure do |config|
   end
 
   Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
-    return if (ENV['SKIP_SCREENSHOTS'] || ENV['SKIP_SCREENSHOT'])
     "screenshots/#{example.file_path.split("/").last}_#{example.full_description.gsub(/\:|\s+/, '-').gsub(/^.*\/spec\//,'')}" ##{example.file_path}-
   end
 
