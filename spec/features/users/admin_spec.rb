@@ -36,6 +36,9 @@ feature "Admin permissions on users: " do
       user.submit
 
       user_list.wait
+      reload_page
+      user_list.wait
+      
       expect(user_list.item(i)).to have_text "#{original_name} edited"
     end
   end

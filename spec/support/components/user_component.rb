@@ -4,17 +4,17 @@ class UserComponent < BaseComponent
   end
 
   def first_name
-    find("input[formcontrolname='first_name']").value
+    find_field("first_name").value
   end
   def first_name=(value)
-    fill_in 'First Name', with: value
+    fill_in 'first_name', with: value
   end
 
   def last_name
-    find("input[formcontrolname='last_name']").value
+    find("last_name").value
   end
   def last_name=(value)
-    fill_in 'Last Name', with: value
+    fill_in 'Last_Name', with: value
   end
 
   def email

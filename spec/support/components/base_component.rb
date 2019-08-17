@@ -72,11 +72,11 @@ class BaseComponent
   end
 
   def cancel
-    click_on "Cancel"
+    find_button( "Cancel").click
   end
 
   def submit
-    click_on "Submit"
+    find_button( "Submit").click
     sleep 1
   end
 

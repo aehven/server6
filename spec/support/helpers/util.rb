@@ -84,5 +84,8 @@ module Helpers
 
     !result
   end
-
+  
+  def reload_page
+    evaluate_script("window.location.reload()")
+  end
 end
