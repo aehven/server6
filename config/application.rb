@@ -64,5 +64,7 @@ module Server
     config.cache_store = :redis_store, ENV['REDIS_URL']
     config.active_record.cache_versioning = false
     config.active_job.queue_adapter = :delayed_job
+
+    config.hosts.clear
   end
 end
