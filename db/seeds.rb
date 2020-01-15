@@ -17,10 +17,11 @@ User.create!(first_name: "Bryan", last_name: "Adams", email: "manager_c_w_s@null
 User.create!(first_name: "Edie", last_name: "Brickell", email: "regular_c_w_s@null.com", password: "password", role: "regular", customer: broomsticks)
 
 # regular in sub
-brewery = Customer.create!(name: "The Brewery", address1: "Somewhere else in Hogsmeade") if ENV['USERS_BELONG_TO_CUSTOMERS'] == 'true'
-User.create!(first_name: "Susanna", last_name: "Hoffs", email: "regular_s@null.com", password: "password", role: "regular", customer: brewery)
-
-brewery.move_to_child_of broomsticks
+if ENV['USERS_BELONG_TO_CUSTOMERS'] == 'true'
+  brewery = Customer.create!(name: "The Brewery", address1: "Somewhere else in Hogsmeade")
+  User.create!(first_name: "Susanna", last_name: "Hoffs", email: "regular_s@null.com", password: "password", role: "regular", customer: brewery)
+  brewery.move_to_child_of broomsticks
+end
 
 # manager in customer without sub
 cons = Customer.create!(name: "The Conservatory", address1: "Somewhere in Paris") if ENV['USERS_BELONG_TO_CUSTOMERS'] == 'true'

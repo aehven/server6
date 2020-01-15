@@ -21,7 +21,7 @@ defaults: &defaults
   SMTP_USERNAME:
   SMTP_AUTHENTICATION: "plain"
 
-  USERS_BELONG_TO_CUSTOMERS: "false"
+  USERS_BELONG_TO_CUSTOMERS: "true"
 
 development:
   <<: *defaults
