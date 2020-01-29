@@ -22,16 +22,23 @@ class UsersController < ApplicationController
 
     @users = @users.order(:last_name)&.paginate(per_page: params[:per_page], page: params[:page])
 
-    render json: @users, each_serializer: UserSerializer, meta: {total: total}, adapter: :json
+    render json: {
+      data: @users.collect{|u| UserSerializer.new(u).attributes},
+      meta: {
+        current_page: params[:page],
+        per_page: params[:per_page],
+        total: total
+      }
+    }
   end
 
   def show
-    render json: @user
+    render json: {data: UserSerializer.new(@user).attributes}
   end
 
   def update
     if @user.update_attributes(user_params)
-      render json: @user
+      render json: {data: UserSerializer.new(@user).attributes}
     else
       render json: {message: @user.errors.full_messages.to_sentence}, status: :unprocessable_entity
     end
@@ -39,7 +46,7 @@ class UsersController < ApplicationController
 
   def create
     if @user.save
-      render json: @user
+      render json: {data: UserSerializer.new(@user).attributes}
     else
       # render json: @user.errors, status: :unprocessable_entity
       render json: {message: @user.errors.full_messages.to_sentence}, status: :unprocessable_entity

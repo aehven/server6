@@ -23,12 +23,19 @@ class CustomersController < ApplicationController
 
     @customers = @customers.order("lft ASC")&.paginate(per_page: params[:per_page], page: params[:page]) unless params[:name_and_ids_only]
 
-    render json: @customers, each_serializer: CustomerSerializer, meta: {total: total}, adapter: :json
+    render json: {
+      data: @customers.collect{|u| CustomerSerializer.new(u).attributes},
+      meta: {
+        current_page: params[:page],
+        per_page: params[:per_page],
+        total: total
+      }
+    }
   end
 
   # GET /customers/1
   def show
-    render json: @customer, status: :ok
+    render json: {data: CustomerSerializer.new(@customer).attributes}
   end
 
   # POST /customers
@@ -46,10 +53,10 @@ class CustomersController < ApplicationController
 
   # PATCH/PUT /customers/1
   def update
-    if @customer.update(customer_params)
-      render json: @customer, status: :ok
+    if @customer.update_attributes(customer_params)
+      render json: {data: CustomerSerializer.new(@customer).attributes}
     else
-      render json: @customer.errors, status: :unprocessable_entity
+      render json: {message: @customer.errors.full_messages.to_sentence}, status: :unprocessable_entity
     end
   end
 
