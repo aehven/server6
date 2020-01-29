@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.1'
+ruby '2.6.3'
 
-gem 'rails', '~> 6.0.0.rc1'
+gem 'rails', '~> 6.0'
 gem 'mysql2'
 gem 'puma', '~> 3.11'
 gem 'rack-cors'
