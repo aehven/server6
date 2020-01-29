@@ -4,11 +4,11 @@ class AuditsController < ApplicationController
 
     @audits = PaperTrail::Version.all.order("id desc")
 
-    # include_audits = JSON.parse(params[:include])
-    # if include_audits.values.include? false
-    #   include_models = include_audits.map{|k, v| k if v}.compact
-    #   @audits = @audits.where(item_type: include_models)
-    # end
+    include_audits = JSON.parse(params[:include])
+    if include_audits.values.include? false
+      include_models = include_audits.map{|k, v| k if v}.compact
+      @audits = @audits.where(item_type: include_models)
+    end
 
     total = @audits.count
 
