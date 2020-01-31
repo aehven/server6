@@ -4,6 +4,7 @@ class NotificationsController < ApplicationController
   # GET /notifications
   def index
     # @notifications = current_user.notifications
+    @notifications = @notifications.order("id desc")
 
     if !params[:search].blank?
       @notifications = @notifications&.search(params[:search])
