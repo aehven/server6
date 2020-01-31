@@ -44,10 +44,10 @@ class Ability
         cannot :index, User
     end
 
-    can :read, Notification do |notification|
-      notification.users.include? user
-    end
-    can :update, NotificationsUser, user_id: user.id
+    # can :read, Notification do |notification|
+    #   notification.users.include? user
+    # end
+    # can :update, NotificationsUser, user_id: user.id
 
     can :update, :profile
   end

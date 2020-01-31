@@ -12,6 +12,10 @@ class ApplicationController < ActionController::API
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def allow_unauthenticated
+    if(defined?(Rails::Console) && Rails.env.development?)
+      return true
+    end
+
     if((controller_name == "sessions" and action_name == "create") ||
       (controller_name == "passwords" and action_name == "create") ||
       (controller_name == "registrations" and action_name == "create") ||
@@ -61,6 +65,10 @@ class ApplicationController < ActionController::API
   end
 
   def set_current_user
-    User.current = current_user
+    if(defined?(Rails::Console) && Rails.env.development?)
+      User.current = @current_user = User.first
+    else
+      User.current = current_user
+    end
   end
 end

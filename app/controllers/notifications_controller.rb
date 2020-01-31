@@ -1,9 +1,9 @@
 class NotificationsController < ApplicationController
-  load_and_authorize_resource except: [:index]
+  load_and_authorize_resource #except: [:index]
 
   # GET /notifications
   def index
-    @notifications = current_user.notifications
+    # @notifications = current_user.notifications
 
     if !params[:search].blank?
       @notifications = @notifications&.search(params[:search])
@@ -13,7 +13,14 @@ class NotificationsController < ApplicationController
 
     @notifications = @notifications&.paginate(per_page: params[:per_page], page: params[:page])
 
-    render json: @notifications, each_serializer: NotificationSerializer, meta: {total: total}, adapter: :json
+    render json: {
+      data: @notifications.collect{|n| NotificationSerializer.new(n).attributes},
+      meta: {
+        current_page: params[:page],
+        per_page: params[:per_page],
+        total: total
+      }
+    }
   end
 
   # GET /notifications/1
