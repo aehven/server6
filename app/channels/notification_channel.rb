@@ -1,7 +1,7 @@
 class NotificationChannel < ApplicationCable::Channel
   def subscribed
     stream_from "notification:notifications_for_#{params[:user_id]}"
-    notify_signed_in
+    # notify_signed_in
   end
 
   def notify_signed_in
