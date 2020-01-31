@@ -16,7 +16,8 @@ class Notification < ApplicationRecord
   scope :unacknowledged, -> {acknowledgeable.includes(:notifications_users).preload(:notifications_users).where("notifications_users.acknowledged_at is null")}
 
   # after_create :assign_to_all_users
-  after_create :send_in_app, if: :in_app
+  # after_create :send_in_app, if: :in_app
+  after_create :broadcast_in_app, if: :in_app
   after_create :send_email, if: :email
 
   enum level: [:Info, :Warning, :Error]
@@ -48,6 +49,7 @@ class Notification < ApplicationRecord
   end
 
   def broadcast_in_app
-    ActionCableNotificationJob.perform_later(user_ids: "all", notification_id: self.id)
+    # ActionCableNotificationJob.perform_later(user_ids: "all", notification_id: self.id)
+    NotificationChannel.broadcast_to "notifications_for_", self
   end
 end
