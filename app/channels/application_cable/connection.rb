@@ -8,7 +8,7 @@ module ApplicationCable
     def connect
       self.current_user = find_verified_user_wst
       # `say "cable connected for #{current_user.first_name}"`
-      logger.add_tags 'ActionCable', current_user.id
+      logger.add_tags 'ActionCable', current_user.email
     end
 
     private
@@ -19,7 +19,7 @@ module ApplicationCable
         uid = request.query_parameters[:uid]
         client_id = request.query_parameters[:client]
 
-        user = User.find_by_uid(uid)
+        user = User.find_by_email(uid)
 
         if user && user.valid_token?(accessToken, client_id)
           user
@@ -33,7 +33,7 @@ module ApplicationCable
         uid = request.query_parameters[:uid]
         websocket_token = request.query_parameters[:wst]
 
-        user = User.find_by(uid: uid, websocket_token: websocket_token)
+        user = User.find_by(email: uid, websocket_token: websocket_token)
 
         if user
           logger.debug "CONNECTION Accepted"

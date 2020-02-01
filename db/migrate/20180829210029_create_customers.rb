@@ -1,4 +1,4 @@
-class CreateCustomers < ActiveRecord::Migration[5.2]
+class CreateCustomers < ActiveRecord::Migration[6.0]
   def change
     create_table :customers do |t|
       t.string :name, index: true

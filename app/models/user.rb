@@ -1,7 +1,5 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-          :recoverable, :rememberable, :trackable, :validatable
-  include DeviseTokenAuth::Concerns::User
+  has_secure_password
 
   has_paper_trail ignore: [
       :sign_in_count,
