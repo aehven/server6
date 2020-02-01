@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  load_and_authorize_resource except: [:index, :next_notification, :acknowledge_notification, :reset_password, :unsubscribe]
+  load_and_authorize_resource except: [:index, :next_notification, :acknowledge_notification, :reset_password, :unsubscribe, :get_env]
 
   def index
     authorize! :index, User
@@ -93,6 +93,11 @@ class UsersController < ApplicationController
   def unsubscribe
     User.find_by(unsubscribe_token: params[:token]).update_attribute(:unsubscribed_at, DateTime.now)
     head :ok
+  end
+
+  def get_env
+    vars = ENV.select{|k, v| k.start_with? "BTSTC_"}
+    render json: {server: vars}, status: :ok
   end
 
   private

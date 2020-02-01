@@ -8,7 +8,7 @@ class User < ApplicationRecord
       :current_sign_in_ip,
       :last_sign_in_ip
     ],
-    skip: [:tokens, :updated_at, :created_at, :websocket_token]
+    skip: [:updated_at, :created_at, :websocket_token]
 
   enum role: {
     regular: 100,
@@ -50,14 +50,6 @@ class User < ApplicationRecord
 
   def permissions
     ability.permissions
-  end
-
-  def token_validation_response
-    UserSerializer.new(self) #is this method necessary since we're not adding params here anymore?  (adding them in the serializer now)
-  end
-
-  def self.env_vars_to_client
-    ENV.select{|k, v| k.start_with? "BTSTC_"}
   end
 
   def valid_password?(password)

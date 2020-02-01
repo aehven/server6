@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   post 'user_token' => 'user_token#create'
   resources :customers
-  # mount_devise_token_auth_for 'User', at: 'auth'
 
   mount ActionCable.server => '/cable'
 
@@ -12,6 +11,7 @@ Rails.application.routes.draw do
       get :download_data
     end
   end
+  get 'get_env' => "users#get_env"
 
   resources :notifications
 

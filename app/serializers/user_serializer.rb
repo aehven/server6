@@ -2,17 +2,13 @@ class UserSerializer < ActiveModel::Serializer
   attributes :id, :first_name, :last_name, :email, :role, :customer_name, :customer_id
   attributes :permissions, :wst, :server
   attributes :tac_agreed_at
-  
+
   def permissions
     flatten_hash(object.permissions).keys.map(&:to_s)
   end
 
   def wst
     object.websocket_token
-  end
-
-  def server
-    User.env_vars_to_client
   end
 
   def customer_name

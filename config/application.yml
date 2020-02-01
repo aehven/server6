@@ -6,6 +6,7 @@ defaults: &defaults
 
   #ENV vars to send to the client when logging in, must start with BTSTC_
   # BTSTC_....
+  BTSTC_DUMMY: "dummy"
 
   DELAYED_JOB_PERIOD: "5"
   DELAYED_JOB_PREFIX: development
