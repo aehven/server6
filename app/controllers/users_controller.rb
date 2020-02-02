@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  load_and_authorize_resource except: [:index, :next_notification, :acknowledge_notification, :reset_password, :unsubscribe, :get_env]
+  load_and_authorize_resource except: [:index, :next_notification, :acknowledge_notification, :reset_password, :unsubscribe, :get_profile]
 
   def index
     authorize! :index, User
@@ -95,9 +95,9 @@ class UsersController < ApplicationController
     head :ok
   end
 
-  def get_env
+  def get_profile
     vars = ENV.select{|k, v| k.start_with? "BTSTC_"}
-    render json: {server: vars}, status: :ok
+    render json: {server: vars, profile: UserSerializer.new(current_user).attributes}, status: :ok
   end
 
   private

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       get :download_data
     end
   end
-  get 'get_env' => "users#get_env"
+  get 'get_profile' => "users#get_profile"
 
   resources :notifications
 
