@@ -8,7 +8,7 @@ class User < ApplicationRecord
       :current_sign_in_ip,
       :last_sign_in_ip
     ],
-    skip: [:updated_at, :created_at, :websocket_token]
+    skip: [:updated_at, :created_at]
 
   enum role: {
     regular: 100,
@@ -18,7 +18,6 @@ class User < ApplicationRecord
   }
 
   before_create :generate_unsubscribe_token
-  before_create :generate_websocket_token
   after_create :send_welcome_email
 
   has_many :notifications_users, dependent: :destroy
@@ -53,8 +52,6 @@ class User < ApplicationRecord
   end
 
   def valid_password?(password)
-    # generate_websocket_token
-
     if Rails.env == "development" && ENV['IGNORE_PASSWORDS']
       return true
     end
@@ -88,10 +85,6 @@ class User < ApplicationRecord
 
   def generate_unsubscribe_token
     self.unsubscribe_token = SecureRandom.hex(30)
-  end
-
-  def generate_websocket_token
-    self.websocket_token = SecureRandom.hex(30)
   end
 
   # def has_notification?

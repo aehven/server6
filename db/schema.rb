@@ -83,16 +83,11 @@ ActiveRecord::Schema.define(version: 2018_09_19_225441) do
     t.string "password_digest", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
-    t.boolean "allow_password_change", default: false
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
     t.string "first_name"
     t.string "last_name"
     t.string "nickname"
@@ -102,17 +97,11 @@ ActiveRecord::Schema.define(version: 2018_09_19_225441) do
     t.datetime "tac_agreed_at"
     t.string "unsubscribe_token"
     t.datetime "unsubscribed_at"
-    t.string "websocket_token"
-    t.boolean "active"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "customer_id"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["customer_id"], name: "index_users_on_customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["unsubscribe_token"], name: "index_users_on_unsubscribe_token"
-    t.index ["websocket_token"], name: "index_users_on_websocket_token", unique: true
   end
 
   create_table "versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
