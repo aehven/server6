@@ -5,7 +5,7 @@ ruby '2.6.5'
 
 gem 'rails', '~> 6.0'
 gem 'mysql2'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 gem 'rack-cors'
 gem 'bootsnap', '>= 1.4.2', require: false
 
