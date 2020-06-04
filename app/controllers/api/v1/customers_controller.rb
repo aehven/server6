@@ -1,4 +1,4 @@
-class CustomersController < ApplicationController
+class Api::V1::CustomersController < ApplicationController
   load_and_authorize_resource except: [:index]
 
   # GET /customers

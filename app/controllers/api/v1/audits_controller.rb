@@ -1,4 +1,4 @@
-class AuditsController < ApplicationController
+class Api::V1::AuditsController < ApplicationController
   def index
     authorize! :read, PaperTrail::Version
 

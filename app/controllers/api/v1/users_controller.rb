@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::V1::UsersController < ApplicationController
   load_and_authorize_resource except: [:index, :next_notification, :acknowledge_notification, :reset_password, :unsubscribe, :get_profile]
 
   def index

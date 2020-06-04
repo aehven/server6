@@ -1,4 +1,4 @@
-class NotificationsController < ApplicationController
+class Api::V1::NotificationsController < ApplicationController
   load_and_authorize_resource #except: [:index]
 
   # GET /notifications
