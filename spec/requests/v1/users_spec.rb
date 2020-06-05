@@ -3,6 +3,7 @@ require 'swagger_helper'
 RSpec.describe 'Logging in', type: :request do
   path '/api/v1/user_token' do
     post 'Sign in' do
+      operationId 'SignIn'
       tags 'Users'
       consumes 'application/json'
       produces 'application/json'
@@ -40,6 +41,7 @@ end
 RSpec.describe 'Listing users', type: :request do
   path '/api/v1/users' do
     get 'List users' do
+      operationId 'UserIndex'
       tags 'Users'
       consumes 'application/json'
       produces 'application/json'
@@ -66,6 +68,7 @@ end
 RSpec.describe 'Show user', type: :request do
   path '/api/v1/users/{id}' do
     get 'Show user by id' do
+      operationId 'UserShow'
       tags 'Users'
       consumes 'application/json'
       produces 'application/json'
