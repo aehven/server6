@@ -1,0 +1,57 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/user_token":
+    post:
+      summary: Sign in
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: Signed in
+          content: {}
+        '404':
+          description: Rejected
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                auth:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    password:
+                      type: string
+              required:
+              - email
+              - password
+  "/api/v1/users":
+    get:
+      summary: Get users
+      tags:
+      - Users
+      parameters:
+      - name: auth
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Listed users
+          content: {}
+        '401':
+          description: Listed users denied due to bad token
+          content: {}
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3030

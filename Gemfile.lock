@@ -116,6 +116,8 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    json-schema (2.8.1)
+      addressable (>= 2.4)
     jsonapi-renderer (0.2.2)
     jwt (1.5.6)
     knock (2.1.1)
@@ -238,6 +240,19 @@ GEM
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
     rspec-support (3.9.3)
+    rswag (2.3.1)
+      rswag-api (= 2.3.1)
+      rswag-specs (= 2.3.1)
+      rswag-ui (= 2.3.1)
+    rswag-api (2.3.1)
+      railties (>= 3.1, < 7.0)
+    rswag-specs (2.3.1)
+      activesupport (>= 3.1, < 7.0)
+      json-schema (~> 2.2)
+      railties (>= 3.1, < 7.0)
+    rswag-ui (2.3.1)
+      actionpack (>= 3.1, < 7.0)
+      railties (>= 3.1, < 7.0)
     ruby_dep (1.5.0)
     rubyzip (2.3.0)
     selenium-webdriver (3.142.7)
@@ -291,6 +306,7 @@ DEPENDENCIES
   rb-readline
   redis-rails
   rspec-rails
+  rswag
   selenium-webdriver
   tzinfo-data
   will_paginate

@@ -66,8 +66,9 @@ RSpec.configure do |config|
 
   Capybara.configure do |cconfig|
     cconfig.default_driver = :selenium_chrome
-    cconfig.app_host = "http://#{ENV['NICKNAME']}"
-    cconfig.asset_host = "http://#{ENV['NICKNAME']}"
+    cconfig.app_host = "http://localhost:3030"
+    # cconfig.app_host = "http://#{ENV['NICKNAME']}"
+    # cconfig.asset_host = "http://#{ENV['NICKNAME']}"
     cconfig.default_max_wait_time = 3
     cconfig.run_server = false
   end

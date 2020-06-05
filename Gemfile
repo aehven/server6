@@ -20,6 +20,7 @@ gem 'awesome_nested_set', git: "https://github.com/collectiveidea/awesome_nested
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'paper_trail'
+gem 'rswag'
 
 group :development, :test do
   gem 'pry-rails'

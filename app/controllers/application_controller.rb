@@ -21,6 +21,9 @@ class ApplicationController < ActionController::API
       (controller_name == "users" and action_name == "reset_password"))
       true
     else
+      # Swagger UI clobbers the authorization header when present by that name, 
+      # so the swagger docs specify 'auth' and here we copy that to the right header.
+      request.headers['Authorization'] ||= request.headers['auth']
       return false
     end
   end
@@ -55,7 +58,7 @@ class ApplicationController < ActionController::API
   end
 
   def log_headers
-    logger.debug("Token #{request.headers['Access-Token']} from client #{request.headers['client']}")
+    logger.debug("Authorization: #{request.headers['Authorization']}")
   end
 
   protected
