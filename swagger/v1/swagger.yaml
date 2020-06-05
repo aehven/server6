@@ -12,7 +12,7 @@ paths:
       parameters: []
       responses:
         '201':
-          description: Signed in
+          description: JWT created
           content: {}
         '404':
           description: Rejected
@@ -35,7 +35,7 @@ paths:
               - password
   "/api/v1/users":
     get:
-      summary: Get users
+      summary: List users
       tags:
       - Users
       parameters:
@@ -45,10 +45,32 @@ paths:
           type: string
       responses:
         '200':
-          description: Listed users
+          description: Success
           content: {}
         '401':
-          description: Listed users denied due to bad token
+          description: Unauthorized
+          content: {}
+  "/api/v1/users/{id}":
+    get:
+      summary: Show user by id
+      tags:
+      - Users
+      parameters:
+      - name: auth
+        in: header
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content: {}
+        '401':
+          description: Unauthorized
           content: {}
 servers:
 - url: http://{defaultHost}

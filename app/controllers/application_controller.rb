@@ -3,11 +3,11 @@ class ApplicationController < ActionController::API
 
   include Knock::Authenticable
 
-  before_action :set_paper_trail_whodunnit
   before_action :set_up_headers
   before_action :log_headers
   before_action :authenticate_user, unless: :allow_unauthenticated
   before_action :set_current_user
+  before_action :set_paper_trail_whodunnit
 
   def allow_unauthenticated
     if(defined?(Rails::Console) && Rails.env.development?)
@@ -21,9 +21,6 @@ class ApplicationController < ActionController::API
       (controller_name == "users" and action_name == "reset_password"))
       true
     else
-      # Swagger UI clobbers the authorization header when present by that name, 
-      # so the swagger docs specify 'auth' and here we copy that to the right header.
-      request.headers['Authorization'] ||= request.headers['auth']
       return false
     end
   end
@@ -54,10 +51,15 @@ class ApplicationController < ActionController::API
   # end
 
   def set_up_headers
+    # Swagger UI clobbers the authorization header when present by that name, 
+    # so the swagger docs specify 'auth' and here we copy that to the right header.
+    request.headers['Authorization'] ||= request.headers['auth']
+
     response.headers['app-version'] = VERSION
   end
 
   def log_headers
+    logger.debug("auth: #{request.headers['auth']}")
     logger.debug("Authorization: #{request.headers['Authorization']}")
   end
 

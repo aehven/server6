@@ -35,7 +35,7 @@ RSpec.configure do |config|
       # This doesn't seem necessary; just put the authorization header in each request
       # And adding this in doesn't help the problem that swagger ui clobbers any header
       # named 'authorization' and so we kludge it in the examples with a header named 'auth'
-      # and fix that in application_controller#allow_unauthenticated
+      # and fix that in application_controller#set_up_headers
       # components: {
       #   securitySchemes: {
       #     basic_auth: {
