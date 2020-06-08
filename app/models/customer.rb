@@ -32,4 +32,8 @@ class Customer < ApplicationRecord
   def to_s
     [name, city].compact.join(", ")
   end
+
+  def name_with_ancestors
+    self_and_ancestors.map(&:name).join(" / ")
+  end
 end

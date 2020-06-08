@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :first_name, :last_name, :email, :role, :customer_name, :customer_id
+  attributes :id, :first_name, :last_name, :email, :role, :customer_name, :customer_name_with_ancestors, :customer_id
   attributes :permissions, :tac_agreed_at
 
   def permissions
@@ -8,6 +8,10 @@ class UserSerializer < ActiveModel::Serializer
 
   def customer_name
     object.customer&.name || "Binary Trees"
+  end
+
+  def customer_name_with_ancestors
+    object.customer&.name_with_ancestors || "Binary Trees"
   end
 
   # https://stackoverflow.com/a/40667799/5874744
