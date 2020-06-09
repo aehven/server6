@@ -34,7 +34,7 @@ class Api::V1::NotificationsController < ApplicationController
     @notification = Notification.new(notification_params)
 
     if @notification.save
-      render json: @notification, status: :created, location: @notification
+      render json: @notification, status: :created
     else
       render json: @notification.errors, status: :unprocessable_entity
     end
