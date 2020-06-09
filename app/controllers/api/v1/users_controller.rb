@@ -6,6 +6,11 @@ class Api::V1::UsersController < ApplicationController
 
     if current_user.admin?
       @users = User.all
+      if(params[:customer_id])
+        customer = Customer.find(params[:customer_id])
+        ids = customer.self_and_descendants.map(&:id)
+        @users = @users.where("customer_id in (?)", ids)
+      end
     else
       if current_user.can? :access, :sub_customers
         @users = current_user.customer.self_and_descendants.map(&:users).flatten
