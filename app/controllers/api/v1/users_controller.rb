@@ -53,7 +53,6 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       render json: {data: UserSerializer.new(@user).attributes}
     else
-      # render json: @user.errors, status: :unprocessable_entity
       render json: {message: @user.errors.full_messages.to_sentence}, status: :unprocessable_entity
     end
   end

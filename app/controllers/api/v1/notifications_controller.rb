@@ -34,18 +34,18 @@ class Api::V1::NotificationsController < ApplicationController
     @notification = Notification.new(notification_params)
 
     if @notification.save
-      render json: @notification, status: :created
+      render json: {data: NotificationSerializer.new(@notification).attributes}
     else
-      render json: @notification.errors, status: :unprocessable_entity
+      render json: {message: @notification.errors.full_messages.to_sentence}, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /notifications/1
   def update
-    if @notification.update(notification_params)
-      render json: @notification
+    if @notification.update_attributes(notification_params)
+      render json: {data: NotificationSerializer.new(@notification).attributes}
     else
-      render json: @notification.errors, status: :unprocessable_entity
+      render json: {message: @notification.errors.full_messages.to_sentence}, status: :unprocessable_entity
     end
   end
 

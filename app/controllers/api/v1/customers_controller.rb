@@ -40,14 +40,13 @@ class Api::V1::CustomersController < ApplicationController
 
   # POST /customers
   def create
-
     if @customer.save
       if !current_user.admin?
         @customer.move_to_child_of current_user.customer
       end
-      render json: @customer, status: :created
+      render json: {data: CustomerSerializer.new(@customer).attributes}
     else
-      render json: @customer.errors, status: :unprocessable_entity
+      render json: {message: @customer.errors.full_messages.to_sentence}, status: :unprocessable_entity
     end
   end
 
