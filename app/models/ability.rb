@@ -11,37 +11,24 @@ class Ability
         can :manage, :all
         can :access, :sub_organizations
 
-      when "supervisor"
-        can [:index, :read, :create, :update], Organization do |organization|
-          organization.id.nil? or
-          user.organization.self_and_descendants.include? organization
-        end
-
-        can :destroy, Organization do |organization|
-          user.organization.descendants.include?(organization)
-        end
-
-        can :manage, User do |u|
-          u.organization.nil? or
-          u.organization.self_and_ancestors.map(&:id).include? user.organization.id
-        end
-
-        can :access, :sub_organizations
-
-      when "manager"
-        can :access, :sub_organizations
-
-        can :manage, User do |u|
-          u.new_record? or user.can_access_organization? u.organization_id
-        end
-
-        can :manage, Organization do |organization|
-          organization.new_record? or user.can_access_organization? organization.id
-        end
-
       when "regular"
         can [:read, :update], User, id: user.id
         cannot :index, User
+
+      else
+        can [:manage], Organization do |organization|
+          organization.id.nil? or
+          ((user.organization_forest.include? organization) and (user.organization.kind > organization.kind))
+        end
+
+        can :manage, User do |u|
+          user == u or
+          u.organization.nil? or 
+          ((u.organization_forest.map(&:id) & user.organization_forest.map(&:id)).any? and (user.role > u.role))
+        end
+
+        can :access, :sub_organizations
+
     end
 
     # can :read, Notification do |notification|

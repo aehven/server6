@@ -20,6 +20,9 @@ class User < ApplicationRecord
   before_create :generate_unsubscribe_token
   after_create :send_welcome_email
 
+  has_many :organizations_users, dependent: :destroy
+  has_many :organizations, through: :organizations_users
+
   has_many :notifications_users, dependent: :destroy
   has_many :notifications, through: :notifications_users
 
@@ -120,6 +123,28 @@ class User < ApplicationRecord
     "#{first_name} #{last_name} (#{email})"
   end
 
+  def organization
+    organizations.order(:kind).first
+  end
+
+  def organization_forest
+    #####
+    # all the orgs in this user's trees; note that a user can have multiple trees, 
+    # i.e. belong to multiple high-level organizations that have lower-level ones beneath them,
+    # so the orgs are really a forest, hence all the mapping and squishing below.
+    #
+    # just getting self.organizations is NOT the same because that is a list of orgs the
+    # user directly belongs to by organizations_users entries, and doesn't include organization
+    # descendants.
+    #####
+    self.organizations.map(&:self_and_descendants).flatten.uniq
+  end
+
+  def can_access_organization?(oid)
+    oid.nil? ||
+    (self.can?(:access, :sub_organizations) && (organization.forets.map(&:id).include? oid))
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -132,9 +157,6 @@ class User < ApplicationRecord
     Thread.current[:user] = user
   end
 
-  def can_access_organization?(cid)
-    (self.organization_id == cid) || (self.can?(:access, :sub_organizations) && (self.organization.self_and_descendants.map(&:id).include? cid))
-  end
 
   def after_sign_in_callback
     # if there's a pending notification, send it.  If there are more than one, the next one will be

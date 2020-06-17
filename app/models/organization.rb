@@ -5,10 +5,12 @@ class Organization < ApplicationRecord
 
   enum kind: [
     :hospital,
-    :clinic
+    :clinic,
+    :pt
   ]
   
-  has_many :users
+  has_many :organizations_users, dependent: :destroy
+  has_many :users, through: :organizations_users
 
   def self.search(search)
     columns = %w{

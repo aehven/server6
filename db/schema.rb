@@ -80,6 +80,13 @@ ActiveRecord::Schema.define(version: 2018_09_19_225441) do
     t.index ["rgt"], name: "index_organizations_on_rgt"
   end
 
+  create_table "organizations_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "organization_id"
+    t.bigint "user_id"
+    t.index ["organization_id"], name: "index_organizations_users_on_organization_id"
+    t.index ["user_id"], name: "index_organizations_users_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "password_digest", default: "", null: false
     t.string "reset_password_token"
@@ -100,9 +107,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_225441) do
     t.datetime "unsubscribed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["organization_id"], name: "index_users_on_organization_id"
   end
 
   create_table "versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

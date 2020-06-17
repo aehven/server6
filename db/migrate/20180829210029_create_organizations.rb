@@ -26,6 +26,9 @@ class CreateOrganizations < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
-    add_reference :users, :organization, index: true
+    create_table :organizations_users do |t|
+      t.references :organization
+      t.references :user
+    end
   end
 end

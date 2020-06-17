@@ -5,17 +5,17 @@ class Api::V1::UsersController < ApplicationController
     authorize! :index, User
 
     if current_user.admin?
-      @users = User.all
       if(params[:organization_id])
         organization = Organization.find(params[:organization_id])
-        ids = organization.self_and_descendants.map(&:id)
-        @users = @users.where("organization_id in (?)", ids)
+        @users = organization.self_and_descendants.map(&:users).flatten
+      else
+        @users = User.all
       end
     else
       if current_user.can? :access, :sub_organizations
-        @users = current_user.organization.self_and_descendants.map(&:users).flatten
+        @users = current_user.organization_forest.map(&:users).flatten
       else
-        @users = current_user.organization.users
+        @users = current_user.organizations.map(&:users).flatten
       end
     end
 
@@ -132,13 +132,13 @@ class Api::V1::UsersController < ApplicationController
           params[:user][:tac_agreed_at] = DateTime.now
         end
 
-        params.require(:user).permit(:email, :password, :first_name, :last_name, :address, :phone, :role, :tac_agreed_at, :active, :organization_id, :tutorial_number)
+        params.require(:user).permit(:email, :password, :first_name, :last_name, :address, :phone, :role, :tac_agreed_at, :active, :organization_ids, :tutorial_number)
 
       when "create"
         params.require(:user).require(:email)
         params.require(:user).require(:password)
         params.require(:user).require(:role)
-        params.require(:user).permit(:email, :password, :first_name, :last_name, :role, :address, :phone, :active, :organization_id)
+        params.require(:user).permit(:email, :password, :first_name, :last_name, :role, :address, :phone, :active, :organization_ids)
     end
   end
 end

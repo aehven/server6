@@ -6,6 +6,10 @@ class UserSerializer < ActiveModel::Serializer
     flatten_hash(object.permissions).keys.map(&:to_s)
   end
 
+  def organization_id
+    object.organization&.id
+  end
+
   def organization_name
     object.organization&.name || "Binary Trees"
   end
