@@ -15,6 +15,10 @@ class Api::V1::OrganizationsController < ApplicationController
       end
     end
 
+    if params[:kind] && params[:kind] != "all" && Organization.kinds.keys.include?(params[:kind])
+      @organizations = @organizations.send(params[:kind].to_sym)
+    end
+
     if !params[:search].blank?
       @organizations = @organizations&.search(params[:search])
     end

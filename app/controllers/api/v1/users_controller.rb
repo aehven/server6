@@ -101,6 +101,7 @@ class Api::V1::UsersController < ApplicationController
 
   def get_profile
     vars = ENV.select{|k, v| k.start_with? "BTSTC_"}
+    vars["BTSTC_ORGANIZATION_KINDS"] = Organization.kinds.keys
     render json: {server: vars, profile: UserSerializer.new(current_user).attributes}, status: :ok
   end
 
