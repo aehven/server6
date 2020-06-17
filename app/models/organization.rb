@@ -4,8 +4,6 @@ class Organization < ApplicationRecord
   acts_as_nested_set
 
   enum kind: [
-    :organization,
-    :customer,
     :hospital,
     :clinic
   ]

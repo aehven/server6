@@ -28,7 +28,7 @@ cons = Organization.create!(kind: "clinic", name: "The Conservatory", address1: 
 User.create!(first_name: "Fred", last_name: "Chopin", email: "manager_c_wo_s@null.com", password: "password", role: "manager", organization: cons)
 
 # demo/anonymous users organization
-democ = Organization.find_or_create_by(kind: "customer", name: "Demos", address1: "Somewhere in Hogsmeade") if ENV['USERS_BELONG_TO_ORGANIZATIONS'] == 'true'
+democ = Organization.find_or_create_by(kind: "clinic", name: "Demos", address1: "Somewhere in Hogsmeade") if ENV['USERS_BELONG_TO_ORGANIZATIONS'] == 'true'
 demou = User.where(email: "demo@null.com").first
 if(demou)
   demou.update_column(:organization_id, democ&.id)
