@@ -3,6 +3,13 @@ class Organization < ApplicationRecord
 
   acts_as_nested_set
 
+  enum kind: [
+    :organization,
+    :customer,
+    :hospital,
+    :clinic
+  ]
+  
   has_many :users
 
   def self.search(search)

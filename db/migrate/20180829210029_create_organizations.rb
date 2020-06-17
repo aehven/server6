@@ -1,6 +1,7 @@
 class CreateOrganizations < ActiveRecord::Migration[6.0]
   def change
     create_table :organizations do |t|
+      t.integer :kind, default: 0
       t.string :name, index: true
       t.string :address1
       t.string :address2
