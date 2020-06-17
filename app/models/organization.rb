@@ -1,4 +1,4 @@
-class Customer < ApplicationRecord
+class Organization < ApplicationRecord
   has_paper_trail skip: [:updated_at, :created_at]
 
   acts_as_nested_set

@@ -71,7 +71,7 @@ feature "Show audit list: " do
     login_component.sign_in user
 
     new_user = FactoryBot.create(:user)
-    new_customer = FactoryBot.create(:customer)
+    new_organization = FactoryBot.create(:organization)
     new_notification = FactoryBot.create(:notification)
 
     menu.audit
@@ -90,11 +90,11 @@ feature "Show audit list: " do
     expect(item).to have_text "unsubscribe_token initialized to #{new_user.unsubscribe_token}"
 
     item = audit_list.item(1)
-    expect(item).to have_text "Create\nCustomer"
-    expect(item).to have_text "id initialized to #{new_customer.id}"
-    expect(item).to have_text "name initialized to #{new_customer.name}"
-    # expect(item).to have_text "lft initialized to #{new_customer.lft}"
-    # expect(item).to have_text "rgt initialized to #{new_customer.rgt}"
+    expect(item).to have_text "Create\nOrganization"
+    expect(item).to have_text "id initialized to #{new_organization.id}"
+    expect(item).to have_text "name initialized to #{new_organization.name}"
+    # expect(item).to have_text "lft initialized to #{new_organization.lft}"
+    # expect(item).to have_text "rgt initialized to #{new_organization.rgt}"
 
     item = audit_list.item(0)
     expect(item).to have_text "Create\nNotification"
@@ -109,19 +109,19 @@ feature "Show audit list: " do
     expect(audit_list.item_count).to eq 2
     expect(page).not_to have_text "Create\nUser"
 
-    audit_list.checkbox("Customer").click
+    audit_list.checkbox("Organization").click
     audit_list.wait
 
     expect(audit_list.item_count).to eq 1
     expect(page).not_to have_text "Create\nUser"
-    expect(page).not_to have_text "Create\nCustomer"
+    expect(page).not_to have_text "Create\nOrganization"
 
     audit_list.checkbox("Notification").click
     audit_list.wait
 
     expect(audit_list.item_count).to eq 0
     expect(page).not_to have_text "Create\nUser"
-    expect(page).not_to have_text "Create\nCustomer"
+    expect(page).not_to have_text "Create\nOrganization"
     expect(page).not_to have_text "Create\nNotification"
 
     #recheck them
@@ -132,30 +132,30 @@ feature "Show audit list: " do
     expect(audit_list.item_count).to eq 1
     expect(page).to have_text "Create\nUser"
 
-    audit_list.checkbox("Customer").click
+    audit_list.checkbox("Organization").click
     audit_list.wait
 
     expect(audit_list.item_count).to eq 2
     expect(page).to have_text "Create\nUser"
-    expect(page).to have_text "Create\nCustomer"
+    expect(page).to have_text "Create\nOrganization"
 
     audit_list.checkbox("Notification").click
     audit_list.wait
 
     expect(audit_list.item_count).to eq 3
     expect(page).to have_text "Create\nUser"
-    expect(page).to have_text "Create\nCustomer"
+    expect(page).to have_text "Create\nOrganization"
     expect(page).to have_text "Create\nNotification"
   end
 
   scenario "check all audit events" do
     login_component.sign_in user
 
-    new_customer = FactoryBot.create(:customer)
-    name0 = new_customer.name
-    name1 = new_customer.name + " updated"
-    new_customer.update_attributes(name: name1)
-    new_customer.destroy
+    new_organization = FactoryBot.create(:organization)
+    name0 = new_organization.name
+    name1 = new_organization.name + " updated"
+    new_organization.update_attributes(name: name1)
+    new_organization.destroy
 
     menu.audit
     audit_list.wait
@@ -163,18 +163,18 @@ feature "Show audit list: " do
     expect(audit_list.item_count).to eq 3
 
     item = audit_list.item(2)
-    expect(item).to have_text "Create\nCustomer"
-    expect(item).to have_text "id initialized to #{new_customer.id}"
+    expect(item).to have_text "Create\nOrganization"
+    expect(item).to have_text "id initialized to #{new_organization.id}"
     expect(item).to have_text "name initialized to #{name0}"
-    # expect(item).to have_text "lft initialized to #{new_customer.lft}"
-    # expect(item).to have_text "rgt initialized to #{new_customer.rgt}"
+    # expect(item).to have_text "lft initialized to #{new_organization.lft}"
+    # expect(item).to have_text "rgt initialized to #{new_organization.rgt}"
 
     item = audit_list.item(1)
-    expect(item).to have_text "Update\nCustomer #{name0}"
+    expect(item).to have_text "Update\nOrganization #{name0}"
     expect(item).to have_text "name changed from #{name0} to #{name1}"
 
     item = audit_list.item(0)
-    expect(item).to have_text "Destroy\nCustomer #{name1}"
+    expect(item).to have_text "Destroy\nOrganization #{name1}"
     expect(item).to have_text "All values erased."
   end
 end

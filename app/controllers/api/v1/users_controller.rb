@@ -6,16 +6,16 @@ class Api::V1::UsersController < ApplicationController
 
     if current_user.admin?
       @users = User.all
-      if(params[:customer_id])
-        customer = Customer.find(params[:customer_id])
-        ids = customer.self_and_descendants.map(&:id)
-        @users = @users.where("customer_id in (?)", ids)
+      if(params[:organization_id])
+        organization = Organization.find(params[:organization_id])
+        ids = organization.self_and_descendants.map(&:id)
+        @users = @users.where("organization_id in (?)", ids)
       end
     else
-      if current_user.can? :access, :sub_customers
-        @users = current_user.customer.self_and_descendants.map(&:users).flatten
+      if current_user.can? :access, :sub_organizations
+        @users = current_user.organization.self_and_descendants.map(&:users).flatten
       else
-        @users = current_user.customer.users
+        @users = current_user.organization.users
       end
     end
 
@@ -131,13 +131,13 @@ class Api::V1::UsersController < ApplicationController
           params[:user][:tac_agreed_at] = DateTime.now
         end
 
-        params.require(:user).permit(:email, :password, :first_name, :last_name, :address, :phone, :role, :tac_agreed_at, :active, :customer_id, :tutorial_number)
+        params.require(:user).permit(:email, :password, :first_name, :last_name, :address, :phone, :role, :tac_agreed_at, :active, :organization_id, :tutorial_number)
 
       when "create"
         params.require(:user).require(:email)
         params.require(:user).require(:password)
         params.require(:user).require(:role)
-        params.require(:user).permit(:email, :password, :first_name, :last_name, :role, :address, :phone, :active, :customer_id)
+        params.require(:user).permit(:email, :password, :first_name, :last_name, :role, :address, :phone, :active, :organization_id)
     end
   end
 end

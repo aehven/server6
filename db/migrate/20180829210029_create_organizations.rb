@@ -1,6 +1,6 @@
-class CreateCustomers < ActiveRecord::Migration[6.0]
+class CreateOrganizations < ActiveRecord::Migration[6.0]
   def change
-    create_table :customers do |t|
+    create_table :organizations do |t|
       t.string :name, index: true
       t.string :address1
       t.string :address2
@@ -25,6 +25,6 @@ class CreateCustomers < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
-    add_reference :users, :customer, index: true
+    add_reference :users, :organization, index: true
   end
 end

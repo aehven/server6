@@ -23,9 +23,9 @@ class User < ApplicationRecord
   has_many :notifications_users, dependent: :destroy
   has_many :notifications, through: :notifications_users
 
-  belongs_to :customer, optional: true
+  belongs_to :organization, optional: true
 
-  delegate :signs, to: :customer, allow_nil: true
+  delegate :signs, to: :organization, allow_nil: true
 
   def self.search(search)
     columns = %w{
@@ -132,8 +132,8 @@ class User < ApplicationRecord
     Thread.current[:user] = user
   end
 
-  def can_access_customer?(cid)
-    (self.customer_id == cid) || (self.can?(:access, :sub_customers) && (self.customer.self_and_descendants.map(&:id).include? cid))
+  def can_access_organization?(cid)
+    (self.organization_id == cid) || (self.can?(:access, :sub_organizations) && (self.organization.self_and_descendants.map(&:id).include? cid))
   end
 
   def after_sign_in_callback

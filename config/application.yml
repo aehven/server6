@@ -7,7 +7,7 @@ defaults: &defaults
   #ENV vars to send to the client when logging in, must start with BTSTC_
   # BTSTC_....
   BTSTC_DUMMY: "dummy"
-  BTSTC_CUSTOMER_IS_CALLED: "hospital"
+  BTSTC_ORGANIZATION_IS_CALLED: "hospital"
 
   DELAYED_JOB_PERIOD: "5"
   DELAYED_JOB_PREFIX: development
@@ -23,7 +23,7 @@ defaults: &defaults
   SMTP_USERNAME:
   SMTP_AUTHENTICATION: "plain"
 
-  USERS_BELONG_TO_CUSTOMERS: "true"
+  USERS_BELONG_TO_ORGANIZATIONS: "true"
 
 development:
   <<: *defaults

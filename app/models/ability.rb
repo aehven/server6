@@ -9,34 +9,34 @@ class Ability
     case user.role
       when "admin"
         can :manage, :all
-        can :access, :sub_customers
+        can :access, :sub_organizations
 
       when "supervisor"
-        can [:index, :read, :create, :update], Customer do |customer|
-          customer.id.nil? or
-          user.customer.self_and_descendants.include? customer
+        can [:index, :read, :create, :update], Organization do |organization|
+          organization.id.nil? or
+          user.organization.self_and_descendants.include? organization
         end
 
-        can :destroy, Customer do |customer|
-          user.customer.descendants.include?(customer)
+        can :destroy, Organization do |organization|
+          user.organization.descendants.include?(organization)
         end
 
         can :manage, User do |u|
-          u.customer.nil? or
-          u.customer.self_and_ancestors.map(&:id).include? user.customer.id
+          u.organization.nil? or
+          u.organization.self_and_ancestors.map(&:id).include? user.organization.id
         end
 
-        can :access, :sub_customers
+        can :access, :sub_organizations
 
       when "manager"
-        can :access, :sub_customers
+        can :access, :sub_organizations
 
         can :manage, User do |u|
-          u.new_record? or user.can_access_customer? u.customer_id
+          u.new_record? or user.can_access_organization? u.organization_id
         end
 
-        can :manage, Customer do |customer|
-          customer.new_record? or user.can_access_customer? customer.id
+        can :manage, Organization do |organization|
+          organization.new_record? or user.can_access_organization? organization.id
         end
 
       when "regular"

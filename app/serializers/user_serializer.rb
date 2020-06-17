@@ -1,17 +1,17 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :first_name, :last_name, :email, :role, :customer_name, :customer_name_with_ancestors, :customer_id
+  attributes :id, :first_name, :last_name, :email, :role, :organization_name, :organization_name_with_ancestors, :organization_id
   attributes :permissions, :tac_agreed_at
 
   def permissions
     flatten_hash(object.permissions).keys.map(&:to_s)
   end
 
-  def customer_name
-    object.customer&.name || "Binary Trees"
+  def organization_name
+    object.organization&.name || "Binary Trees"
   end
 
-  def customer_name_with_ancestors
-    object.customer&.name_with_ancestors || "Binary Trees"
+  def organization_name_with_ancestors
+    object.organization&.name_with_ancestors || "Binary Trees"
   end
 
   # https://stackoverflow.com/a/40667799/5874744

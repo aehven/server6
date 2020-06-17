@@ -12,35 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2018_09_19_225441) do
 
-  create_table "customers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name"
-    t.string "address1"
-    t.string "address2"
-    t.string "city"
-    t.string "state"
-    t.string "zip"
-    t.string "country"
-    t.string "phone1"
-    t.string "phone2"
-    t.string "phone3"
-    t.string "email1"
-    t.string "email2"
-    t.string "email3"
-    t.boolean "active"
-    t.integer "parent_id"
-    t.integer "lft", null: false
-    t.integer "rgt", null: false
-    t.integer "depth", default: 0, null: false
-    t.integer "children_count", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["depth"], name: "index_customers_on_depth"
-    t.index ["lft"], name: "index_customers_on_lft"
-    t.index ["name"], name: "index_customers_on_name"
-    t.index ["parent_id"], name: "index_customers_on_parent_id"
-    t.index ["rgt"], name: "index_customers_on_rgt"
-  end
-
   create_table "delayed_jobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
@@ -79,6 +50,35 @@ ActiveRecord::Schema.define(version: 2018_09_19_225441) do
     t.index ["user_id"], name: "index_notifications_users_on_user_id"
   end
 
+  create_table "organizations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "address1"
+    t.string "address2"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "country"
+    t.string "phone1"
+    t.string "phone2"
+    t.string "phone3"
+    t.string "email1"
+    t.string "email2"
+    t.string "email3"
+    t.boolean "active"
+    t.integer "parent_id"
+    t.integer "lft", null: false
+    t.integer "rgt", null: false
+    t.integer "depth", default: 0, null: false
+    t.integer "children_count", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["depth"], name: "index_organizations_on_depth"
+    t.index ["lft"], name: "index_organizations_on_lft"
+    t.index ["name"], name: "index_organizations_on_name"
+    t.index ["parent_id"], name: "index_organizations_on_parent_id"
+    t.index ["rgt"], name: "index_organizations_on_rgt"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "password_digest", default: "", null: false
     t.string "reset_password_token"
@@ -99,9 +99,9 @@ ActiveRecord::Schema.define(version: 2018_09_19_225441) do
     t.datetime "unsubscribed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "customer_id"
-    t.index ["customer_id"], name: "index_users_on_customer_id"
+    t.bigint "organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["organization_id"], name: "index_users_on_organization_id"
   end
 
   create_table "versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

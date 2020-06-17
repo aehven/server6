@@ -7,7 +7,7 @@ feature "Regular permissions on users: " do
   let(:user_list) { UserListComponent.new(find("app-user-list")) }
   let(:user) { UserComponent.new }
 
-  scenario "no customers menu" do
+  scenario "no organizations menu" do
     user = User.regular.first
     login_component.sign_in user
 

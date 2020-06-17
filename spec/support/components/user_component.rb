@@ -32,11 +32,11 @@ class UserComponent < BaseComponent
     find(".mat-option-text", text: value).click
   end
 
-  def customer
-    find("mat-select[formcontrolname='customer_id']").find(".mat-select-value").text
+  def organization
+    find("mat-select[formcontrolname='organization_id']").find(".mat-select-value").text
   end
-  def customer=(value)
-    find("mat-select[formcontrolname='customer_id']").find(".mat-select-value").click
+  def organization=(value)
+    find("mat-select[formcontrolname='organization_id']").find(".mat-select-value").click
     find(".mat-option-text", text: value).click
   end
 

@@ -48,7 +48,7 @@ xfeature "Supervisor permissions on users: " do
     menu.users
     user_list.wait
 
-    users = current_user.customer.self_and_descendants.map(&:users).flatten
+    users = current_user.organization.self_and_descendants.map(&:users).flatten
     user_count = users.count
     users.each do |u|
       user_list.find_item(u.email).click

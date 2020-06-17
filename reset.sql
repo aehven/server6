@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.28, for osx10.15 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.29, for osx10.15 (x86_64)
 --
 -- Host: localhost    Database: generic_develop
 -- ------------------------------------------------------
--- Server version	5.7.28
+-- Server version	5.7.29
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -37,57 +37,8 @@ CREATE TABLE `ar_internal_metadata` (
 
 LOCK TABLES `ar_internal_metadata` WRITE;
 /*!40000 ALTER TABLE `ar_internal_metadata` DISABLE KEYS */;
-INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2020-02-03 19:33:00.966865','2020-02-03 19:33:00.966865'),('schema_sha1','2ac68f9de05077b4e93612433a3e0cc46a340b10','2020-02-03 19:33:00.972356','2020-02-03 19:33:00.972356');
+INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2020-06-17 17:34:24.262154','2020-06-17 17:34:24.262154'),('schema_sha1','c1d84f8d6c916274ab56f99e3934afb3b931f40e','2020-06-17 17:34:24.268800','2020-06-17 17:34:24.268800');
 /*!40000 ALTER TABLE `ar_internal_metadata` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `customers`
---
-
-DROP TABLE IF EXISTS `customers`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `customers` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `address1` varchar(255) DEFAULT NULL,
-  `address2` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
-  `state` varchar(255) DEFAULT NULL,
-  `zip` varchar(255) DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL,
-  `phone1` varchar(255) DEFAULT NULL,
-  `phone2` varchar(255) DEFAULT NULL,
-  `phone3` varchar(255) DEFAULT NULL,
-  `email1` varchar(255) DEFAULT NULL,
-  `email2` varchar(255) DEFAULT NULL,
-  `email3` varchar(255) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `lft` int(11) NOT NULL,
-  `rgt` int(11) NOT NULL,
-  `depth` int(11) NOT NULL DEFAULT '0',
-  `children_count` int(11) NOT NULL DEFAULT '0',
-  `created_at` datetime(6) NOT NULL,
-  `updated_at` datetime(6) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_customers_on_depth` (`depth`),
-  KEY `index_customers_on_lft` (`lft`),
-  KEY `index_customers_on_name` (`name`),
-  KEY `index_customers_on_parent_id` (`parent_id`),
-  KEY `index_customers_on_rgt` (`rgt`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customers`
---
-
-LOCK TABLES `customers` WRITE;
-/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'The Three Broomsticks','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,4,0,0,'2020-02-03 19:33:02.964428','2020-02-03 19:33:03.788672'),(2,'The Brewery','Somewhere else in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,2,3,1,0,'2020-02-03 19:33:03.570312','2020-02-03 19:33:03.788672'),(3,'The Conservatory','Somewhere in Paris',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,5,6,0,0,'2020-02-03 19:33:03.810394','2020-02-03 19:33:03.810394'),(4,'Demos','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,8,0,0,'2020-02-03 19:33:04.019239','2020-02-03 19:33:04.019239');
-/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -186,6 +137,55 @@ LOCK TABLES `notifications_users` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `organizations`
+--
+
+DROP TABLE IF EXISTS `organizations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `organizations` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `address1` varchar(255) DEFAULT NULL,
+  `address2` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `zip` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `phone1` varchar(255) DEFAULT NULL,
+  `phone2` varchar(255) DEFAULT NULL,
+  `phone3` varchar(255) DEFAULT NULL,
+  `email1` varchar(255) DEFAULT NULL,
+  `email2` varchar(255) DEFAULT NULL,
+  `email3` varchar(255) DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `lft` int(11) NOT NULL,
+  `rgt` int(11) NOT NULL,
+  `depth` int(11) NOT NULL DEFAULT '0',
+  `children_count` int(11) NOT NULL DEFAULT '0',
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_organizations_on_depth` (`depth`),
+  KEY `index_organizations_on_lft` (`lft`),
+  KEY `index_organizations_on_name` (`name`),
+  KEY `index_organizations_on_parent_id` (`parent_id`),
+  KEY `index_organizations_on_rgt` (`rgt`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `organizations`
+--
+
+LOCK TABLES `organizations` WRITE;
+/*!40000 ALTER TABLE `organizations` DISABLE KEYS */;
+INSERT INTO `organizations` VALUES (1,'The Three Broomsticks','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,4,0,0,'2020-06-17 17:34:26.507059','2020-06-17 17:34:27.379264'),(2,'The Brewery','Somewhere else in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,2,3,1,0,'2020-06-17 17:34:27.152739','2020-06-17 17:34:27.379264'),(3,'The Conservatory','Somewhere in Paris',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,5,6,0,0,'2020-06-17 17:34:27.388854','2020-06-17 17:34:27.388854'),(4,'Demos','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,8,0,0,'2020-06-17 17:34:27.609436','2020-06-17 17:34:27.609436');
+/*!40000 ALTER TABLE `organizations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `schema_migrations`
 --
 
@@ -236,10 +236,10 @@ CREATE TABLE `users` (
   `unsubscribed_at` datetime DEFAULT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
-  `customer_id` bigint(20) DEFAULT NULL,
+  `organization_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_users_on_email` (`email`),
-  KEY `index_users_on_customer_id` (`customer_id`)
+  KEY `index_users_on_organization_id` (`organization_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -249,7 +249,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'$2a$12$fZWqrPEUQv2cAsmfnkgNDOBvc.CX0cNsIZeAmqJn/Ez0E.LSRCBvu',NULL,NULL,0,NULL,NULL,NULL,NULL,'Roger','Waters',NULL,NULL,'admin@null.com',1000,NULL,'ee86dba4678256aaac98b2c65e1d9236da78c860d5ec67e6267652b4e929',NULL,'2020-02-03 19:33:02.944403','2020-02-03 19:33:02.944403',NULL),(2,'$2a$12$4P08oy4ca2vTdhNfWeqiF.plevzhbizDgSoVm4tJu7mudM3MAXDh.',NULL,NULL,0,NULL,NULL,NULL,NULL,'Dani','Litani',NULL,NULL,'supervisor_c_w_s@null.com',300,NULL,'42ce9b831a55b4f18039e2e4476dd9d6779d3fa579e98658bd6941a6efbf',NULL,'2020-02-03 19:33:03.176635','2020-02-03 19:33:03.176635',1),(3,'$2a$12$hvXD89OLuk9c/9idxVx6dumVmSGEgXJYdHz3ZW3ZQyTKEPRckQkxG',NULL,NULL,0,NULL,NULL,NULL,NULL,'Bryan','Adams',NULL,NULL,'manager_c_w_s@null.com',200,NULL,'97db1306ef1d53ddb8e0809e4b410015144329d750709ce49fcd338a6472',NULL,'2020-02-03 19:33:03.369919','2020-02-03 19:33:03.369919',1),(4,'$2a$12$W/MZM5cMw3PZh.2iVIGxjeCu.L4I96GnIRbDr0PlAQorC739HdLs.',NULL,NULL,0,NULL,NULL,NULL,NULL,'Edie','Brickell',NULL,NULL,'regular_c_w_s@null.com',100,NULL,'d85da1eb52afff023ba597dcf7924e891785cb74e45d333ce370757550a4',NULL,'2020-02-03 19:33:03.563919','2020-02-03 19:33:03.563919',1),(5,'$2a$12$HEqRrEEscy8daK8dCFvmGOOuQFUGAxAfam5hPKjyUJaCgUo6eX.yW',NULL,NULL,0,NULL,NULL,NULL,NULL,'Susanna','Hoffs',NULL,NULL,'regular_s@null.com',100,NULL,'bf1f000f81d8b7976ad7a1ef3a63f9c0442e97db8c46dc4dfca404978adf',NULL,'2020-02-03 19:33:03.775969','2020-02-03 19:33:03.775969',2),(6,'$2a$12$ivpvn6v09WcfCABNK3meQOA5C2tKvtP0ZyEnJAHcIvee8VakRfQBu',NULL,NULL,0,NULL,NULL,NULL,NULL,'Fred','Chopin',NULL,NULL,'manager_c_wo_s@null.com',200,NULL,'107c2b9840e80640dce4ba2f1414f1eb1f7b59f12be219848261423ee759',NULL,'2020-02-03 19:33:04.014284','2020-02-03 19:33:04.014284',3),(7,'$2a$12$Wn49wuEVozLg.RqMbMBamO4ik3Meco4LNQJGwTgW.vGhejZuRSP3y',NULL,NULL,0,NULL,NULL,NULL,NULL,'Brandi','Carlile',NULL,NULL,'demo@null.com',100,NULL,'6c3d58c1162d5893e3db8fa4fb85d5b4dcc6bea105ae24249a75de591307',NULL,'2020-02-03 19:33:04.223036','2020-02-03 19:33:04.223036',4);
+INSERT INTO `users` VALUES (1,'$2a$12$wIn2QNwLjJR6OxJk3bw4AedcFwK0NbPFu7XZ9LKp9jcaYTdY2OSJG',NULL,NULL,0,NULL,NULL,NULL,NULL,'Roger','Waters',NULL,NULL,'admin@null.com',1000,NULL,'8147eda9d7ba4df31a2621ac99b1d79d2328e3596ebbf955839c8c09b16c',NULL,'2020-06-17 17:34:26.477436','2020-06-17 17:34:26.477436',NULL),(2,'$2a$12$Y.ehC0.GcPcfvMed5rfQ/e/.Sa8uX1dxOaJoD9k5/Xp/a5bRKawji',NULL,NULL,0,NULL,NULL,NULL,NULL,'Dani','Litani',NULL,NULL,'supervisor_c_w_s@null.com',300,NULL,'938f1daeaf0e31864e493dde6c488052afdfe9f040fcdafc68ede0ea1a19',NULL,'2020-06-17 17:34:26.729162','2020-06-17 17:34:26.729162',1),(3,'$2a$12$.hnBlUk6krJrfpveVb9tceIzBp82.Y2bJivIl3AJbr/2aDe/UUlMq',NULL,NULL,0,NULL,NULL,NULL,NULL,'Bryan','Adams',NULL,NULL,'manager_c_w_s@null.com',200,NULL,'55a7d8decc77352451a9eee9c1951be8166052c68ff25e80c9077f7f47df',NULL,'2020-06-17 17:34:26.938010','2020-06-17 17:34:26.938010',1),(4,'$2a$12$.XJjAKTTkpuRuoiJG7Vw3uRCEZJsEWwbAX8.5SFet17y.YRhJGEA.',NULL,NULL,0,NULL,NULL,NULL,NULL,'Edie','Brickell',NULL,NULL,'regular_c_w_s@null.com',100,NULL,'759e2f9235ad085c8251cbc02d7c5bcab5704e6b7067ae6cb9dd7e5636fa',NULL,'2020-06-17 17:34:27.149341','2020-06-17 17:34:27.149341',1),(5,'$2a$12$6TW9.7QVRlem2TfSZmmAmOsAub05/hgp.YEym63gYoSHTQr.x6W4i',NULL,NULL,0,NULL,NULL,NULL,NULL,'Susanna','Hoffs',NULL,NULL,'regular_s@null.com',100,NULL,'875334d19f381e7fc858414259b5cd542f1aa2ffe9f56b9a06cbcc6f457d',NULL,'2020-06-17 17:34:27.372355','2020-06-17 17:34:27.372355',2),(6,'$2a$12$jCkfK4GWcLwiHHvJ2OF4WeA4Eu5lvNBehUax8w/KJG2jbiYYB2kEC',NULL,NULL,0,NULL,NULL,NULL,NULL,'Fred','Chopin',NULL,NULL,'manager_c_wo_s@null.com',200,NULL,'651f52d2200e7a9cf2efe858f627b243ec6922e3480725d308351838c10f',NULL,'2020-06-17 17:34:27.604906','2020-06-17 17:34:27.604906',3),(7,'$2a$12$BfwH6BKpyLEsCFAQFC62yeBatJUL1eEWnutMxCaB0.gIQLH/UZun.',NULL,NULL,0,NULL,NULL,NULL,NULL,'Brandi','Carlile',NULL,NULL,'demo@null.com',100,NULL,'967b9517d22db3e6f21a6f6624fce6b336dcb9835a42aec7d0a8950684a4',NULL,'2020-06-17 17:34:27.824264','2020-06-17 17:34:27.824264',4);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,4 +294,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-03 12:33:04
+-- Dump completed on 2020-06-17 11:34:27

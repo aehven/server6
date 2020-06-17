@@ -48,7 +48,7 @@ xfeature "Manager permissions on users: " do
     menu.users
     user_list.wait
 
-    users = current_user.customer.users
+    users = current_user.organization.users
     user_count = users.count
     users.each do |u|
       user_list.find_item(u.email).click

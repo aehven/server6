@@ -1,6 +1,6 @@
-class CustomerComponent < BaseComponent
+class OrganizationComponent < BaseComponent
   def wait
-    page.find ".got-customer", visible: false
+    page.find ".got-organization", visible: false
   end
 
   def name
