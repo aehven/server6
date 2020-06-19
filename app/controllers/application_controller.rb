@@ -18,7 +18,8 @@ class ApplicationController < ActionController::API
       (controller_name == "passwords" and action_name == "create") ||
       (controller_name == "registrations" and action_name == "create") ||
       (controller_name == "users" and action_name == "unsubscribe") ||
-      (controller_name == "users" and action_name == "reset_password"))
+      (controller_name == "users" and action_name == "reset_password") ||
+      (controller_name == "graphql" and action_name == "execute"))
       true
     else
       return false
