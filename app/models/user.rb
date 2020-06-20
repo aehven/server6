@@ -145,6 +145,14 @@ class User < ApplicationRecord
     (self.can?(:access, :sub_organizations) && (organization.forets.map(&:id).include? oid))
   end
 
+  def organization_name
+    organization&.name || "Binary Trees"
+  end
+
+  def organization_name_with_ancestors
+    organization&.name_with_ancestors || "Binary Trees"
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end

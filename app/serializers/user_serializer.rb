@@ -10,14 +10,6 @@ class UserSerializer < ActiveModel::Serializer
     object.organization&.id
   end
 
-  def organization_name
-    object.organization&.name || "Binary Trees"
-  end
-
-  def organization_name_with_ancestors
-    object.organization&.name_with_ancestors || "Binary Trees"
-  end
-
   # https://stackoverflow.com/a/40667799/5874744
   def flatten_hash(param, prefix=nil)
     param.each_pair.reduce({}) do |a, (k, v)|

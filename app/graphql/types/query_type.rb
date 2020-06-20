@@ -11,8 +11,12 @@ module Types
       end
     end
 
-    field :users, [Types::UserType], null: false, description: "Returns a list of all users"
-    def users
+    field :users, [Types::UserType], null: false, description: "Returns a list of all users" do
+      argument :page, Integer, required: false
+      argument :perPage, Integer, required: false
+      argument :searchTerm, String, required: false
+    end
+    def users(params={})
       if(context[:ability].can? :index, User)
         User.all
       else
