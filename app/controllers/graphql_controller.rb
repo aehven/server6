@@ -14,6 +14,13 @@ class GraphqlController < ApplicationController
     }
     result = ServerSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { errors: [{ message: e.message }], data: {} }, status: 404
+  rescue ActiveRecord::RecordInvalid => e
+    error_messages = e.record.errors.full_messages.join("\n")
+    GraphQL::ExecutionError.new "Validation failed: #{error_messages}."
+  rescue StandardError => e
+    GraphQL::ExecutionError.new e.message
   rescue => e
     raise e unless Rails.env.development?
     handle_error_in_development e
