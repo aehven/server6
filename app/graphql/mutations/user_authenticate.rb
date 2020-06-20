@@ -7,9 +7,9 @@ module Mutations
 
     def resolve(email: nil, password: nil)
       entity = User.find_by(email: email)
-      
-      return unless entity.authenticate(password: password)
-      
+
+      return unless entity.authenticate(password)
+
       if entity.respond_to? :to_token_payload
         @token = Knock::AuthToken.new payload: entity.to_token_payload
       else
