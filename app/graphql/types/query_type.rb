@@ -1,12 +1,11 @@
 module Types
   class QueryType < Types::BaseObject
-    # Add root-level fields here.
-    # They will be entry points for queries on your schema.
+    field :organizations, [Types::OrganizationType], null: false, description: "Return a list of all organizations"
+    def organizations
+      Organization.all
+    end
 
-    field :users,
-      [Types::UserType],
-      null: false,
-      description: "Returns a list of all users"
+    field :users, [Types::UserType], null: false, description: "Returns a list of all users"
     def users
       User.all
     end
