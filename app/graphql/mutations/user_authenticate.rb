@@ -8,7 +8,7 @@ module Mutations
     def resolve(email: nil, password: nil)
       entity = User.find_by(email: email)
 
-      if entity.authenticate(password)
+      if entity&.authenticate(password)
         if entity.respond_to? :to_token_payload
           @token = Knock::AuthToken.new payload: entity.to_token_payload
         else
@@ -16,8 +16,8 @@ module Mutations
         end
   
         { jwt: @token.token }
-        else
-          GraphQL::ExecutionError.new("User not found.");
+      else
+        raise CanCan::AccessDenied
       end
     end
   end
