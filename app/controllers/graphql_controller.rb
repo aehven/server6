@@ -7,7 +7,7 @@ class GraphqlController < ApplicationController
     operation_name = params[:operationName]
     context = {
       current_user: current_user,
-      ability: Ability.new(current_user)
+      ability: (Ability.new(current_user) if current_user)
     }
     result = ServerSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
