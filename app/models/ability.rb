@@ -7,11 +7,11 @@ class Ability
   #####
   def initialize(user)
     case user.role
-      when "admin"
+      when "CanaryAdmin"
         can :manage, :all
         can :access, :sub_organizations
 
-      when "regular"
+      when "Admin"
         can [:read, :update], User, id: user.id
         cannot :index, User
 

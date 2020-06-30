@@ -11,10 +11,11 @@ class User < ApplicationRecord
     skip: [:updated_at, :created_at]
 
   enum role: {
-    regular: 100,
-    manager: 200,
-    supervisor: 300,
-    admin: 1000
+    Therapist: 100,
+    Nurse: 200,
+    Doctor: 300,
+    Admin: 300,
+    CanaryAdmin: 1000
   }
 
   before_create :generate_unsubscribe_token
