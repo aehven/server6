@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_19_225441) do
+ActiveRecord::Schema.define(version: 2020_06_30_205145) do
 
   create_table "delayed_jobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
@@ -80,11 +80,39 @@ ActiveRecord::Schema.define(version: 2018_09_19_225441) do
     t.index ["rgt"], name: "index_organizations_on_rgt"
   end
 
+  create_table "organizations_patients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "organization_id"
+    t.bigint "patient_id"
+    t.index ["organization_id"], name: "index_organizations_patients_on_organization_id"
+    t.index ["patient_id"], name: "index_organizations_patients_on_patient_id"
+  end
+
   create_table "organizations_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "organization_id"
     t.bigint "user_id"
     t.index ["organization_id"], name: "index_organizations_users_on_organization_id"
     t.index ["user_id"], name: "index_organizations_users_on_user_id"
+  end
+
+  create_table "patients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "phone"
+    t.string "address1"
+    t.string "address2"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "country"
+    t.datetime "surgery_date"
+  end
+
+  create_table "patients_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "patient_id"
+    t.bigint "user_id"
+    t.index ["patient_id"], name: "index_patients_users_on_patient_id"
+    t.index ["user_id"], name: "index_patients_users_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

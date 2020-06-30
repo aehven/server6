@@ -37,7 +37,7 @@ CREATE TABLE `ar_internal_metadata` (
 
 LOCK TABLES `ar_internal_metadata` WRITE;
 /*!40000 ALTER TABLE `ar_internal_metadata` DISABLE KEYS */;
-INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2020-06-30 20:49:24.766868','2020-06-30 20:49:24.766868'),('schema_sha1','ce7f3f3a1b575e79c517c21a86fac43cc96dd131','2020-06-30 20:49:24.775091','2020-06-30 20:49:24.775091');
+INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2020-06-30 22:12:23.559381','2020-06-30 22:12:23.559381'),('schema_sha1','d4ca1eb7f8abf94b7e005c80b1826d128a6d59fd','2020-06-30 22:12:23.566719','2020-06-30 22:12:23.566719');
 /*!40000 ALTER TABLE `ar_internal_metadata` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,8 +182,34 @@ CREATE TABLE `organizations` (
 
 LOCK TABLES `organizations` WRITE;
 /*!40000 ALTER TABLE `organizations` DISABLE KEYS */;
-INSERT INTO `organizations` VALUES (1,0,'The Three Broomsticks','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,4,0,0,'2020-06-30 20:49:27.382978','2020-06-30 20:49:28.428107'),(2,1,'The Brewery','Somewhere else in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,2,3,1,0,'2020-06-30 20:49:28.163214','2020-06-30 20:49:28.428107'),(3,1,'The Conservatory','Somewhere in Paris',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,5,6,0,0,'2020-06-30 20:49:28.439729','2020-06-30 20:49:28.439729'),(4,1,'Demos','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,8,0,0,'2020-06-30 20:49:28.694058','2020-06-30 20:49:28.694058');
+INSERT INTO `organizations` VALUES (1,0,'The Three Broomsticks','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,4,0,0,'2020-06-30 22:12:26.316959','2020-06-30 22:12:27.427567'),(2,1,'The Brewery','Somewhere else in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,2,3,1,0,'2020-06-30 22:12:27.122768','2020-06-30 22:12:27.427567'),(3,1,'The Conservatory','Somewhere in Paris',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,5,6,0,0,'2020-06-30 22:12:27.454514','2020-06-30 22:12:27.454514'),(4,1,'Demos','Somewhere in Hogsmeade',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,7,8,0,0,'2020-06-30 22:12:27.718360','2020-06-30 22:12:27.718360');
 /*!40000 ALTER TABLE `organizations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `organizations_patients`
+--
+
+DROP TABLE IF EXISTS `organizations_patients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `organizations_patients` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `organization_id` bigint(20) DEFAULT NULL,
+  `patient_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_organizations_patients_on_organization_id` (`organization_id`),
+  KEY `index_organizations_patients_on_patient_id` (`patient_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `organizations_patients`
+--
+
+LOCK TABLES `organizations_patients` WRITE;
+/*!40000 ALTER TABLE `organizations_patients` DISABLE KEYS */;
+/*!40000 ALTER TABLE `organizations_patients` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -214,6 +240,40 @@ INSERT INTO `organizations_users` VALUES (1,1,2),(2,1,3),(3,1,4),(4,2,5),(5,3,6)
 UNLOCK TABLES;
 
 --
+-- Table structure for table `patients`
+--
+
+DROP TABLE IF EXISTS `patients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `patients` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `nickname` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `surgery_date` datetime DEFAULT NULL,
+  `surgeon_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_patients_on_surgeon_id` (`surgeon_id`),
+  KEY `index_patients_on_user_id` (`user_id`),
+  CONSTRAINT `fk_rails_623f05c630` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_rails_cb7074cbbf` FOREIGN KEY (`surgeon_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `patients`
+--
+
+LOCK TABLES `patients` WRITE;
+/*!40000 ALTER TABLE `patients` DISABLE KEYS */;
+/*!40000 ALTER TABLE `patients` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `schema_migrations`
 --
 
@@ -232,7 +292,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20180813213222'),('20180825191605'),('20180829210029'),('20180911204656'),('20180916215300'),('20180919225441');
+INSERT INTO `schema_migrations` VALUES ('20180813213222'),('20180825191605'),('20180829210029'),('20180911204656'),('20180916215300'),('20180919225441'),('20200630205145');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,7 +335,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'$2a$12$P7.INDtlJwob84RS47e4l.tj9pbnkgNxOC1pgNYFfVik7ROilDwQm',NULL,NULL,0,NULL,NULL,NULL,NULL,'Roger','Waters',NULL,NULL,'admin@null.com',1000,NULL,'b442444c19e8e7cfea4f3decccf93f8db12787ff7dbbdb34a2e333134c52',NULL,'2020-06-30 20:49:27.350747','2020-06-30 20:49:27.350747'),(2,'$2a$12$DU4Mk.9vJsV6Cz7LAyBWQOmyNiFJ8dfsRwUwSui.CWmvBd60whPru',NULL,NULL,0,NULL,NULL,NULL,NULL,'Dani','Litani',NULL,NULL,'Admin_c_w_s@null.com',300,NULL,'b08c2e5cb6adabcd71d364d365f0e2f0505b40749d348a08af1bc6222159',NULL,'2020-06-30 20:49:27.655518','2020-06-30 20:49:27.655518'),(3,'$2a$12$Yo4Iksq0MoWzkgmlacmlXumGjoy7BQVhxuBDTl93EPRzCT.kwhtv2',NULL,NULL,0,NULL,NULL,NULL,NULL,'Bryan','Adams',NULL,NULL,'Doctor_c_w_s@null.com',300,NULL,'fe4a2a416abc511bc58807e62f9938ae0a53c88911efa3291f1890f5831d',NULL,'2020-06-30 20:49:27.907224','2020-06-30 20:49:27.907224'),(4,'$2a$12$oOQ/GkIzvRE7Xl4r7v9GqekDFinLjLbaSIgPzrcRIU85jZIdUL8Si',NULL,NULL,0,NULL,NULL,NULL,NULL,'Edie','Brickell',NULL,NULL,'Nurse_c_w_s@null.com',200,NULL,'c62b32cbfc550dcc9fe60d99c4e8db789e12bfd42d3308fb1f0f01af03d8',NULL,'2020-06-30 20:49:28.157488','2020-06-30 20:49:28.157488'),(5,'$2a$12$N4fPFWAFEEy9od3U3WMS2OFEKnZAABq.23XKP07nivFa1WTVlJjbK',NULL,NULL,0,NULL,NULL,NULL,NULL,'Susanna','Hoffs',NULL,NULL,'Nurse_s@null.com',200,NULL,'6c0eac3bac6be03ec399d5a3476c200a91dbc364d55752d6b2514e767592',NULL,'2020-06-30 20:49:28.418799','2020-06-30 20:49:28.418799'),(6,'$2a$12$NCfZys2.IS7R6uZ5Bzp6ueFXIJzAefDGaCSwYdIAm6AhdYl5jv.Kq',NULL,NULL,0,NULL,NULL,NULL,NULL,'Fred','Chopin',NULL,NULL,'Doctor_c_wo_s@null.com',300,NULL,'2d344677d8ebfffe2b5a6e4933a50f2beac8922e19e26c4470ffecf7972a',NULL,'2020-06-30 20:49:28.687168','2020-06-30 20:49:28.687168'),(7,'$2a$12$HPFO24B/fz7c7qrnkqw80.CEvKHs9SZVrZAMux7X5oT1cRb3gGyFa',NULL,NULL,0,NULL,NULL,NULL,NULL,'Brandi','Carlile',NULL,NULL,'demo@null.com',200,NULL,'c69f5944680f22a31b0e39d6e44223d7395ef34855cfaa1fcdcb5b962d34',NULL,'2020-06-30 20:49:28.946070','2020-06-30 20:49:28.946070');
+INSERT INTO `users` VALUES (1,'$2a$12$qwGSumXC5fcrSbMzGtyTbuuxmlWpjs5QBF7pySzHs9hWCl341TSKC',NULL,NULL,0,NULL,NULL,NULL,NULL,'Roger','Waters',NULL,NULL,'admin@null.com',1000,NULL,'349ea83cd19fea1b717ce3819cb715bfbc162e49e0980ae9a5300410813b',NULL,'2020-06-30 22:12:26.222703','2020-06-30 22:12:26.222703'),(2,'$2a$12$6fN7gjGhA1G9sduoXJLOhefVbXu3N.k5pxZpu/VzoPkzxDxICVr0C',NULL,NULL,0,NULL,NULL,NULL,NULL,'Dani','Litani',NULL,NULL,'Admin_c_w_s@null.com',300,NULL,'9a851f42bd1ebc762047b09d82975c8670fe2be0c94ffd87dbddcc7b9a01',NULL,'2020-06-30 22:12:26.595979','2020-06-30 22:12:26.595979'),(3,'$2a$12$DBtPYGxQT1eOVGkBh7mG0uX8oLl6CtDhUOcNhvrCMrfAgdg5X6AmO',NULL,NULL,0,NULL,NULL,NULL,NULL,'Bryan','Adams',NULL,NULL,'Doctor_c_w_s@null.com',300,NULL,'b22f43f6535f9031760be8c6a04cd3d7054346cde0c9c354f523b69079e4',NULL,'2020-06-30 22:12:26.851506','2020-06-30 22:12:26.851506'),(4,'$2a$12$IxyfqBw/EekANlxffe680e56sPA6.240VycN/fEdQLnQbJhoz6keO',NULL,NULL,0,NULL,NULL,NULL,NULL,'Edie','Brickell',NULL,NULL,'Nurse_c_w_s@null.com',200,NULL,'0debb826aaff2dccd1a2948d9b7bbf5b47d7c771855afebdd05a81901b56',NULL,'2020-06-30 22:12:27.108411','2020-06-30 22:12:27.108411'),(5,'$2a$12$nlf3jjpgYKHLhqBroSodi.7eFQn2wZqQE/2rNeU1O1uoXYmemVDda',NULL,NULL,0,NULL,NULL,NULL,NULL,'Susanna','Hoffs',NULL,NULL,'Nurse_s@null.com',200,NULL,'cfa45f171c2ec612f671bcc07cb64eeca7c832e7e9efc733867359c1be5e',NULL,'2020-06-30 22:12:27.399211','2020-06-30 22:12:27.399211'),(6,'$2a$12$7HcGfUA4TsqBjJXa3ZAJQ.ZhJJKgMjOHf1.4zGRcIKpdBOESJ72dC',NULL,NULL,0,NULL,NULL,NULL,NULL,'Fred','Chopin',NULL,NULL,'Doctor_c_wo_s@null.com',300,NULL,'7c58b55bae317104bef2b21e082156923659eb25de009e04d118edd34546',NULL,'2020-06-30 22:12:27.710719','2020-06-30 22:12:27.710719'),(7,'$2a$12$3fOnUIFs7pPycdu8JgmX0u5JrvaLV2TSOZty7D/jfhznCaFwN6/Hi',NULL,NULL,0,NULL,NULL,NULL,NULL,'Brandi','Carlile',NULL,NULL,'demo@null.com',200,NULL,'749dcf191cb5502782dee3c09e5546ff0db011b76f56f43c568baca6368a',NULL,'2020-06-30 22:12:27.990724','2020-06-30 22:12:27.990724');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -320,4 +380,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-30 14:49:29
+-- Dump completed on 2020-06-30 16:12:28

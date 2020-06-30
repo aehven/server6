@@ -4,37 +4,51 @@ PaperTrail.enabled = false
 # admin with no organization
 User.create!(first_name: "Roger", last_name: "Waters", email: "admin@null.com", password: "password", role: "CanaryAdmin")
 
-# organization with a sub
-broomsticks = Organization.create!(kind: "hospital", name: "The Three Broomsticks", address1: "Somewhere in Hogsmeade") if ENV['USERS_BELONG_TO_ORGANIZATIONS'] == 'true'
+5.times do
+  hospital = Organization.create!(
+    name: Faker::Company.name,
+    kind: "hospital"
+  )
 
-# Admin in organization with sub
-User.create!(first_name: "Dani", last_name: "Litani", email: "Admin_c_w_s@null.com", password: "password", role: "Admin", organizations: [broomsticks])
-
-# Doctor in organization with sub
-User.create!(first_name: "Bryan", last_name: "Adams", email: "Doctor_c_w_s@null.com", password: "password", role: "Doctor", organizations: [broomsticks])
-
-# Nurse in organization with sub
-User.create!(first_name: "Edie", last_name: "Brickell", email: "Nurse_c_w_s@null.com", password: "password", role: "Nurse", organizations: [broomsticks])
-
-# Nurse in sub
-if ENV['USERS_BELONG_TO_ORGANIZATIONS'] == 'true'
-  brewery = Organization.create!(kind: "clinic", name: "The Brewery", address1: "Somewhere else in Hogsmeade")
-  User.create!(first_name: "Susanna", last_name: "Hoffs", email: "Nurse_s@null.com", password: "password", role: "Nurse", organizations: [brewery])
-  brewery.move_to_child_of broomsticks
+  2.times do
+    clinic = Organization.create!(
+      name: Faker::Company.name,
+      kind: "clinic",
+      parent_id: hospital.id
+    )
+  end
 end
 
-# Doctor in organization without sub
-cons = Organization.create!(kind: "clinic", name: "The Conservatory", address1: "Somewhere in Paris") if ENV['USERS_BELONG_TO_ORGANIZATIONS'] == 'true'
-User.create!(first_name: "Fred", last_name: "Chopin", email: "Doctor_c_wo_s@null.com", password: "password", role: "Doctor", organizations: [cons])
+Organization.hospital.each do |hospital|
+  10.times do
+    User.create!(
+      role: User.roles.keys.sample(1)[0],
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      email: Faker::Internet.email,
+      password: "password",
+      organizations: [hospital, Organization.clinic.sample(1)[0]]
+    )
+  end
+end
 
-# demo/anonymous users organization
-democ = Organization.find_or_create_by(kind: "clinic", name: "Demos", address1: "Somewhere in Hogsmeade") if ENV['USERS_BELONG_TO_ORGANIZATIONS'] == 'true'
-demou = User.where(email: "demo@null.com").first
-if(demou)
-  demou.organizations << democ
-else
-  User.create!(first_name: "Brandi", last_name: "Carlile", email: "demo@null.com", password: "password", role: "Nurse", organizations: [democ])
+30.times do
+  Patient.create!(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.email,
+    phone: Faker::PhoneNumber.phone_number,
+    address1: Faker::Address.street_address,
+    address2: Faker::Address.secondary_address,
+    city: Faker::Address.city,
+    state: Faker::Address.state,
+    zip: Faker::Address.zip,
+    country: "USA",
+    surgery_date: Faker::Date.between(from: 6.months.ago, to: 1.month.ago),
+    users: [User.Doctor.sample(1)].flatten
+  )
 end
 
 # THIS MUST BE THE LAST LINE
 PaperTrail.enabled = true
+
