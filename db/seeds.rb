@@ -44,6 +44,7 @@ end
     state: Faker::Address.state,
     zip: Faker::Address.zip,
     country: "USA",
+    dob: Faker::Date.between(from: 90.years.ago, to: 20.years.ago),
     surgery_date: Faker::Date.between(from: 6.months.ago, to: 1.month.ago),
     users: [User.Doctor.sample(1)].flatten
   )

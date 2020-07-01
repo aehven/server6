@@ -7,4 +7,8 @@ class Patient < ApplicationRecord
 
   has_many :patients_users, dependent: :destroy
   has_many :users, through: :patients_users
+
+  def doctors
+    users.Doctor
+  end
 end

@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_205145) do
     t.string "state"
     t.string "zip"
     t.string "country"
+    t.datetime "dob"
     t.datetime "surgery_date"
   end
 

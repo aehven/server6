@@ -11,6 +11,7 @@ class CreatePatient < ActiveRecord::Migration[6.0]
       t.string :state
       t.string :zip
       t.string :country
+      t.datetime :dob
       t.datetime :surgery_date
     end
 
