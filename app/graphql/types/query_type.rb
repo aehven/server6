@@ -43,7 +43,7 @@ module Types
     end
     def patients(params={})
       if(context[:ability].can? :index, Patient)
-        Patient.all
+        Patient.order(:last_name, :first_name)
       else
         raise CanCan::AccessDenied
       end
