@@ -9,8 +9,14 @@ class GraphqlController < ApplicationController
       current_user: current_user,
       ability: (Ability.new(current_user) if current_user)
     }
+
+    Rails.logger.info "execute: #{current_user} #{current_user.ability.inspect}"
+    Rails.logger.info "execute: #{operation_name} #{query}"
+
     result = ServerSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+    
     Rails.logger.debug "RESULT: #{result}"
+    
     render json: result
   rescue CanCan::AccessDenied => e
     render json: { errors: [{ message: e.message }], data: {} }, status: 401
