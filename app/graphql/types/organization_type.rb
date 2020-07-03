@@ -1,7 +1,7 @@
 module Types
   class OrganizationType < Types::BaseObject
     field :id, ID, null: false
-    field :kind, Integer, null: true
+    field :kind, String, null: true
     field :name, String, null: true
     field :address1, String, null: true
     field :address2, String, null: true
