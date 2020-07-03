@@ -2,6 +2,19 @@ module Types
   class QueryType < Types::BaseObject
     include CanCan::Ability
 
+    field :notifications, [Types::NotificationType], null: false, description: "Return a list of all notifications" do
+      argument :page, Integer, required: false
+      argument :perPage, Integer, required: false
+      argument :searchTerm, String, required: false
+    end
+    def notifications(params={})
+      if(context[:ability].can? :index, Notification)
+        Notification.all
+      else
+        raise CanCan::AccessDenied
+      end
+    end
+
     field :organizations, [Types::OrganizationType], null: false, description: "Return a list of all organizations" do
       argument :page, Integer, required: false
       argument :perPage, Integer, required: false
@@ -9,7 +22,7 @@ module Types
       argument :organizationId, Integer, required: false
       argument :kind, String, required: false
     end
-  def organizations(params={})
+    def organizations(params={})
       if(context[:ability].can? :index, Organization)
         Organization.all
       else
