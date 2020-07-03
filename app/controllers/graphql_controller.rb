@@ -17,13 +17,14 @@ class GraphqlController < ApplicationController
   rescue ActiveRecord::RecordNotFound => e
     render json: { errors: [{ message: e.message }], data: {} }, status: 404
   rescue ActiveRecord::RecordInvalid => e
-    error_messages = e.record.errors.full_messages.join("\n")
-    GraphQL::ExecutionError.new "Validation failed: #{error_messages}."
+    error_messages = "Invalid Record: " + e.record.errors.full_messages.join("\n")
+    render json: { errors: [{ message: error_messages }], data: {} }, status: 500
   rescue StandardError => e
-    GraphQL::ExecutionError.new e.message
+    render json: { errors: [{ message: e.message }], data: {} }, status: 500
   rescue => e
     raise e unless Rails.env.development?
     handle_error_in_development e
+    render json: { errors: [{ message: e.message }], data: {} }, status: 500
   end
 
   private

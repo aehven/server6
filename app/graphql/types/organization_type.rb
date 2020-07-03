@@ -24,6 +24,7 @@ module Types
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
+    field :level, Integer, null: true
     field :users, [Types::UserType], null: true
   end
 end
