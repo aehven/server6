@@ -16,6 +16,11 @@ class GraphqlController < ApplicationController
 
     render json: result
   rescue => e
+    #####
+    # FIXME
+    # NOTE THAT AUTHENTICATION ERRORS DON'T GET CAUGHT HERE BECAUSE THEY HAPPEN IN
+    # application_controller.rb
+    #####
     logger.error e.message
     logger.error e.backtrace.join("\n")
     render json: { errors: [{ message: e.message, backtrace: (e.backtrace.join("\n") if Rails.env.development?) }] }
