@@ -21,9 +21,10 @@ class GraphqlController < ApplicationController
     # NOTE THAT AUTHENTICATION ERRORS DON'T GET CAUGHT HERE BECAUSE THEY HAPPEN IN
     # application_controller.rb
     #####
-    logger.error e.message
+    error = "#{e.class}: #{e.message}"
+    logger.error error
     logger.error e.backtrace.join("\n")
-    render json: { errors: [{ message: e.message, backtrace: (e.backtrace.join("\n") if Rails.env.development?) }] }
+    render json: { errors: [{ message: error, backtrace: (e.backtrace.join("\n") if Rails.env.development?) }] }
   end
 
   private
