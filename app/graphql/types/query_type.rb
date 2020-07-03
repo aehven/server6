@@ -9,7 +9,7 @@ module Types
       argument :organizationId, Integer, required: false
       argument :kind, String, required: false
     end
-  def organizations
+  def organizations(params={})
       if(context[:ability].can? :index, Organization)
         Organization.all
       else
