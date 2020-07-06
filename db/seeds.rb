@@ -50,6 +50,26 @@ end
   )
 end
 
+tsq = Test.create!(name: "Squats")
+tw = Test.create!(name: "Walking")
+tjj = Test.create!(name: "Jumping Jacks")
+tl = Test.create!(name: "Lunges")
+tsu = Test.create!(name: "Stairs Up")
+tsd = Test.create!(name: "Stairs Down")
+ts = Test.create!(name: "Stairs")
+
+pa = TestPlan.create!(name: "Plan A")
+pb = TestPlan.create!(name: "Plan B")
+pc = TestPlan.create!(name: "Plan C")
+pd = TestPlan.create!(name: "Plan D")
+pe = TestPlan.create!(name: "Plan E")
+pf = TestPlan.create!(name: "Plan F")
+
+TestPlansTest.create(test: tsq, test_plan: pa, duration: 10)
+TestPlansTest.create(test: tjj, test_plan: pa, duration: 15)
+TestPlansTest.create(test: tsu, test_plan: pa, duration: 20)
+TestPlansTest.create(test: tl, test_plan: pa, duration: 25)
+
 # THIS MUST BE THE LAST LINE
 PaperTrail.enabled = true
 

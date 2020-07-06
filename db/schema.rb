@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_30_205145) do
+ActiveRecord::Schema.define(version: 2020_07_06_160004) do
 
   create_table "delayed_jobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
@@ -87,6 +87,20 @@ ActiveRecord::Schema.define(version: 2020_06_30_205145) do
     t.index ["patient_id"], name: "index_organizations_patients_on_patient_id"
   end
 
+  create_table "organizations_test_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "test_plan_id", null: false
+    t.index ["organization_id"], name: "index_organizations_test_plans_on_organization_id"
+    t.index ["test_plan_id"], name: "index_organizations_test_plans_on_test_plan_id"
+  end
+
+  create_table "organizations_tests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "test_id", null: false
+    t.index ["organization_id"], name: "index_organizations_tests_on_organization_id"
+    t.index ["test_id"], name: "index_organizations_tests_on_test_id"
+  end
+
   create_table "organizations_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "organization_id"
     t.bigint "user_id"
@@ -109,11 +123,34 @@ ActiveRecord::Schema.define(version: 2020_06_30_205145) do
     t.datetime "surgery_date"
   end
 
+  create_table "patients_test_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "patient_id", null: false
+    t.bigint "test_plan_id", null: false
+    t.index ["patient_id"], name: "index_patients_test_plans_on_patient_id"
+    t.index ["test_plan_id"], name: "index_patients_test_plans_on_test_plan_id"
+  end
+
   create_table "patients_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "patient_id"
     t.bigint "user_id"
     t.index ["patient_id"], name: "index_patients_users_on_patient_id"
     t.index ["user_id"], name: "index_patients_users_on_user_id"
+  end
+
+  create_table "test_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+  end
+
+  create_table "test_plans_tests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "test_id", null: false
+    t.bigint "test_plan_id", null: false
+    t.integer "duration", null: false
+    t.index ["test_id"], name: "index_test_plans_tests_on_test_id"
+    t.index ["test_plan_id"], name: "index_test_plans_tests_on_test_plan_id"
+  end
+
+  create_table "tests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
