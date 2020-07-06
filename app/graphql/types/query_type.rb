@@ -9,6 +9,12 @@ module Types
     field :patient, resolver: Queries::Patient
     field :patients, resolver: Queries::Patients
 
+    field :test, resolver: Queries::Test
+    field :tests, resolver: Queries::Tests
+
+    field :testPlan, resolver: Queries::TestPlan
+    field :testPlans, resolver: Queries::TestPlans
+    
     field :user, resolver: Queries::User
     field :users, resolver: Queries::Users
   end
