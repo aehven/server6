@@ -20,7 +20,9 @@ module Types
     field :unsubscribed_at, GraphQL::Types::ISO8601DateTime, null: true
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
-
+    
+    field :permissions, String, null: false
+    
     field :full_name, String, null: false
     field :organizations, [Types::OrganizationType], null: true
     field :organization_name_with_ancestors, String, null: true

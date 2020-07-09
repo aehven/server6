@@ -50,8 +50,15 @@ class User < ApplicationRecord
   end
   delegate :can?, :cannot?, :to => :ability
 
+  # https://stackoverflow.com/a/40667799/5874744
+  def flatten_hash(param, prefix=nil)
+    param.each_pair.reduce({}) do |a, (k, v)|
+      v.is_a?(Hash) ? a.merge(flatten_hash(v, "#{prefix}#{k}.")) : a.merge("#{prefix}#{k}".to_sym => v)
+    end
+  end
+  
   def permissions
-    ability.permissions
+    flatten_hash(ability.permissions).keys.map(&:to_s)
   end
 
   def valid_password?(password)

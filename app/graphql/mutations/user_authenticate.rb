@@ -6,7 +6,7 @@ module Mutations
     type Types::AuthenticationResponseType
 
     def resolve(email: nil, password: nil)
-      entity = User.find_by(email: email)
+      entity = ::User.find_by(email: email)
 
       if entity&.authenticate(password)
         if entity.respond_to? :to_token_payload
@@ -14,8 +14,11 @@ module Mutations
         else
           @token = Knock::AuthToken.new payload: { sub: entity.id }
         end
-  
-        { jwt: @token.token }
+
+        vars = ENV.select{|k, v| k.start_with? "BTSTC_"}
+        vars["BTSTC_ORGANIZATION_KINDS"] = Organization.kinds.keys
+    
+        { jwt: @token.token, user: entity, server: vars.to_json }
       else
         raise CanCan::AccessDenied
       end
