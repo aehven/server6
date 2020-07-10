@@ -12,6 +12,15 @@ class Organization < ApplicationRecord
   has_many :organizations_users, dependent: :destroy
   has_many :users, through: :organizations_users
 
+  #####
+  # FIXME
+  # patients belonging to orgs might conflict with patients
+  # belonging to users.  Consider having only one or the other
+  # and inferring the other.
+  #####
+  has_many :organizations_patients, dependent: :destroy
+  has_many :patients, through: :organizations_patients
+  
   def self.search(search)
     columns = %w{
       name

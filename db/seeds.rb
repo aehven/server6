@@ -33,6 +33,9 @@ Organization.hospital.each do |hospital|
 end
 
 30.times do
+  user = [User.Doctor.sample(1)].flatten.first
+  organization = user.organization
+
   Patient.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -46,7 +49,8 @@ end
     country: "USA",
     dob: Faker::Date.between(from: 90.years.ago, to: 20.years.ago),
     surgery_date: Faker::Date.between(from: 6.months.ago, to: 1.month.ago),
-    users: [User.Doctor.sample(1)].flatten
+    users: [user],
+    organizations: [organization]
   )
 end
 

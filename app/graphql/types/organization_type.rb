@@ -26,5 +26,6 @@ module Types
 
     field :level, Integer, null: true
     field :users, [Types::UserType], null: true
+    field :patients, [Types::PatientType], null: true
   end
 end

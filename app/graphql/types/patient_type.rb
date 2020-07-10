@@ -14,6 +14,8 @@ module Types
     field :surgery_date, GraphQL::Types::ISO8601DateTime, null: true
     field :dob, GraphQL::Types::ISO8601DateTime, null: true
 
+    field :full_name, String, null: true
+    
     field :users, [Types::UserType], null: true
     field :doctors, [Types::UserType], null: true
   end
