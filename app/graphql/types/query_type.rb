@@ -3,9 +3,9 @@
 module Types
   class QueryType < Types::BaseObject
     field :audits, resolver: Queries::Audits
-    field :notifications, resolver: Queries::Notifications
-    field :organizations, resolver: Queries::Organizations
-    field :user, resolver: Queries::User
-    field :users, resolver: Queries::Users
+    field :notifications, resolver: Queries::NotificationsQuery
+    field :organizations, resolver: Queries::OrganizationsQuery
+    field :user, resolver: Queries::UserQuery
+    field :users, resolver: Queries::UsersQuery
   end
 end

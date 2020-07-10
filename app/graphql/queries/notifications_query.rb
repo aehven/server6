@@ -1,19 +1,20 @@
 module Queries
-  class Audits < Queries::BaseQuery
-    description "Returns a list of all audit records"
+  class NotificationsQuery < Queries::BaseQuery
+    description "Returns a list of all notifications"
 
-    type [Types::AuditType], null: false
+    type [Types::NotificationType], null: false
 
     argument :page, Integer, required: false
     argument :perPage, Integer, required: false
     argument :searchTerm, String, required: false
 
     def resolve(params={})
-      if(context[:ability].can? :index, Audit)
-        ::Audit.all
+      if(context[:ability].can? :index, Notification)
+        Notification.all
       else
         raise CanCan::AccessDenied
       end
     end
+
   end
 end
