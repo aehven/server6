@@ -6,7 +6,7 @@ module Mutations
     type Types::TestType
 
     def resolve(id: nil, name:)
-      raise CanCan::AccessDenied unless context[:ability].can? :create, ::Test
+      raise CanCan::AccessDenied unless context[:current_user].can? :create, ::Test
 
       @test = id.nil? ? Test.new : Test.find(id)
 

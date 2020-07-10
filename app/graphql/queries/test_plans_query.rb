@@ -9,11 +9,9 @@ module Queries
     argument :searchTerm, String, required: false
 
     def resolve(params={})
-      if(context[:ability].can? :index, Notification)
-        TestPlan.all
-      else
-        raise CanCan::AccessDenied
-      end
+      raise CanCan::AccessDenied unless (context[:current_user].can? :index, Notification)
+
+      TestPlan.all
     end
 
   end

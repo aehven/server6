@@ -8,11 +8,10 @@ module Queries
 
     def resolve(id:)
       @test = Test.find(id)
-      if(context[:ability].can? :read, @test)
-        @test
-      else
-        raise CanCan::AccessDenied
-      end
+      
+      raise CanCan::AccessDenied unless (context[:current_user].can? :read, @test)
+
+      @test
     end
   end
 end
