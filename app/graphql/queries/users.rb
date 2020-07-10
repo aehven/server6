@@ -11,7 +11,11 @@ module Queries
 
     def resolve(params={})
       if(context[:ability].can? :index, User)
-        ::User.all
+        if(params[:organizationId])
+          @users = ::Organization.find(params[:organizationId]).users
+        else
+          @users = ::User.all
+        end
       else
         raise CanCan::AccessDenied
       end
