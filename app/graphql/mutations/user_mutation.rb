@@ -16,7 +16,7 @@ module Mutations
     type Types::UserType
 
     def resolve(params={})
-      raise CanCan::AccessDenied unless context[:ability].can?(:create, User)
+      raise CanCan::AccessDenied unless context[:current_user].can?(:create, User)
 
       if(params[:id].nil?)
         @user = User.create!(params)

@@ -10,14 +10,12 @@ module Queries
     argument :organizationId, Integer, required: false
 
     def resolve(params={})
-      if(context[:ability].can? :index, User)
-        if(params[:organizationId])
-          @users = Organization.find(params[:organizationId]).users
-        else
-          @users = User.all
-        end
+      raise CanCan::AccessDenied unless (context[:current_user].can? :index, User)
+
+      if(params[:organizationId])
+        @users = Organization.find(params[:organizationId]).users
       else
-        raise CanCan::AccessDenied
+        @users = User.all
       end
     end
   end

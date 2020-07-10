@@ -9,11 +9,9 @@ module Queries
     argument :searchTerm, String, required: false
 
     def resolve(params={})
-      if(context[:ability].can? :index, Audit)
-        Audit.all
-      else
-        raise CanCan::AccessDenied
-      end
+      raise CanCan::AccessDenied unless (context[:current_user].can? :index, Audit)
+
+      Audit.all
     end
   end
 end
