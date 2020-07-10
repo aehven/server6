@@ -1,5 +1,5 @@
 module Mutations
-  class User < BaseMutation
+  class UserMutation < BaseMutation
     #####
     #TODO consider splitting update and create into two separate mutations
     #so that arguments can be required or optional in a stricter way.
@@ -19,9 +19,9 @@ module Mutations
       raise CanCan::AccessDenied unless context[:ability].can?(:create, User)
 
       if(params[:id].nil?)
-        @user = ::User.create!(params)
+        @user = User.create!(params)
       else
-        @user = ::User.find(params[:id])
+        @user = User.find(params[:id])
         @user.update_attributes(params.slice(:first_name, :last_name, :email, :password, :role))
       end
 

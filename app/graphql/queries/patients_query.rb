@@ -1,5 +1,5 @@
 module Queries
-  class Patients < Queries::BaseQuery
+  class PatientsQuery < Queries::BaseQuery
     description "Returns a list of all patients"
 
     type [Types::PatientType], null: false
@@ -10,7 +10,7 @@ module Queries
 
     def resolve(params={})
       if(context[:ability].can? :index, Notification)
-        ::Patient.all
+        Patient.all
       else
         raise CanCan::AccessDenied
       end

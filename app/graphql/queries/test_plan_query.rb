@@ -1,5 +1,5 @@
 module Queries
-  class TestPlan < Queries::BaseQuery
+  class TestPlanQuery < Queries::BaseQuery
     description "Get one test plan."
 
     type Types::TestPlanType, null: false
@@ -7,7 +7,7 @@ module Queries
     argument :id, ID, required: true
 
     def resolve(id:)
-      @test_plan = ::TestPlan.find(id)
+      @test_plan = TestPlan.find(id)
       if(context[:ability].can? :read, @test_plan)
         @test_plan
       else

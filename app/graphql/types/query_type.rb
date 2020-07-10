@@ -2,21 +2,23 @@
 # for instructions on splitting queries into these multiple classes.
 module Types
   class QueryType < Types::BaseObject
-    field :audits, resolver: Queries::Audits
-    field :notifications, resolver: Queries::Notifications
+    field :audits, resolver: Queries::AuditsQuery
 
-    field :organizations, resolver: Queries::Organizations
+    field :notifications, resolver: Queries::NotificationsQuery
 
-    field :patient, resolver: Queries::Patient
-    field :patients, resolver: Queries::Patients
+    field :organization, resolver: Queries::OrganizationQuery
+    field :organizations, resolver: Queries::OrganizationsQuery
 
-    field :test, resolver: Queries::Test
-    field :tests, resolver: Queries::Tests
+    field :patient, resolver: Queries::PatientQuery
+    field :patients, resolver: Queries::PatientsQuery
 
-    field :testPlan, resolver: Queries::TestPlan
-    field :testPlans, resolver: Queries::TestPlans
+    field :test, resolver: Queries::TestQuery
+    field :tests, resolver: Queries::TestsQuery
+
+    field :testPlan, resolver: Queries::TestPlanQuery
+    field :testPlans, resolver: Queries::TestPlansQuery
     
-    field :user, resolver: Queries::User
-    field :users, resolver: Queries::Users
+    field :user, resolver: Queries::UserQuery
+    field :users, resolver: Queries::UsersQuery
   end
 end

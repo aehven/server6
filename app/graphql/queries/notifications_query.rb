@@ -1,20 +1,20 @@
 module Queries
-  class Users < Queries::BaseQuery
-    description "Returns a list of all users"
+  class NotificationsQuery < Queries::BaseQuery
+    description "Returns a list of all notifications"
 
-    type [Types::UserType], null: false
+    type [Types::NotificationType], null: false
 
     argument :page, Integer, required: false
     argument :perPage, Integer, required: false
     argument :searchTerm, String, required: false
-    argument :organizationId, Integer, required: false
 
     def resolve(params={})
-      if(context[:ability].can? :index, User)
-        ::User.all
+      if(context[:ability].can? :index, Notification)
+        Notification.all
       else
         raise CanCan::AccessDenied
       end
     end
+
   end
 end

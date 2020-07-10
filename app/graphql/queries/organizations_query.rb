@@ -1,5 +1,5 @@
 module Queries
-  class Organizations < Queries::BaseQuery
+  class OrganizationsQuery < Queries::BaseQuery
     description "Returns a list of all organizations"
 
     type [Types::OrganizationType], null: false
@@ -12,7 +12,7 @@ module Queries
 
     def resolve(params={})
       if(context[:ability].can? :index, Organization)
-        ::Organization.all
+        Organization.all
       else
         raise CanCan::AccessDenied
       end

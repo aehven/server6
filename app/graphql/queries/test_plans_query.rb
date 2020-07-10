@@ -1,8 +1,8 @@
 module Queries
-  class Tests < Queries::BaseQuery
-    description "Returns a list of all tests"
+  class TestPlansQuery < Queries::BaseQuery
+    description "Returns a list of all test plans"
 
-    type [Types::TestType], null: false
+    type [Types::TestPlanType], null: false
 
     argument :page, Integer, required: false
     argument :perPage, Integer, required: false
@@ -10,7 +10,7 @@ module Queries
 
     def resolve(params={})
       if(context[:ability].can? :index, Notification)
-        ::Test.all
+        TestPlan.all
       else
         raise CanCan::AccessDenied
       end

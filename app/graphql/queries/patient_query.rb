@@ -1,5 +1,5 @@
 module Queries
-  class Patient < Queries::BaseQuery
+  class PatientQuery < Queries::BaseQuery
     description "Get one patient."
 
     type Types::PatientType, null: false
@@ -7,7 +7,7 @@ module Queries
     argument :id, ID, required: true
 
     def resolve(id:)
-      @patient = ::Patient.find(id)
+      @patient = Patient.find(id)
       if(context[:ability].can? :read, @patient)
         @patient
       else
