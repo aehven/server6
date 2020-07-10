@@ -11,11 +11,9 @@ module Queries
     argument :kind, String, required: false
 
     def resolve(params={})
-      if(context[:ability].can? :index, Organization)
-        Organization.all
-      else
-        raise CanCan::AccessDenied
-      end
+      raise CanCan::AccessDenied unless (context[:current_user].can? :index, Organization)
+
+      Organization.all
     end
   end
 end

@@ -8,11 +8,10 @@ module Queries
 
     def resolve(id:)
       @organization =  Organization.find(id)
-      if(context[:ability].can? :read, @organization)
-        @organization
-      else
-        raise CanCan::AccessDenied
-      end
+
+      raise CanCan::AccessDenied unless (context[:current_user].can? :read, @organization)
+
+      @organization
     end
   end
 end

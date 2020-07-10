@@ -6,8 +6,8 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      current_user: current_user,
-      ability: (Ability.new(current_user) if current_user)
+      current_user: current_user
+      # ability: (Ability.new(current_user) if current_user)
     }
 
     logger.debug "execute: #{current_user} #{current_user&.ability&.inspect}"
