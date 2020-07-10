@@ -5,7 +5,7 @@ class Api::V1::OrganizationsController < ApplicationController
   def index
     authorize! :index, Organization
 
-    if current_user.admin?
+    if current_user.CanaryAdmin?
       @organizations = Organization.all
     else
       if current_user.can? :access, :sub_organizations
