@@ -7,11 +7,18 @@ module Queries
     argument :page, Integer, required: false
     argument :perPage, Integer, required: false
     argument :searchTerm, String, required: false
+    argument :organizationId, Integer, required: false
 
     def resolve(params={})
       raise CanCan::AccessDenied unless (context[:current_user].can? :index, Notification)
 
-      Patient.all
+      if(params[:organizationId])
+        @patients = Organization.find(params[:organizationId]).patients
+      else
+        @patients = Patient.all
+      end
+
+      @patients
     end
 
   end
