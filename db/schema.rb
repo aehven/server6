@@ -96,11 +96,11 @@ ActiveRecord::Schema.define(version: 2018_09_19_225441) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.string "first_name"
-    t.string "last_name"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.string "nickname"
     t.string "image"
-    t.string "email"
+    t.string "email", null: false
     t.integer "role", default: 100
     t.datetime "tac_agreed_at"
     t.string "unsubscribe_token"
