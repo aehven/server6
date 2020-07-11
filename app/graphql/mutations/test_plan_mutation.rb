@@ -11,14 +11,14 @@ module Mutations
 
       raise CanCan::AccessDenied unless context[:current_user].can? :create, TestPlan
 
-      @test_plan = params[:id].nil? ? TestPlan.new : TestPlan.find(params[:id])
+      @test_plan = (params[:id].to_i > 0) ? TestPlan.find(params[:id].to_i) : TestPlan.new
 
-      @test_plan.update_attributes(params.slice(:name))
+      @test_plan.update(params.slice(:name))
       @test_plan.save
 
       @test_plan.tests = []
 
-      params[:tests].each do |test|
+      params[:tests]&.each do |test|
         TestPlansTest.create(test_id: test.testId, test_plan_id: @test_plan.id, duration: test.duration)
       end
 
