@@ -18,6 +18,9 @@ module Types
     field :testPlan, resolver: Queries::TestPlanQuery
     field :testPlans, resolver: Queries::TestPlansQuery
     
+    field :testPlansTest, resolver: Queries::TestPlansTestQuery
+    field :testPlansTests, resolver: Queries::TestPlansTestsQuery
+    
     field :user, resolver: Queries::UserQuery
     field :users, resolver: Queries::UsersQuery
   end
