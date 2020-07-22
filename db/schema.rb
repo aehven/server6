@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 2020_07_06_160004) do
     t.bigint "test_id", null: false
     t.bigint "test_plan_id", null: false
     t.integer "duration", null: false
+    t.boolean "high_res", default: false, null: false
     t.index ["test_id"], name: "index_test_plans_tests_on_test_id"
     t.index ["test_plan_id"], name: "index_test_plans_tests_on_test_plan_id"
   end

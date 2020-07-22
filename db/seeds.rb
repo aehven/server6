@@ -70,9 +70,9 @@ pe = TestPlan.create!(name: "Plan E")
 pf = TestPlan.create!(name: "Plan F")
 
 TestPlansTest.create(test: tsq, test_plan: pa, duration: 10)
-TestPlansTest.create(test: tjj, test_plan: pa, duration: 15)
+TestPlansTest.create(test: tjj, test_plan: pa, duration: 15, high_res: true)
 TestPlansTest.create(test: tsu, test_plan: pa, duration: 20)
-TestPlansTest.create(test: tl, test_plan: pa, duration: 25)
+TestPlansTest.create(test: tl, test_plan: pa, duration: 15, high_res: true)
 
 # THIS MUST BE THE LAST LINE
 PaperTrail.enabled = true

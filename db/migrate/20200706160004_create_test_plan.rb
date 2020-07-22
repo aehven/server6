@@ -12,6 +12,7 @@ class CreateTestPlan < ActiveRecord::Migration[6.0]
       t.references :test, null: false
       t.references :test_plan, null: false
       t.integer :duration, null: false
+      t.boolean :high_res, null: false, default: false
     end
 
     create_table :patients_test_plans do |t|
