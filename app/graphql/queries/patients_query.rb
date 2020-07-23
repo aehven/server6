@@ -18,6 +18,8 @@ module Queries
         @patients = Patient.all
       end
 
+      @patients = @patients.search(params[:searchTerm]) if params[:searchTerm]
+      
       @patients
     end
 

@@ -8,6 +8,8 @@ class Patient < ApplicationRecord
   has_many :patients_users, dependent: :destroy
   has_many :users, through: :patients_users
 
+  scope :search, -> term {where("patients.first_name LIKE ? OR patients.last_name LIKE ? or patients.phone LIKE ?", "%#{term}%", "%#{term}%", "%#{term}%")}
+
   def doctors
     users.Doctor
   end
