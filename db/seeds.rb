@@ -32,10 +32,27 @@ Organization.hospital.each do |hospital|
   end
 end
 
-30.times do
-  user = [User.Doctor.sample(1)].flatten.first
-  organization = user.organization
+user = [User.Doctor.sample(1)].flatten.first
+organization = user.organization
 
+Patient.create!(
+  first_name: "Antonio",
+  last_name: "Vivaldi",
+  email: "avivaldi@null.com",
+  phone: "1234567890",
+  address1: "Somplace nice",
+  address2: "Uptown",
+  city: "Florence",
+  state: "Tuscany",
+  zip: "12345",
+  country: "Itali",
+  dob: Date.parse("1678-03-04"),
+  surgery_date: Date.parse("2020-10-20"),
+  users: [user],
+  organizations: [organization]
+)
+
+30.times do
   Patient.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -61,6 +78,7 @@ tl = Test.create!(name: "Lunges")
 tsu = Test.create!(name: "Stairs Up")
 tsd = Test.create!(name: "Stairs Down")
 ts = Test.create!(name: "Stairs")
+tsg = Test.create!(name: "Stand Up and Go")
 
 pa = TestPlan.create!(name: "Plan A")
 pb = TestPlan.create!(name: "Plan B")
