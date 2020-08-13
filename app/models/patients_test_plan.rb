@@ -1,4 +1,4 @@
 class PatientsTestPlan < ApplicationRecord
-  belong_to :patient
-  belong_to :test_plan
+  belongs_to :patient
+  belongs_to :test_plan
 end
