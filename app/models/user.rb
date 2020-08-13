@@ -14,7 +14,7 @@ class User < ApplicationRecord
     Therapist: 100,
     Nurse: 200,
     Doctor: 300,
-    Admin: 300,
+    Admin: 400,
     CanaryAdmin: 1000
   }
 
@@ -26,8 +26,6 @@ class User < ApplicationRecord
 
   has_many :notifications_users, dependent: :destroy
   has_many :notifications, through: :notifications_users
-
-  belongs_to :organization, optional: true
 
   delegate :signs, to: :organization, allow_nil: true
 
@@ -173,7 +171,6 @@ class User < ApplicationRecord
     Thread.current[:user] = user
   end
 
-
   def after_sign_in_callback
     # if there's a pending notification, send it.  If there are more than one, the next one will be
     # queued up after the first is acknowledged (see user#acknowledge_notification)
@@ -182,5 +179,13 @@ class User < ApplicationRecord
     if(notification)
       ActionCableNotificationJob.set(wait: 10).perform_later(user_ids: [id], notification_id: notification.id)
     end
+  end
+
+  def patients
+    #FIXME the following is horribly inefficient and can be improved by
+    #simplifying requirements about what kind of org a patient can belong to (probably only a root org)
+    #see organization#patients
+    organization_ids = organization_forest.map(&:id)
+    Patient.where(organization_id: [organization_ids]).distinct
   end
 end

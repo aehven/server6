@@ -15,10 +15,18 @@ class Ability
         can [:read, :update], User, id: user.id
         cannot :index, User
 
+        can [:read, :update], Patient do |patient|
+          user.patients.include?(patient)
+        end
+
       else
         can [:manage], Organization do |organization|
           organization.id.nil? or
           ((user.organization_forest.include? organization) and (user.organization.kind > organization.kind))
+        end
+
+        can [:read], Patient do |patient|
+          user.patients.include?(patient)
         end
 
         can :manage, User do |u|

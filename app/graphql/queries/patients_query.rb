@@ -10,12 +10,20 @@ module Queries
     argument :organizationId, Integer, required: false
 
     def resolve(params={})
-      raise CanCan::AccessDenied unless (context[:current_user].can? :index, Notification)
+      user = context[:current_user]
+
+      raise CanCan::AccessDenied unless (user.can? :index, Patient)
 
       if(params[:organizationId])
-        @patients = Organization.find(params[:organizationId]).patients
+        if(context[:current_user].can? :read, Organization.find(organization_id))
+          @patients = Organization.find(params[:organizationId]).patients
+        end
       else
-        @patients = Patient.all
+        if(user.can? :manage, :all)
+          @patients = Patient.all
+        else
+          @patients = user.patients
+        end
       end
 
       @patients = @patients.search(params[:searchTerm]) if params[:searchTerm]

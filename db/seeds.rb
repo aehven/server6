@@ -20,12 +20,13 @@ User.create!(first_name: "Roger", last_name: "Waters", email: "admin@null.com", 
 end
 
 Organization.hospital.each do |hospital|
-  10.times do
+  10.times do |i|
+    role = User.roles.keys.sample(1)[0]
     User.create!(
-      role: User.roles.keys.sample(1)[0],
+      role: role,
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
-      email: Faker::Internet.email,
+      email: "#{role}#{i}@#{hospital.name.split(' ')[0].split(',')[0]}.com",
       password: "password",
       organizations: [hospital, Organization.clinic.sample(1)[0]]
     )
@@ -49,7 +50,7 @@ Patient.create!(
   dob: Date.parse("1678-03-04"),
   surgery_date: Date.parse("2020-10-20"),
   users: [user],
-  organizations: [organization]
+  organization: organization
 )
 
 30.times do
@@ -66,8 +67,8 @@ Patient.create!(
     country: "USA",
     dob: Faker::Date.between(from: 90.years.ago, to: 20.years.ago),
     surgery_date: Faker::Date.between(from: 6.months.ago, to: 1.month.ago),
-    users: [user],
-    organizations: [organization]
+    # users: [user],
+    organization: Organization.all.sample
   )
 end
 

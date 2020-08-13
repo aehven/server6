@@ -13,11 +13,7 @@ class CreatePatient < ActiveRecord::Migration[6.0]
       t.string :country
       t.datetime :dob
       t.datetime :surgery_date
-    end
-
-    create_table :organizations_patients do |t|
       t.references :organization
-      t.references :patient
     end
 
     create_table :patients_users do |t|

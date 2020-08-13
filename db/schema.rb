@@ -80,13 +80,6 @@ ActiveRecord::Schema.define(version: 2020_07_06_160004) do
     t.index ["rgt"], name: "index_organizations_on_rgt"
   end
 
-  create_table "organizations_patients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.bigint "organization_id"
-    t.bigint "patient_id"
-    t.index ["organization_id"], name: "index_organizations_patients_on_organization_id"
-    t.index ["patient_id"], name: "index_organizations_patients_on_patient_id"
-  end
-
   create_table "organizations_test_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.bigint "test_plan_id", null: false
@@ -121,6 +114,8 @@ ActiveRecord::Schema.define(version: 2020_07_06_160004) do
     t.string "country"
     t.datetime "dob"
     t.datetime "surgery_date"
+    t.bigint "organization_id"
+    t.index ["organization_id"], name: "index_patients_on_organization_id"
   end
 
   create_table "patients_test_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

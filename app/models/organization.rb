@@ -11,15 +11,6 @@ class Organization < ApplicationRecord
   
   has_many :organizations_users, dependent: :destroy
   has_many :users, through: :organizations_users
-
-  #####
-  # FIXME
-  # patients belonging to orgs might conflict with patients
-  # belonging to users.  Consider having only one or the other
-  # and inferring the other.
-  #####
-  has_many :organizations_patients, dependent: :destroy
-  has_many :patients, through: :organizations_patients
   
   def self.search(search)
     columns = %w{
@@ -51,5 +42,12 @@ class Organization < ApplicationRecord
 
   def name_with_ancestors
     self_and_ancestors.map(&:name).join(" / ")
+  end
+
+  def patients
+    #FIXME probably overkill.  Can we say that a patient can only belong to a root organization?
+    #see user#patients.
+    organization_ids = self_and_descendants.map(&:id)
+    Patient.where(organization_id: [organization_ids])
   end
 end
