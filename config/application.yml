@@ -1,6 +1,6 @@
 # https://github.com/laserlemon/figaro
 defaults: &defaults
-  APP_VERSION: '0.0'
+  APP_VERSION: "0.0"
 
   ALLOW_ANONYMOUS_USERS: "false"
 
@@ -9,16 +9,16 @@ defaults: &defaults
   BTSTC_DUMMY: "dummy"
 
   DELAYED_JOB_PERIOD: "5"
-  DELAYED_JOB_PREFIX: development
+  DELAYED_JOB_PREFIX: "development"
   DELAYED_JOB_WORKERS_COUNT: "1"
 
-  MAIL_SENDER: 'aehven@binarytrees.biz'
+  MAIL_SENDER: "aehven@binarytrees.biz"
 
-  SMTP_DOMAIN:         binarytrees.biz
+  SMTP_DOMAIN:         "binarytrees.biz"
   SMTP_PASSWORD:
-  SMTP_PORT:           '1025'
-  SMTP_STARTTLS_AUTO:  'false'
-  SMTP_URL:            localhost
+  SMTP_PORT:           "1025"
+  SMTP_STARTTLS_AUTO:  "false"
+  SMTP_URL:            "localhost"
   SMTP_USERNAME:
   SMTP_AUTHENTICATION: "plain"
 
@@ -26,10 +26,10 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  ACTION_CABLE_ALLOWED_REQUEST_ORIGINS: http://generic
+  ACTION_CABLE_ALLOWED_REQUEST_ORIGINS: "http://generic"
 
-  DATABASE_URL: mysql2://aehven:cypress@localhost:3306/generic_develop
-  DEFAULT_URL_HOST: http://generic
+  DATABASE_URL: "mysql2://aehven:cypress@localhost:3306/generic_develop"
+  DEFAULT_URL_HOST: "http://generic"
   DELAYED_JOB_PERIOD: "3"
 
 test:
@@ -38,5 +38,5 @@ test:
 
 production:
   <<: *defaults
-    DATABASE_URL: mysql2://aehven:cypress@localhost:3306/generic_develop
+    DATABASE_URL: "mysql2://aehven:cypress@localhost:3306/generic_develop"
 
