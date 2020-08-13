@@ -311,6 +311,7 @@ DEPENDENCIES
   rails_12factor
   rb-readline
   redis-rails
+  rspec-core
   rspec-rails
   rswag
   selenium-webdriver

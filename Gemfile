@@ -21,6 +21,7 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'paper_trail'
 gem 'rswag'
+gem 'rspec-core'
 
 group :development, :test do
   gem 'pry-rails'
