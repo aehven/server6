@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   post "/graphql", to: "graphql#execute"
 
-  mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
   mount ActionCable.server => '/cable'
 
   # api versioning: https://paweljw.github.io/2017/07/rails-5.1-api-app-part-3-api-versioning/

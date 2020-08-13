@@ -38,3 +38,5 @@ test:
 
 production:
   <<: *defaults
+    DATABASE_URL: mysql2://aehven:cypress@localhost:3306/generic_develop
+
