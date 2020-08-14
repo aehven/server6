@@ -34,7 +34,7 @@ module Mutations
                              duration: test.duration)
       end
 
-      OrganizationsTestPlan.create!(test_plan_id: @test_plan.id, organization_id: current_user.organizations.first.id)
+      OrganizationsTestPlan.create!(test_plan_id: @test_plan.id, organization_id: current_user.organizations.first.id) if current_user.organizations.any?
 
       @test_plan
     end
