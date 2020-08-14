@@ -9,11 +9,13 @@ module Mutations
     def resolve(params={})
       Rails.logger.debug("TestPlanMutation tests: #{params[:tests]}")
 
-      raise CanCan::AccessDenied unless context[:current_user].can? :create, TestPlan
+      current_user = context[:current_user]
 
       @test_plan = (params[:id].to_i > 0) ? TestPlan.find(params[:id].to_i) : TestPlan.new(name: params[:name])
 
-      # @test_plan is a new record or an existing one.  If it's an existing one, it
+      raise CanCan::AccessDenied unless current_user.can? [:create], @test_plan
+
+      # @test_plan is a new record or an existing one.  If it's an existing one,
       # check if the name is changing; if it is, create a new one anyway, we
       # don't change names, we create new plans.
 
@@ -31,6 +33,8 @@ module Mutations
                              high_res: test.highRes,
                              duration: test.duration)
       end
+
+      OrganizationsTestPlan.create!(test_plan_id: @test_plan.id, organization_id: current_user.organizations.first.id)
 
       @test_plan
     end
