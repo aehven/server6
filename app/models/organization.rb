@@ -50,4 +50,10 @@ class Organization < ApplicationRecord
     organization_ids = self_and_descendants.map(&:id)
     Patient.where(organization_id: [organization_ids])
   end
+
+  def test_plans
+    organization_ids = self_and_descendants.map(&:id)
+    tpids = OrganizationsTestPlan.where(organization_id: [organization_ids]).distinct.map(&:test_plan_id).uniq
+    TestPlan.where(id: tpids)
+  end
 end

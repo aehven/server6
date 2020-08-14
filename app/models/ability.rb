@@ -19,6 +19,10 @@ class Ability
           user.patients.include?(patient)
         end
 
+        can :manage, TestPlan do |test_plan|
+          test_plan.new_record? || user.test_plans.include?(test_plan)
+        end
+        
       else
         can [:manage], Organization do |organization|
           organization.id.nil? or

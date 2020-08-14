@@ -9,9 +9,10 @@ module Queries
     argument :searchTerm, String, required: false
 
     def resolve(params={})
-      raise CanCan::AccessDenied unless (context[:current_user].can? :index, Notification)
+      current_user = context[:current_user]
+      raise CanCan::AccessDenied unless (current_user.can? :read, TestPlan)
 
-      TestPlan.all
+      current_user.test_plans
     end
 
   end

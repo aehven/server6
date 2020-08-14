@@ -188,4 +188,8 @@ class User < ApplicationRecord
     organization_ids = organization_forest.map(&:id)
     Patient.where(organization_id: [organization_ids]).distinct
   end
+
+  def test_plans
+    (organization_forest.map(&:test_plans).flatten.uniq + TestPlan.ga).sort_by(&:name)
+  end
 end

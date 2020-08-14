@@ -9,8 +9,6 @@ module Queries
     argument :searchTerm, String, required: false
 
     def resolve(params={})
-      raise CanCan::AccessDenied unless (context[:current_user].can? :index, Test)
-
       TestPlansTest.all
     end
 
