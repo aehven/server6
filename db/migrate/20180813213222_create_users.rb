@@ -22,6 +22,8 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :unsubscribe_token
       t.datetime :unsubscribed_at
 
+      t.datetime :password_expires_at
+      
       t.timestamps
     end
 

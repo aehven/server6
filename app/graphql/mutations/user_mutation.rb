@@ -22,7 +22,11 @@ module Mutations
         @user = User.create!(params)
       else
         @user = User.find(params[:id])
-        @user.update_attributes(params.slice(:first_name, :last_name, :email, :password, :role))
+
+        if(params[:password]) 
+          params[:password_expires_at] = DateTime.now + 3.months
+        end
+        @user.update_attributes(params.slice(:first_name, :last_name, :email, :password, :role, :password_expires_at))
       end
 
       @user
