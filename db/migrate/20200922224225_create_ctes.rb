@@ -1,0 +1,14 @@
+class CreateCtes < ActiveRecord::Migration[6.0]
+  def change
+    create_table :ctes do |t|
+      t.string :name
+      t.integer :radio_id
+      t.text :encryption_key
+    end
+
+    create_table :ctes_patients do |t|
+      t.references :cte
+      t.references :patient
+    end
+  end
+end

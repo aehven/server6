@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_06_160004) do
+ActiveRecord::Schema.define(version: 2020_09_22_224225) do
+
+  create_table "ctes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.integer "radio_id"
+    t.text "encryption_key"
+  end
+
+  create_table "ctes_patients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "cte_id"
+    t.bigint "patient_id"
+    t.index ["cte_id"], name: "index_ctes_patients_on_cte_id"
+    t.index ["patient_id"], name: "index_ctes_patients_on_patient_id"
+  end
 
   create_table "delayed_jobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
