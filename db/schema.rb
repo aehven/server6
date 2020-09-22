@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_22_224225) do
+ActiveRecord::Schema.define(version: 2020_09_22_232129) do
+
+  create_table "base_stations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "serial_number", null: false
+    t.boolean "active", default: true
+    t.text "encryption_key"
+    t.bigint "organization_id"
+    t.index ["organization_id"], name: "index_base_stations_on_organization_id"
+  end
 
   create_table "ctes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
