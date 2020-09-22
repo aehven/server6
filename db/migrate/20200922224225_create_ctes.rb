@@ -4,6 +4,7 @@ class CreateCtes < ActiveRecord::Migration[6.0]
       t.string :name
       t.integer :radio_id
       t.text :encryption_key
+      t.timestamps
     end
 
     create_table :ctes_patients do |t|

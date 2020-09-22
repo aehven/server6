@@ -14,6 +14,7 @@ class CreatePatient < ActiveRecord::Migration[6.0]
       t.datetime :dob
       t.datetime :surgery_date
       t.references :organization
+      t.timestamps
     end
 
     create_table :patients_users do |t|

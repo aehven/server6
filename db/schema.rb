@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 2020_09_22_232129) do
     t.boolean "active", default: true
     t.text "encryption_key"
     t.bigint "organization_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["organization_id"], name: "index_base_stations_on_organization_id"
   end
 
@@ -24,6 +26,8 @@ ActiveRecord::Schema.define(version: 2020_09_22_232129) do
     t.string "name"
     t.integer "radio_id"
     t.text "encryption_key"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "ctes_patients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -136,6 +140,8 @@ ActiveRecord::Schema.define(version: 2020_09_22_232129) do
     t.datetime "dob"
     t.datetime "surgery_date"
     t.bigint "organization_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["organization_id"], name: "index_patients_on_organization_id"
   end
 
@@ -155,6 +161,8 @@ ActiveRecord::Schema.define(version: 2020_09_22_232129) do
 
   create_table "test_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "test_plans_tests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -168,6 +176,8 @@ ActiveRecord::Schema.define(version: 2020_09_22_232129) do
 
   create_table "tests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

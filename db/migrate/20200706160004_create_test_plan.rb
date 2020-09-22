@@ -2,10 +2,12 @@ class CreateTestPlan < ActiveRecord::Migration[6.0]
   def change
     create_table :tests do |t|
       t.string :name, null: false
+      t.timestamps
     end
 
     create_table :test_plans do |t|
       t.string :name, null: false
+      t.timestamps
     end
 
     create_table :test_plans_tests do |t|

@@ -5,6 +5,7 @@ class CreateBaseStations < ActiveRecord::Migration[6.0]
       t.boolean :active, default: true
       t.text :encryption_key
       t.references :organization
+      t.timestamps
     end
   end
 end
