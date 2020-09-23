@@ -4,6 +4,9 @@ module Types
   class QueryType < Types::BaseObject
     field :audits, resolver: Queries::AuditsQuery
 
+    field :cteData, resolver: Queries::CteDataQuery
+    field :cteDatas, resolver: Queries::CteDatasQuery
+    
     field :notifications, resolver: Queries::NotificationsQuery
 
     field :organization, resolver: Queries::OrganizationQuery
