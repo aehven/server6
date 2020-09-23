@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2020_09_22_235007) do
 
   create_table "cte_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "cte_id"
+    t.integer "dataset_number"
     t.string "file_name"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 2020_09_22_235007) do
   create_table "ctes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.integer "radio_id"
+    t.string "serial_number"
     t.text "encryption_key"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
