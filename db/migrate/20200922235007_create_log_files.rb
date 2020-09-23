@@ -16,6 +16,7 @@ class CreateLogFiles < ActiveRecord::Migration[6.0]
 
     create_table :cte_data do |t|
       t.references :cte
+      t.integer :dataset_number
       t.string :file_name
       t.text :content
       t.timestamps

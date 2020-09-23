@@ -3,6 +3,7 @@ class CreateCtes < ActiveRecord::Migration[6.0]
     create_table :ctes do |t|
       t.string :name
       t.integer :radio_id
+      t.string :serial_number
       t.text :encryption_key
       t.timestamps
     end
