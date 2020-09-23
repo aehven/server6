@@ -18,5 +18,7 @@ module Types
     
     field :users, [Types::UserType], null: true
     field :doctors, [Types::UserType], null: true
+
+    field :ctes, [Types::CteType], null: true
   end
 end

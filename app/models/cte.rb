@@ -7,5 +7,10 @@ class Cte < ApplicationRecord
   has_many :patients, through: :ctes_patients
 
   has_many :cte_logs
-  has_many :test_logs
+  has_many :cte_dexes
+  has_many :cte_datas
+
+  def last_dataset_number
+    cte_datas.last&.dataset_number || 0
+  end
 end
