@@ -50,11 +50,17 @@ Patient.create!(
   dob: Date.parse("1678-03-04"),
   surgery_date: Date.parse("2020-10-20"),
   users: [user],
-  organization: organization
+  organization: organization,
+  ctes: [Cte.create!(
+    name: "Right Knee",
+    radio_id: 100,
+    serial_number: "100A",
+    encryption_key: [9, 8, 7, 6]
+  )]
 )
 
-30.times do
-  Patient.create!(
+30.times do |i|
+  patient = Patient.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     email: Faker::Internet.email,
@@ -68,7 +74,13 @@ Patient.create!(
     dob: Faker::Date.between(from: 90.years.ago, to: 20.years.ago),
     surgery_date: Faker::Date.between(from: 6.months.ago, to: 1.month.ago),
     # users: [user],
-    organization: Organization.all.sample
+    organization: Organization.all.sample,
+    ctes: [Cte.create!(
+      name: i%2 == 0 ? "Right Knee" : "Left Knee",
+      radio_id: (i+1)*1000,
+      radio_id: "#{(i+1)*1000}A",
+      encryption_key: [i, i+1, i+2, i+3]
+    )]
   )
 end
 
