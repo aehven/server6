@@ -7,6 +7,9 @@ class Patient < ApplicationRecord
   has_many :patients_users, dependent: :destroy
   has_many :users, through: :patients_users
 
+  has_many :patients_test_plans, dependent: :destroy
+  has_many :test_plans, through: :patients_test_plans
+
   has_many :ctes_patients, dependent: :destroy
   has_many :ctes, through: :ctes_patients
 
