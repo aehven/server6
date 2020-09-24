@@ -205,6 +205,15 @@ ActiveRecord::Schema.define(version: 2020_09_22_235007) do
     t.index ["test_plan_id"], name: "index_test_plans_tests_on_test_plan_id"
   end
 
+  create_table "test_results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "patients_test_plan_id"
+    t.datetime "start_time"
+    t.integer "dataset_number"
+    t.integer "status"
+    t.text "notes"
+    t.index ["patients_test_plan_id"], name: "index_test_results_on_patients_test_plan_id"
+  end
+
   create_table "tests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false

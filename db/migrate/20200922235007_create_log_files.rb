@@ -21,5 +21,13 @@ class CreateLogFiles < ActiveRecord::Migration[6.0]
       t.text :content
       t.timestamps
     end
+
+    create_table :test_results do |t|
+      t.references :patients_test_plan
+      t.datetime :start_time
+      t.integer :dataset_number
+      t.integer :status
+      t.text :notes
+    end
   end
 end
