@@ -51,7 +51,7 @@ module Server
          resource '*',
          :headers => :any,
          :methods => [:get, :post, :options, :delete, :head, :patch],
-         :expose  => ['access-token', 'expiry', 'token-type', 'uid', 'client', 'app-version', 'notification']
+         :expose  => ['access-token', 'expiry', 'token-type', 'uid', 'client', 'app-version', 'notification', 'authorization']
        end
     end
 
