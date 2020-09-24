@@ -17,7 +17,7 @@ class TestPlan < ApplicationRecord
 
   def self.ga
     ids = ActiveRecord::Base.connection.exec_query("select distinct test_plan_id from organizations_test_plans;").rows.flatten
-    ids = ids + ActiveRecord::Base.connection.exec_query("select distinct test_plan_id from patients_test_plans;").rows.flatten    
+    # ids = ids + ActiveRecord::Base.connection.exec_query("select distinct test_plan_id from patients_test_plans;").rows.flatten    
     TestPlan.where.not(id: ids)
   end
 end

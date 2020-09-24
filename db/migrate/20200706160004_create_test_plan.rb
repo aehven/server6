@@ -20,6 +20,7 @@ class CreateTestPlan < ActiveRecord::Migration[6.0]
     create_table :patients_test_plans do |t|
       t.references :patient, null: false
       t.references :test_plan, null: false
+      t.timestamps
     end
 
     create_table :organizations_tests do |t|

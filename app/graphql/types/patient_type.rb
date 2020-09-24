@@ -20,5 +20,6 @@ module Types
     field :doctors, [Types::UserType], null: true
 
     field :ctes, [Types::CteType], null: true
+    field :test_plans, [Types::TestPlanType], null: true
   end
 end

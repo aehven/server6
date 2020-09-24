@@ -11,6 +11,7 @@ module Mutations
     argument :first_name, String, required: false, description: "Must be included for new patient creation."
     argument :last_name, String, required: false, description: "Must be included for new patient creation."
     argument :organization_id, ID, required: false
+    argument :test_plan_id, ID, required: false
 
     type Types::PatientType
 
@@ -23,7 +24,13 @@ module Mutations
         @patient = Patient.find(params[:id])
 
         @patient.update(params.slice(:first_name, :last_name, :email))
+
+        if(params[:test_plan_id])
+          @patient.test_plans << TestPlan.find(params[:test_plan_id])
+        end
       end
+
+      @patient.save!
 
       @patient
     end
