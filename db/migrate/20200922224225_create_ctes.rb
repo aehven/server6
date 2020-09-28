@@ -11,6 +11,7 @@ class CreateCtes < ActiveRecord::Migration[6.0]
     create_table :ctes_patients do |t|
       t.references :cte
       t.references :patient
+      t.timestamps
     end
   end
 end

@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 2020_09_22_235007) do
   create_table "ctes_patients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "cte_id"
     t.bigint "patient_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["cte_id"], name: "index_ctes_patients_on_cte_id"
     t.index ["patient_id"], name: "index_ctes_patients_on_patient_id"
   end
