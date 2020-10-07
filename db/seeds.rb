@@ -78,7 +78,6 @@ Patient.create!(
     ctes: [Cte.create!(
       name: i%2 == 0 ? "Right Knee" : "Left Knee",
       radio_id: (i+1)*1000,
-      radio_id: "#{(i+1)*1000}A",
       encryption_key: [i, i+1, i+2, i+3]
     )]
   )
@@ -100,10 +99,12 @@ pd = TestPlan.create!(name: "Plan D")
 pe = TestPlan.create!(name: "Plan E")
 pf = TestPlan.create!(name: "Plan F")
 
-TestPlansTest.create(test: tsq, test_plan: pa, duration: 10)
-TestPlansTest.create(test: tjj, test_plan: pa, duration: 10, high_res: true)
-TestPlansTest.create(test: tsu, test_plan: pa, duration: 20)
-TestPlansTest.create(test: tl, test_plan: pa, duration: 10, high_res: true)
+TestPlansTest.create!(test: tsq, test_plan: pa, duration: 10)
+TestPlansTest.create!(test: tjj, test_plan: pa, duration: 10, high_res: true)
+TestPlansTest.create!(test: tsu, test_plan: pa, duration: 20)
+TestPlansTest.create!(test: tl, test_plan: pa, duration: 10, high_res: true)
+
+BaseStation.create!(serial_number: 0, active: true, encryption_key: [1,2,3,4])
 
 # THIS MUST BE THE LAST LINE
 PaperTrail.enabled = true

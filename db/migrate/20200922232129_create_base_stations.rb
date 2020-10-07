@@ -4,7 +4,7 @@ class CreateBaseStations < ActiveRecord::Migration[6.0]
       t.integer :serial_number, null: false
       t.boolean :active, default: true
       t.text :encryption_key
-      t.references :organization
+      t.references :organization, null: true
       t.timestamps
     end
   end

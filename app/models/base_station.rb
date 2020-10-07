@@ -3,5 +3,5 @@ class BaseStation < ApplicationRecord
 
   serialize :encryption_key, Array
 
-  belongs_to :organization
+  belongs_to :organization, optional: true
 end
