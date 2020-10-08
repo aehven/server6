@@ -1,0 +1,851 @@
+{
+	"info": {
+		"_postman_id": "7d2019ce-f140-42c5-83fb-d438c7c50e96",
+		"name": "CGQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Patient",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query allPatients {\n  patients(searchTerm: \"\") {\n    id\n    firstName\n    lastName\n    dob\n    surgeryDate\n    doctors {\n      role\n      lastName\n    }\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findPatient {\n  patient(id: 1) {\n    firstName\n    lastName\n    surgeryDate\n    dob\n    doctors {\n      firstName\n      lastName\n    }\n    ctes {\n      id\n      name,\n      serialNumber,\n      radioId,\n\t  lastDatasetNumber\n    }\n    testPlans {id}\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updatePatient {\n  patient(input: {id: 2, lastName: \"blah\"}) {\n    firstName\n    lastName\n    surgeryDate\n    dob\n    doctors {\n      firstName\n      lastName\n    }\n    ctes {\n      id\n      name,\n      serialNumber,\n      radioId,\n\t  lastDatasetNumber\n    }\n    testPlans {\n        id\n        name\n    }\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Test Plan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updatePatient {\n  patient(input: {id: 1, testPlanId: 2}) {\n    firstName\n    lastName\n    ctes {\n      id\n      radioId,\n\t  lastDatasetNumber\n    }\n    testPlans {\n        id\n        name\n    }\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Test Result",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation addTestResult {\n  testResult(input: {cteRadioId: 100, startTime: 1600986355, datasetNumber: 4, status: 0, notes: [1,2,3]}) {\n    id\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44620e2a-49c0-41d8-b526-a4c076a08d82",
+								"exec": [
+									"var jsonData = pm.response.json()",
+									"var jwt = jsonData.data.userAuthenticate.jwt;",
+									"",
+									"// pm.test(\"JWT\", function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(jsonData.data.userAuthenticate.jwt).to.include(\"eyJ\");",
+									"// });",
+									"",
+									"pm.collectionVariables.set(\"jwt\", jwt);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation admin {\n  userAuthenticate(input: {email: \"admin@null.com\", password: \"password\"}) {\n    jwt\n    user {\n      id\n      firstName\n      lastName\n      email\n      role\n      permissions\n      passwordExpiresAt\n\t    organizations {\n        id\n        name\n      }\n    }\n    server\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query allUsers {\n  users(organizationId: null) {\n    id\n    updatedAt\n    email\n    firstName\n    lastName\n    role\n    fullName\n    organizations {\n      id\n      name\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findUser {\n  user(id: 1) {\n    id\n    firstName\n    lastName\n    email\n    role\n    permissions\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation user {\n  user(input: {id: 2, email: \"tom9@kkknull.co\", firstName: \"Tom\", lastName: \"Petty3\"}) {\n    id\n    email\n    firstName\n    lastName\n    organizations {\n      id\n      name\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updatePassword {\n  user(input: {id: 2, password: \"12345\"}) {\n    id\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Organization",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query allOrganizations {\n  organizations(page: 0, perPage: 10) {\n    id\n    kind\n    name\n    level\n    users {\n      id\n      fullName\n    }\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findOrganization {\n  organization(id: 1) {\n    name\n    kind\n    users {\n      fullName\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query allNotifications {\n  notifications {\n    id\n    createdAt\n    level\n    title\n    text\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Test",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query listAllTests {\n  tests {\n    id\n    name\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findTest {\n  test(id: 2) {\n    id\n    name\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation create {\n  test(input: {name: \"new test 1\"}) {\n      id\n      name\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TestPlan",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query listAllTestPlans {\n  testPlans {\n    id\n    name\n    testPlansTests {\n      id\n      duration\n      highRes\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation create {\n  testPlan(input: {name: \"new plan\", \n                   tests: [\n                    {testId: 1, duration: 2, highRes: true},\n                    {testId: 2, duration: 4, highRes: true},\n                    {testId: 3, duration: 6, highRes: false},\n                    {testId: 4, duration: 8, highRes: true},\n                    {testId: 5, duration: 10, highRes: false},\n                  ] }) {\n    id\n    name\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TestPlanTest",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query list {\n  testPlansTests {\n    id\n    duration\n    highRes\n    test { id }\n    testPlan { id }\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Audit",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query listAllAudits {\n  audits {\n    createdAt\n    performedBy\n    event\n    itemType\n    itemString\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "CTE",
+			"item": [
+				{
+					"name": "Data",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query list {\n  cteDatas(cteId: 1) {\n    id\n    fileName\n    content\n  }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "localhost:3030/graphql",
+									"host": [
+										"localhost"
+									],
+									"port": "3030",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation createData {\n  cteData(input: {cteId: 1, datasetNumber: 1, fileName: \"blah\", content: \"bloo\"}) {\n    id\n    fileName\n    content\n  }\n}\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "localhost:3030/graphql",
+									"host": [
+										"localhost"
+									],
+									"port": "3030",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Dex",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation createDex {\n  cteDex(input: {cteId: 1, fileName: \"blah\", content: \"bloo\"}) {\n    id\n    fileName\n    content\n  }\n}\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "localhost:3030/graphql",
+									"host": [
+										"localhost"
+									],
+									"port": "3030",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Log",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation createLog {\n  cteLog(input: {cteId: 1, fileName: \"blah\", content: \"bloo\"}) {\n    id\n    fileName\n    content\n  }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "localhost:3030/graphql",
+									"host": [
+										"localhost"
+									],
+									"port": "3030",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "_ Introspection _",
+			"item": [
+				{
+					"name": "Introspection for Diagram",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "    query IntrospectionQuery {\n      __schema {\n        \n        queryType { name }\n        mutationType { name }\n        subscriptionType { name }\n        types {\n          ...FullType\n        }\n        directives {\n          name\n          description\n          \n          locations\n          args {\n            ...InputValue\n          }\n        }\n      }\n    }\n\n    fragment FullType on __Type {\n      kind\n      name\n      description\n      fields(includeDeprecated: true) {\n        name\n        description\n        args {\n          ...InputValue\n        }\n        type {\n          ...TypeRef\n        }\n        isDeprecated\n        deprecationReason\n      }\n      inputFields {\n        ...InputValue\n      }\n      interfaces {\n        ...TypeRef\n      }\n      enumValues(includeDeprecated: true) {\n        name\n        description\n        isDeprecated\n        deprecationReason\n      }\n      possibleTypes {\n        ...TypeRef\n      }\n    }\n\n    fragment InputValue on __InputValue {\n      name\n      description\n      type { ...TypeRef }\n      defaultValue\n    }\n\n    fragment TypeRef on __Type {\n      kind\n      name\n      ofType {\n        kind\n        name\n        ofType {\n          kind\n          name\n          ofType {\n            kind\n            name\n            ofType {\n              kind\n              name\n              ofType {\n                kind\n                name\n                ofType {\n                  kind\n                  name\n                  ofType {\n                    kind\n                    name\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "BaseStation",
+			"item": [
+				{
+					"name": "Find",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findBaseStation {\n  baseStation(serialNumber: 0) {\n    id\n    serialNumber\n    encryptionKey\n    active\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						},
+						"description": "Find by serial number, NOT id"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Firmware",
+			"item": [
+				{
+					"name": "Get Latest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query firmware {\n  latestFirmware(kind: \"BaseStation\") {\n    id\n    major\n    image\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"graphql"
+							]
+						},
+						"description": "Get the latest firmware of the specified kind."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "Bearer {{jwt}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "32e41642-41e5-40e2-882b-6dcaae087fe7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ed67fe4a-cf9f-4eb0-bce1-69a81374e6f7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "c99d2900-a6df-4509-9ba9-f2c4b16ba2fb",
+			"key": "jwt",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
