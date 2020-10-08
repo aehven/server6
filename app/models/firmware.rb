@@ -3,11 +3,11 @@ class Firmware < ApplicationRecord
 
   enum kind: [ :BaseStation, :CTE ]
 
-  def file=(value)
-    write_attribute(:file, Base64.encode64(value))
+  def image=(value)
+    write_attribute(:image, Base64.encode64(value))
   end
 
-  def file
-    Base64.decode64(read_attribute(:file))
+  def image
+    Base64.decode64(read_attribute(:image))
   end
 end

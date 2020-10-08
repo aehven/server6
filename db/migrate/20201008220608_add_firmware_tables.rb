@@ -7,7 +7,7 @@ class AddFirmwareTables < ActiveRecord::Migration[6.0]
       t.integer :bugfix, null: false
       t.integer :build, null: false
       t.boolean :critical, null: false
-      t.text :file, null: false, limit: 1000000
+      t.text :image, null: false, limit: 1000000
       t.timestamps
     end
   end

@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_220608) do
     t.integer "bugfix", null: false
     t.integer "build", null: false
     t.boolean "critical", null: false
-    t.text "file", size: :medium, null: false
+    t.text "image", size: :medium, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
