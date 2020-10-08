@@ -7,7 +7,7 @@ class Firmware < ApplicationRecord
     write_attribute(:image, Base64.encode64(value))
   end
 
-  def image
-    Base64.decode64(read_attribute(:image))
-  end
+  # def image
+  #   Base64.decode64(read_attribute(:image))
+  # end
 end

@@ -9,6 +9,8 @@ module Types
     field :cteData, resolver: Queries::CteDataQuery
     field :cteDatas, resolver: Queries::CteDatasQuery
     
+    field :latestFirmware, resolver: Queries::LatestFirmwareQuery
+
     field :notifications, resolver: Queries::NotificationsQuery
 
     field :organization, resolver: Queries::OrganizationQuery
