@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_22_235007) do
+ActiveRecord::Schema.define(version: 2020_10_08_220608) do
 
   create_table "base_stations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "serial_number", null: false
@@ -81,6 +81,18 @@ ActiveRecord::Schema.define(version: 2020_09_22_235007) do
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "firmwares", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "kind", null: false
+    t.integer "major", null: false
+    t.integer "minor", null: false
+    t.integer "bugfix", null: false
+    t.integer "build", null: false
+    t.boolean "critical", null: false
+    t.text "file", size: :medium, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

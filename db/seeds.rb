@@ -106,6 +106,16 @@ TestPlansTest.create!(test: tl, test_plan: pa, duration: 10, high_res: true)
 
 BaseStation.create!(serial_number: 0, active: true, encryption_key: [1,2,3,4])
 
+Firmware.create!(
+  file: File.read(Rails.root.join("db", "seed_files", "firmware", "base_station", "clinic-base-station-dev-kit.bin")),
+  kind: "BaseStation",
+  major: 0,
+  minor: 0,
+  bugfix: 0,
+  build: 0, 
+  critical: false
+)
+
 # THIS MUST BE THE LAST LINE
 PaperTrail.enabled = true
 
