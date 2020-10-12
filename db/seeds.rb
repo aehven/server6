@@ -54,7 +54,7 @@ Patient.create!(
   ctes: [Cte.create!(
     name: "Right Knee",
     radio_id: 100,
-    serial_number: "100A",
+    serial_number: 1000,
     encryption_key: [9, 8, 7, 6]
   )]
 )
@@ -77,7 +77,8 @@ Patient.create!(
     organization: Organization.all.sample,
     ctes: [Cte.create!(
       name: i%2 == 0 ? "Right Knee" : "Left Knee",
-      radio_id: (i+1)*1000,
+      radio_id: (i+1)*100,
+      serial_number: (i+1)*1000,
       encryption_key: [i, i+1, i+2, i+3]
     )]
   )

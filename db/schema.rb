@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_220608) do
   create_table "ctes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.integer "radio_id"
-    t.string "serial_number"
+    t.integer "serial_number"
     t.text "encryption_key"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
