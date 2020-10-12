@@ -1,4 +1,4 @@
-class CteDex < ApplicationRecord
+class CteDx < ApplicationRecord
   has_paper_trail
 
   belongs_to :cte

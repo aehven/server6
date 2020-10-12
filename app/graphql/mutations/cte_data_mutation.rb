@@ -1,14 +1,15 @@
 module Mutations
   class CteDataMutation < BaseMutation
-    argument :cteId, ID, required: true
+    argument :serialNumber, Integer, required: true
     argument :datasetNumber, Integer, required: true
-    argument :fileName, String, required: true
+    argument :timestamp, Integer, required: true
     argument :content, String, required: true
     
     type Types::CteDataType
 
     def resolve(params={})
-      CteData.create!(cte_id: params[:cteId], dataset_number: params[:datasetNumber], file_name: params[:fileName], content: params[:content])
+      cte = Cte.find_by(serial_number: params[:serialNumber])
+      CteData.create!(cte_id: cte.id, dataset_number: params[:datasetNumber], timestamp: params[:timestamp], content: params[:content])
     end
   end
 end

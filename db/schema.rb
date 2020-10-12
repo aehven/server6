@@ -25,25 +25,25 @@ ActiveRecord::Schema.define(version: 2020_10_08_220608) do
   create_table "cte_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "cte_id"
     t.integer "dataset_number"
-    t.string "file_name"
+    t.integer "timestamp"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cte_id"], name: "index_cte_data_on_cte_id"
   end
 
-  create_table "cte_dexes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "cte_dxes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "cte_id"
-    t.string "file_name"
+    t.integer "timestamp"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["cte_id"], name: "index_cte_dexes_on_cte_id"
+    t.index ["cte_id"], name: "index_cte_dxes_on_cte_id"
   end
 
   create_table "cte_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "cte_id"
-    t.string "file_name"
+    t.integer "timestamp"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

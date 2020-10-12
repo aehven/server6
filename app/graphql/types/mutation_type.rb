@@ -1,7 +1,7 @@
 module Types
   class MutationType < Types::BaseObject
     field :cteData, mutation: Mutations::CteDataMutation
-    field :cteDex, mutation: Mutations::CteDexMutation
+    field :cteDx, mutation: Mutations::CteDxMutation
     field :cteLog, mutation: Mutations::CteLogMutation
 
     field :patient, mutation: Mutations::PatientMutation

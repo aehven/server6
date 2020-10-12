@@ -2,14 +2,14 @@ class CreateLogFiles < ActiveRecord::Migration[6.0]
   def change
     create_table :cte_logs do |t|
       t.references :cte
-      t.string :file_name
+      t.integer :timestamp
       t.text :content
       t.timestamps
     end
 
-    create_table :cte_dexes do |t|
+    create_table :cte_dxes do |t|
       t.references :cte
-      t.string :file_name
+      t.integer :timestamp
       t.text :content
       t.timestamps
     end
@@ -17,7 +17,7 @@ class CreateLogFiles < ActiveRecord::Migration[6.0]
     create_table :cte_data do |t|
       t.references :cte
       t.integer :dataset_number
-      t.string :file_name
+      t.integer :timestamp
       t.text :content
       t.timestamps
     end

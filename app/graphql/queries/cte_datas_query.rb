@@ -11,7 +11,7 @@ module Queries
     def resolve(params={})
       user = context[:current_user]
 
-      Cte.find(params[:cteId]).cte_datas
+      Cte.find(params[:cteId]).cte_datas.order("id desc")
     end
   end
 end
