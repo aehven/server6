@@ -190,7 +190,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_220608) do
 
   create_table "patients_test_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "patient_id", null: false
-    t.bigint "test_plan_id", null: false
+    t.bigint "test_plan_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["patient_id"], name: "index_patients_test_plans_on_patient_id"
