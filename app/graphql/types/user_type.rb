@@ -27,5 +27,6 @@ module Types
     field :full_name, String, null: false
     field :organizations, [Types::OrganizationType], null: true
     field :organization_name_with_ancestors, String, null: true
+    field :test_plans, [Types::TestPlanType], null: true
   end
 end

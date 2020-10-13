@@ -98,11 +98,17 @@ pc = TestPlan.create!(name: "Plan C")
 pd = TestPlan.create!(name: "Plan D")
 pe = TestPlan.create!(name: "Plan E")
 pf = TestPlan.create!(name: "Plan F")
+vi = TestPlan.create!(name: "Roger's Test Plan", users: [User.first])
 
 TestPlansTest.create!(test: tsq, test_plan: pa, duration: 10)
 TestPlansTest.create!(test: tjj, test_plan: pa, duration: 10, high_res: true)
 TestPlansTest.create!(test: tsu, test_plan: pa, duration: 20)
 TestPlansTest.create!(test: tl, test_plan: pa, duration: 10, high_res: true)
+
+TestPlansTest.create!(test: tsq, test_plan: vi, duration: 5)
+TestPlansTest.create!(test: tjj, test_plan: vi, duration: 5, high_res: true)
+TestPlansTest.create!(test: tsu, test_plan: vi, duration: 5)
+TestPlansTest.create!(test: tl, test_plan: vi, duration: 5, high_res: true)
 
 BaseStation.create!(serial_number: 0, active: true, encryption_key: [1,2,3,4])
 

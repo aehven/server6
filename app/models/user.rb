@@ -27,7 +27,8 @@ class User < ApplicationRecord
   has_many :notifications_users, dependent: :destroy
   has_many :notifications, through: :notifications_users
 
-  delegate :signs, to: :organization, allow_nil: true
+  has_many :test_plans_users
+  has_many :test_plans, -> {order(:name)}, through: :test_plans_users
 
   def self.search(search)
     columns = %w{
@@ -189,7 +190,12 @@ class User < ApplicationRecord
     Patient.where(organization_id: [organization_ids]).distinct
   end
 
-  def test_plans
-    (organization_forest.map(&:test_plans).flatten.uniq + TestPlan.ga).sort_by(&:name)
-  end
+  # def test_plans(only_mine=false)
+  #   if(only_mine)
+  #     binding.pry
+  #     read_attribute(:test_plans)
+  #   else
+  #     (organization_forest.map(&:test_plans).flatten.uniq + TestPlan.ga).sort_by(&:name)
+  #   end
+  # end
 end

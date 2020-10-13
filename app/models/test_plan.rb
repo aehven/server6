@@ -2,13 +2,26 @@ class TestPlan < ApplicationRecord
   has_paper_trail
 
   has_many :test_plans_tests
-  has_and_belongs_to_many :tests, through: :test_plans_tests
+  has_many :tests, through: :test_plans_tests
 
   has_many :patient_test_plans
-  has_and_belongs_to_many :patients, through: :patient_test_plans
+  has_many :patients, through: :patient_test_plans
 
   has_many :organization_test_plans
-  has_and_belongs_to_many :organizations, through: :organization_test_plans
+  has_many :organizations, through: :organization_test_plans
+
+  has_many :test_plans_users
+  has_many :users, through: :test_plans_users
+
+  after_create :assign
+
+  def assign
+    TestPlansUser.create!(test_plan_id: self.id, user_id: User.current.id)
+
+    if(User.current.organization)
+      OrganizationsTestPlan.create!(test_plan_id: self.id, organization_id: User.current.organization.id)
+    end
+  end
 
   def self.organization
     ids = ActiveRecord::Base.connection.exec_query("select distinct test_plan_id from organizations_test_plans;").rows.flatten
@@ -17,7 +30,8 @@ class TestPlan < ApplicationRecord
 
   def self.ga
     ids = ActiveRecord::Base.connection.exec_query("select distinct test_plan_id from organizations_test_plans;").rows.flatten
-    # ids = ids + ActiveRecord::Base.connection.exec_query("select distinct test_plan_id from patients_test_plans;").rows.flatten    
+    ids = ids + ActiveRecord::Base.connection.exec_query("select distinct test_plan_id from test_plans_users;").rows.flatten
+    ids.uniq!
     TestPlan.where.not(id: ids)
   end
 end

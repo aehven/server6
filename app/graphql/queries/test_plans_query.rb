@@ -12,7 +12,7 @@ module Queries
       current_user = context[:current_user]
       raise CanCan::AccessDenied unless (current_user.can? :read, TestPlan)
 
-      current_user.test_plans
+      current_user.test_plans + TestPlan.ga
     end
 
   end

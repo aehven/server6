@@ -32,5 +32,10 @@ class CreateTestPlan < ActiveRecord::Migration[6.0]
       t.references :organization, null: false
       t.references :test_plan, null: false
     end
+
+    create_table :test_plans_users do |t|
+      t.references :user, null: false
+      t.references :test_plan, null: false
+    end
   end
 end
