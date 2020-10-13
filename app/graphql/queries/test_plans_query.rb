@@ -10,9 +10,10 @@ module Queries
 
     def resolve(params={})
       current_user = context[:current_user]
-      raise CanCan::AccessDenied unless (current_user.can? :read, TestPlan)
+      # raise CanCan::AccessDenied unless (current_user.can? :read, TestPlan)
 
-      current_user.test_plans + TestPlan.ga
+      my_test_plans = current_user.test_plans
+      my_test_plans + (current_user.organization&.test_plans - my_test_plans) + TestPlan.ga
     end
 
   end

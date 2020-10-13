@@ -9,7 +9,7 @@ module Queries
     def resolve(id:)
       @test_plan = TestPlan.find(id)
       
-      raise CanCan::AccessDenied unless (context[:current_user].can? :read, @test_plan)
+      # raise CanCan::AccessDenied unless (context[:current_user].can? :read, @test_plan)
 
       @test_plan
     end

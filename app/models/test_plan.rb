@@ -7,8 +7,8 @@ class TestPlan < ApplicationRecord
   has_many :patient_test_plans
   has_many :patients, through: :patient_test_plans
 
-  has_many :organization_test_plans
-  has_many :organizations, through: :organization_test_plans
+  has_many :organizations_test_plans
+  has_many :organizations, through: :organizations_test_plans
 
   has_many :test_plans_users
   has_many :users, through: :test_plans_users
@@ -16,10 +16,12 @@ class TestPlan < ApplicationRecord
   after_create :assign
 
   def assign
-    TestPlansUser.create!(test_plan_id: self.id, user_id: User.current.id)
+    if(User.current)
+      TestPlansUser.create!(test_plan_id: self.id, user_id: User.current.id)
 
-    if(User.current.organization)
-      OrganizationsTestPlan.create!(test_plan_id: self.id, organization_id: User.current.organization.id)
+      if(User.current.organization)
+        OrganizationsTestPlan.create!(test_plan_id: self.id, organization_id: User.current.organization.id)
+      end
     end
   end
 

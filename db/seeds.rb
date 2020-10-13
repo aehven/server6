@@ -2,7 +2,7 @@
 PaperTrail.enabled = false
 
 # admin with no organization
-User.create!(first_name: "Roger", last_name: "Waters", email: "admin@null.com", password: "password", role: "CanaryAdmin")
+admin = User.create!(first_name: "Roger", last_name: "Waters", email: "admin@null.com", password: "password", role: "CanaryAdmin")
 
 5.times do
   hospital = Organization.create!(
@@ -18,6 +18,10 @@ User.create!(first_name: "Roger", last_name: "Waters", email: "admin@null.com", 
     )
   end
 end
+
+anderson = User.create!(organizations: [Organization.first], first_name: "Ian", last_name: "Anderson", email: "ianderson@null.com", password: "password", role: "Doctor")
+ellington = User.create!(organizations: [Organization.first], first_name: "Duke", last_name: "Ellington", email: "dellington@null.com", password: "password", role: "Doctor")
+chopin = User.create!(organizations: [Organization.last], first_name: "Frederic", last_name: "Chopin", email: "fchopin@null.com", password: "password", role: "Doctor")
 
 Organization.hospital.each do |hospital|
   10.times do |i|
@@ -98,17 +102,23 @@ pc = TestPlan.create!(name: "Plan C")
 pd = TestPlan.create!(name: "Plan D")
 pe = TestPlan.create!(name: "Plan E")
 pf = TestPlan.create!(name: "Plan F")
-vi = TestPlan.create!(name: "Roger's Test Plan", users: [User.first])
+ia = TestPlan.create!(name: "Ian's Test Plan", users: [anderson], organizations: [anderson.organization])
+de = TestPlan.create!(name: "Duke's Test Plan", users: [ellington], organizations: [ellington.organization])
 
 TestPlansTest.create!(test: tsq, test_plan: pa, duration: 10)
 TestPlansTest.create!(test: tjj, test_plan: pa, duration: 10, high_res: true)
 TestPlansTest.create!(test: tsu, test_plan: pa, duration: 20)
 TestPlansTest.create!(test: tl, test_plan: pa, duration: 10, high_res: true)
 
-TestPlansTest.create!(test: tsq, test_plan: vi, duration: 5)
-TestPlansTest.create!(test: tjj, test_plan: vi, duration: 5, high_res: true)
-TestPlansTest.create!(test: tsu, test_plan: vi, duration: 5)
-TestPlansTest.create!(test: tl, test_plan: vi, duration: 5, high_res: true)
+TestPlansTest.create!(test: tsq, test_plan: ia, duration: 5)
+TestPlansTest.create!(test: tjj, test_plan: ia, duration: 5, high_res: true)
+TestPlansTest.create!(test: tsu, test_plan: ia, duration: 5)
+TestPlansTest.create!(test: tl, test_plan: ia, duration: 5, high_res: true)
+
+TestPlansTest.create!(test: tsq, test_plan: de, duration: 7)
+TestPlansTest.create!(test: tjj, test_plan: de, duration: 7, high_res: true)
+TestPlansTest.create!(test: tsu, test_plan: de, duration: 7)
+TestPlansTest.create!(test: tl, test_plan: de, duration: 7, high_res: true)
 
 BaseStation.create!(serial_number: 0, active: true, encryption_key: [1,2,3,4])
 
