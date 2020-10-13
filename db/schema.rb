@@ -181,7 +181,6 @@ ActiveRecord::Schema.define(version: 2020_10_08_220608) do
     t.string "zip"
     t.string "country"
     t.datetime "dob"
-    t.datetime "surgery_date"
     t.bigint "organization_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -202,6 +201,15 @@ ActiveRecord::Schema.define(version: 2020_10_08_220608) do
     t.bigint "user_id"
     t.index ["patient_id"], name: "index_patients_users_on_patient_id"
     t.index ["user_id"], name: "index_patients_users_on_user_id"
+  end
+
+  create_table "surgeries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "patient_id", null: false
+    t.string "name"
+    t.datetime "date", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patient_id"], name: "index_surgeries_on_patient_id"
   end
 
   create_table "test_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

@@ -48,7 +48,7 @@ Patient.create!(
   zip: "12345",
   country: "Itali",
   dob: Date.parse("1678-03-04"),
-  surgery_date: Date.parse("2020-10-20"),
+  surgeries: [Surgery.create(date: Date.parse("2020-10-20"), name: "Right Knee")],
   users: [user],
   organization: organization,
   ctes: [Cte.create!(
@@ -72,8 +72,7 @@ Patient.create!(
     zip: Faker::Address.zip,
     country: "USA",
     dob: Faker::Date.between(from: 90.years.ago, to: 20.years.ago),
-    surgery_date: Faker::Date.between(from: 6.months.ago, to: 1.month.ago),
-    # users: [user],
+    surgeries: [Surgery.create(date: Faker::Date.between(from: 6.months.ago, to: 1.month.ago), name: i%2 == 0 ? "Right Knee" : "Left Knee")],
     organization: Organization.all.sample,
     ctes: [Cte.create!(
       name: i%2 == 0 ? "Right Knee" : "Left Knee",

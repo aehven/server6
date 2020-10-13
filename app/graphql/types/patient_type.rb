@@ -11,7 +11,6 @@ module Types
     field :state, String, null: true
     field :zip, String, null: true
     field :country, String, null: true
-    field :surgery_date, GraphQL::Types::ISO8601DateTime, null: true
     field :dob, GraphQL::Types::ISO8601DateTime, null: true
 
     field :full_name, String, null: true
@@ -21,5 +20,7 @@ module Types
 
     field :ctes, [Types::CteType], null: true
     field :test_plans, [Types::TestPlanType], null: true
+
+    field :surgeries, [Types::SurgeryType], null: true
   end
 end

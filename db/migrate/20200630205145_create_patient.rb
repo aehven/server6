@@ -12,7 +12,6 @@ class CreatePatient < ActiveRecord::Migration[6.0]
       t.string :zip
       t.string :country
       t.datetime :dob
-      t.datetime :surgery_date
       t.references :organization
       t.timestamps
     end
@@ -20,6 +19,13 @@ class CreatePatient < ActiveRecord::Migration[6.0]
     create_table :patients_users do |t|
       t.references :patient
       t.references :user
+    end
+
+    create_table :surgeries do |t|
+      t.references :patient, null: false
+      t.string :name
+      t.datetime :date, null: false
+      t.timestamps
     end
   end
 end
