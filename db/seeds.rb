@@ -96,12 +96,7 @@ tsd = Test.create!(name: "Stairs Down")
 ts = Test.create!(name: "Stairs")
 tsg = Test.create!(name: "Stand Up and Go")
 
-pa = TestPlan.create!(name: "Plan A")
-pb = TestPlan.create!(name: "Plan B")
-pc = TestPlan.create!(name: "Plan C")
-pd = TestPlan.create!(name: "Plan D")
-pe = TestPlan.create!(name: "Plan E")
-pf = TestPlan.create!(name: "Plan F")
+pa = TestPlan.create!(name: "Default")
 ia = TestPlan.create!(name: "Ian's Test Plan", users: [anderson], organizations: [anderson.organization])
 de = TestPlan.create!(name: "Duke's Test Plan", users: [ellington], organizations: [ellington.organization])
 

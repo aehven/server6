@@ -13,7 +13,7 @@ module Mutations
 
       @test_plan = (params[:id].to_i > 0) ? TestPlan.find(params[:id].to_i) : TestPlan.new(name: params[:name])
 
-      raise CanCan::AccessDenied unless current_user.can? [:create], @test_plan
+      # raise CanCan::AccessDenied unless current_user.can? [:create], @test_plan
 
       # @test_plan is a new record or an existing one.  If it's an existing one,
       # check if the name is changing; if it is, create a new one anyway, we
