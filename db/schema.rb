@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_08_220608) do
+ActiveRecord::Schema.define(version: 2020_10_23_145501) do
 
   create_table "base_stations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "serial_number", null: false
@@ -48,6 +48,41 @@ ActiveRecord::Schema.define(version: 2020_10_08_220608) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cte_id"], name: "index_cte_logs_on_cte_id"
+  end
+
+  create_table "cte_result_headers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "cte_dataheaderid"
+    t.string "app_version"
+    t.string "matlab_version"
+    t.string "when_calculated"
+    t.integer "sequence_no"
+    t.integer "company_id"
+    t.float "tibia_length_used"
+    t.string "tibia_length_source"
+    t.bigint "cte_id"
+    t.index ["cte_id"], name: "index_cte_result_headers_on_cte_id"
+  end
+
+  create_table "cte_results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "cte_result_header_id"
+    t.integer "qualified_gait_cycle"
+    t.float "gc_start"
+    t.float "gc_end"
+    t.float "cadence"
+    t.float "stride_length"
+    t.float "walk_speed"
+    t.float "tib_rom"
+    t.float "knee_rom"
+    t.integer "company_id"
+    t.index ["cte_result_header_id"], name: "index_cte_results_on_cte_result_header_id"
+  end
+
+  create_table "cte_stepcounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "cte_result_header_id"
+    t.integer "stepcount"
+    t.string "created_on"
+    t.integer "company_id"
+    t.index ["cte_result_header_id"], name: "index_cte_stepcounts_on_cte_result_header_id"
   end
 
   create_table "ctes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

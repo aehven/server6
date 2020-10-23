@@ -10,6 +10,8 @@ class Cte < ApplicationRecord
   has_many :cte_dexes
   has_many :cte_datas
 
+  has_many :cte_result_headers
+
   def last_dataset_number
     cte_datas.last&.dataset_number || 0
   end

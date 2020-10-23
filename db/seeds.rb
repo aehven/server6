@@ -1,3 +1,5 @@
+require 'csv'
+
 # THIS MUST BE THE FIRST LINE
 PaperTrail.enabled = false
 
@@ -129,6 +131,21 @@ Firmware.create!(
   critical: false
 )
 
+rows = CSV.read(Rails.root.join("db", "seed_files", "cte_results", "cte_resultsheader.csv"), headers: true)
+rows.each do |row|
+  CteResultHeader.create!(id: row[0], cte_dataheaderid: row[1], app_version: row[2], matlab_version: row[3], when_calculated: row[4], sequence_no: row[5], company_id: row[6], tibia_length_used: row[7], tibia_length_source: row[8], cte_id: 1)
+end
+
+rows = CSV.read(Rails.root.join("db", "seed_files", "cte_results", "cte_results.csv"), headers: true)
+rows.each do |row|
+  CteResult.create!(id: row[0], cte_result_header_id: row[1], qualified_gait_cycle: row[2], gc_start: row[3], gc_end: row[4], cadence: row[5], stride_length: row[6], walk_speed: row[7], tib_rom: row[8], knee_rom: row[9], company_id: row[10])
+end
+
+# not doing step counts for now.  
+# rows = CSV.read(Rails.root.join("db", "seed_files", "cte_results", "cte_stepcount.csv"), headers: true)
+# rows.each do |row|
+#   CteStepCount.create!(id: row[4], stepcount: row[0], app_version: row[2], matlab_version: row[3], when_calculated: row[4], sequence_no: row[5], company_id: row[6], tibia_length_used: row[7], tibia_length_source: row[8], cte_id: 1)
+# end
+
 # THIS MUST BE THE LAST LINE
 PaperTrail.enabled = true
-
