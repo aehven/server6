@@ -10,5 +10,7 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
     field :last_dataset_number, Integer, null: true
+
+    field :last_n_results, [Types::CteResultType], null: true
   end
 end

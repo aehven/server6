@@ -11,8 +11,12 @@ class Cte < ApplicationRecord
   has_many :cte_datas
 
   has_many :cte_result_headers
-
+  
   def last_dataset_number
     cte_datas.last&.dataset_number || 0
+  end
+
+  def last_n_results(n=10)
+    cte_result_headers.last(n).map(&:averages)
   end
 end
