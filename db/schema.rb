@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_220608) do
     t.integer "radio_id"
     t.integer "serial_number"
     t.text "encryption_key"
+    t.integer "manufacturer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

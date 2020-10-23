@@ -5,6 +5,7 @@ module Types
     field :radio_id, Integer, null: true
     field :serial_number, Integer, null: true
     field :encryption_key, String, null: true
+    field :manufacturer_id, String, null: true
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 

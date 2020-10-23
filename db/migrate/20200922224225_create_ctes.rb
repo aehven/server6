@@ -5,6 +5,7 @@ class CreateCtes < ActiveRecord::Migration[6.0]
       t.integer :radio_id
       t.integer :serial_number
       t.text :encryption_key
+      t.integer :manufacturer_id
       t.timestamps
     end
 
