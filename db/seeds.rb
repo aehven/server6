@@ -39,9 +39,6 @@ Organization.hospital.each do |hospital|
   end
 end
 
-user = [User.Doctor.sample(1)].flatten.first
-organization = user.organization
-
 Patient.create!(
   first_name: "Antonio",
   last_name: "Vivaldi",
@@ -55,8 +52,8 @@ Patient.create!(
   country: "Itali",
   dob: Date.parse("1678-03-04"),
   surgeries: [Surgery.create(date: Date.parse("2020-10-20"), name: "Right Knee")],
-  users: [user],
-  organization: organization,
+  users: [anderson],
+  organization: anderson.organization,
   ctes: [Cte.create!(
     name: "Right Knee",
     radio_id: 17,
@@ -67,6 +64,9 @@ Patient.create!(
 )
 
 30.times do |i|
+  user = [User.Doctor.sample(1)].flatten.first
+  organization = user.organization
+
   patient = Patient.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -80,7 +80,8 @@ Patient.create!(
     country: "USA",
     dob: Faker::Date.between(from: 90.years.ago, to: 20.years.ago),
     surgeries: [Surgery.create(date: Faker::Date.between(from: 6.months.ago, to: 1.month.ago), name: i%2 == 0 ? "Right Knee" : "Left Knee")],
-    organization: Organization.all.sample,
+    users: [user],
+    organization: organization,
     ctes: [Cte.create!(
       name: i%2 == 0 ? "Right Knee" : "Left Knee",
       radio_id: 17,
