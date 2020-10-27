@@ -17,7 +17,7 @@ class CreateLogFiles < ActiveRecord::Migration[6.0]
     create_table :cte_data do |t|
       t.references :cte
       t.integer :dataset_number
-      t.integer :timestamp
+      t.datetime :sample_bcd_datetime
       t.text :content
       t.timestamps
     end

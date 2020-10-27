@@ -53,44 +53,8 @@ Patient.create!(
   dob: Date.parse("1678-03-04"),
   surgeries: [Surgery.create(date: Date.parse("2020-10-20"), name: "Right Knee")],
   users: [anderson],
-  organization: anderson.organization,
-  ctes: [Cte.create!(
-    name: "Right Knee",
-    radio_id: 17,
-    serial_number: 17,
-    encryption_key: [0x01020304, 0x05060708, 0x09101211, 0x13141516],
-    manufacturer_id: 1
-  )]
+  organization: anderson.organization
 )
-
-30.times do |i|
-  user = [User.Doctor.sample(1)].flatten.first
-  organization = user.organization
-
-  patient = Patient.create!(
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    email: Faker::Internet.email,
-    phone: Faker::PhoneNumber.phone_number,
-    address1: Faker::Address.street_address,
-    address2: Faker::Address.secondary_address,
-    city: Faker::Address.city,
-    state: Faker::Address.state,
-    zip: Faker::Address.zip,
-    country: "USA",
-    dob: Faker::Date.between(from: 90.years.ago, to: 20.years.ago),
-    surgeries: [Surgery.create(date: Faker::Date.between(from: 6.months.ago, to: 1.month.ago), name: i%2 == 0 ? "Right Knee" : "Left Knee")],
-    users: [user],
-    organization: organization,
-    ctes: [Cte.create!(
-      name: i%2 == 0 ? "Right Knee" : "Left Knee",
-      radio_id: 17,
-      serial_number: 17,
-      encryption_key: [0x04030201, 0x08070605, 0x11121009, 0x16151413],
-      manufacturer_id: 1
-    )]
-  )
-end
 
 tsq = Test.create!(name: "Squats")
 tw = Test.create!(name: "Walking")
@@ -132,21 +96,47 @@ Firmware.create!(
   critical: false
 )
 
+rows = CSV.read(Rails.root.join("db", "seed_files", "cte_results", "cte_dataheader.csv"), headers: true)
+rows.each_with_index do |row, i|
+  cte = Cte.find_by(id: row[1])
+
+  if(cte.nil?)
+    cte = Cte.create!(id: row[1], name: i%2 == 0 ? "Right Knee" : "Left Knee", radio_id: 17, serial_number: 17, encryption_key: [0x04030201, 0x08070605, 0x11121009, 0x16151413], manufacturer_id: 1)
+
+    if(i == 0)
+      Patient.find(1).update(ctes: [cte])
+    else
+      Patient.create!(
+        first_name: Faker::Name.first_name,
+        last_name: Faker::Name.last_name,
+        email: Faker::Internet.email,
+        phone: Faker::PhoneNumber.phone_number,
+        address1: Faker::Address.street_address,
+        address2: Faker::Address.secondary_address,
+        city: Faker::Address.city,
+        state: Faker::Address.state,
+        zip: Faker::Address.zip,
+        country: "USA",
+        dob: Faker::Date.between(from: 90.years.ago, to: 20.years.ago),
+        surgeries: [Surgery.create(date: Faker::Date.between(from: 6.months.ago, to: 1.month.ago), name: i%2 == 0 ? "Right Knee" : "Left Knee")],
+        users: [user = [User.Doctor.sample(1)].flatten.first],
+        organization: user.organization,
+        ctes: [cte])
+    end
+  end
+
+  CteData.create!(id: row[0], cte_id: row[1], dataset_number: row[2], sample_bcd_datetime: row[6]) if cte
+end
+
 rows = CSV.read(Rails.root.join("db", "seed_files", "cte_results", "cte_resultsheader.csv"), headers: true)
 rows.each do |row|
-  CteResultHeader.create!(id: row[0], cte_dataheaderid: row[1], app_version: row[2], matlab_version: row[3], when_calculated: row[4], sequence_no: row[5], company_id: row[6], tibia_length_used: row[7], tibia_length_source: row[8], cte_id: 1)
+  CteResultHeader.create!(id: row[0], cte_data_id: row[1], app_version: row[2], matlab_version: row[3], when_calculated: row[4], sequence_no: row[5], company_id: row[6], tibia_length_used: row[7], tibia_length_source: row[8])
 end
 
 rows = CSV.read(Rails.root.join("db", "seed_files", "cte_results", "cte_results.csv"), headers: true)
 rows.each do |row|
   CteResult.create!(id: row[0], cte_result_header_id: row[1], qualified_gait_cycle: row[2], gc_start: row[3], gc_end: row[4], cadence: row[5], stride_length: row[6], walk_speed: row[7], tib_rom: row[8], knee_rom: row[9], company_id: row[10])
 end
-
-# not doing step counts for now.  
-# rows = CSV.read(Rails.root.join("db", "seed_files", "cte_results", "cte_stepcount.csv"), headers: true)
-# rows.each do |row|
-#   CteStepCount.create!(id: row[4], stepcount: row[0], app_version: row[2], matlab_version: row[3], when_calculated: row[4], sequence_no: row[5], company_id: row[6], tibia_length_used: row[7], tibia_length_source: row[8], cte_id: 1)
-# end
 
 # THIS MUST BE THE LAST LINE
 PaperTrail.enabled = true

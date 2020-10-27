@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_10_23_145501) do
   create_table "cte_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "cte_id"
     t.integer "dataset_number"
-    t.integer "timestamp"
+    t.datetime "sample_bcd_datetime"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2020_10_23_145501) do
   end
 
   create_table "cte_result_headers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "cte_dataheaderid"
+    t.bigint "cte_data_id"
     t.string "app_version"
     t.string "matlab_version"
     t.string "when_calculated"
@@ -59,8 +59,7 @@ ActiveRecord::Schema.define(version: 2020_10_23_145501) do
     t.integer "company_id"
     t.float "tibia_length_used"
     t.string "tibia_length_source"
-    t.bigint "cte_id"
-    t.index ["cte_id"], name: "index_cte_result_headers_on_cte_id"
+    t.index ["cte_data_id"], name: "index_cte_result_headers_on_cte_data_id"
   end
 
   create_table "cte_results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

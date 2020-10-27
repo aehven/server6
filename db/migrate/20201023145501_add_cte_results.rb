@@ -1,7 +1,7 @@
 class AddCteResults < ActiveRecord::Migration[6.0]
   def change
     create_table :cte_result_headers do |t|
-      t.integer :cte_dataheaderid
+      t.references :cte_data
       t.string :app_version
       t.string :matlab_version
       t.string :when_calculated
@@ -9,7 +9,6 @@ class AddCteResults < ActiveRecord::Migration[6.0]
       t.integer :company_id
       t.float :tibia_length_used
       t.string :tibia_length_source
-      t.references :cte
     end
 
     create_table :cte_results do |t|
