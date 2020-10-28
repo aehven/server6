@@ -24,4 +24,10 @@ class Patient < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def last_n_results(n=15)
+    dsns = patients_test_plans.map(&:test_results).flatten.map(&:dataset_number)
+    data = CteData.where(dataset_number: dsns, cte_id: ctes.first.id)
+    data.last(n).collect{|d| d.cte_result_header&.cte_result_averages}.compact
+  end
 end

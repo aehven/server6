@@ -125,7 +125,10 @@ rows.each_with_index do |row, i|
     end
   end
 
-  CteData.create!(id: row[0], cte_id: row[1], dataset_number: row[2], sample_bcd_datetime: row[6]) if cte
+  CteData.create!(id: row[0], cte_id: row[1], dataset_number: row[2], sample_bcd_datetime: row[6])
+
+  ptp = PatientsTestPlan.create!(patient_id: cte.patients.last.id, test_plan_id: 1)
+  TestResult.create!(patients_test_plan: ptp, start_time: row[6], dataset_number: row[2])
 end
 
 rows = CSV.read(Rails.root.join("db", "seed_files", "cte_results", "cte_resultsheader.csv"), headers: true)

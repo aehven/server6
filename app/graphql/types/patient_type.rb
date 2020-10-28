@@ -22,5 +22,7 @@ module Types
     field :test_plans, [Types::TestPlanType], null: true
 
     field :surgeries, [Types::SurgeryType], null: true
+
+    field :last_n_results, [Types::CteResultType], null: true
   end
 end
