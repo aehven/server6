@@ -3,7 +3,7 @@ class CteResultHeader < ApplicationRecord
 
   belongs_to :cte_data
 
-  has_many :cte_results
+  has_many :cte_results, dependent: :destroy
 
   def cte_result_averages
     results = cte_results
