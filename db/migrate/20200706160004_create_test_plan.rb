@@ -29,12 +29,12 @@ class CreateTestPlan < ActiveRecord::Migration[6.0]
     end
 
     create_table :organizations_test_plans do |t|
-      t.references :organization, null: false
+      t.references :organization, null: true
       t.references :test_plan, null: false
     end
 
     create_table :test_plans_users do |t|
-      t.references :user, null: false
+      t.references :user, null: true
       t.references :test_plan, null: false
     end
   end

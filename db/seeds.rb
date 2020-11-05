@@ -65,7 +65,9 @@ tsd = Test.create!(name: "Stairs Down")
 ts = Test.create!(name: "Stairs")
 tsg = Test.create!(name: "Stand Up and Go")
 
-pa = TestPlan.create!(name: "Default")
+pa = TestPlan.create!(name: "Default", users: [], organizations: [])
+TestPlansUser.create!(test_plan_id: pa.id, user_id: nil)
+
 ia = TestPlan.create!(name: "Ian's Test Plan", users: [anderson], organizations: [anderson.organization])
 de = TestPlan.create!(name: "Duke's Test Plan", users: [ellington], organizations: [ellington.organization])
 
@@ -89,10 +91,10 @@ BaseStation.create!(serial_number: 0, active: true, encryption_key: [1,2,3,4])
 Firmware.create!(
   image: File.read(Rails.root.join("db", "seed_files", "firmware", "base_station", "clinic-base-station-dev-kit.bin")),
   kind: "BaseStation",
-  major: 0,
-  minor: 0,
-  bugfix: 0,
-  build: 0, 
+  major: 1,
+  minor: 2,
+  bugfix: 3,
+  build: 4, 
   critical: false
 )
 

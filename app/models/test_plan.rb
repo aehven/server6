@@ -31,9 +31,7 @@ class TestPlan < ApplicationRecord
   end
 
   def self.ga
-    ids = ActiveRecord::Base.connection.exec_query("select distinct test_plan_id from organizations_test_plans;").rows.flatten
-    ids = ids + ActiveRecord::Base.connection.exec_query("select distinct test_plan_id from test_plans_users;").rows.flatten
-    ids.uniq!
-    TestPlan.where.not(id: ids)
+    ids = TestPlansUser.where(user_id: nil)
+    TestPlan.where(id: ids)
   end
 end

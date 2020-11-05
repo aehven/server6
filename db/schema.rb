@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(version: 2020_10_23_145501) do
   end
 
   create_table "organizations_test_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.bigint "organization_id", null: false
+    t.bigint "organization_id"
     t.bigint "test_plan_id", null: false
     t.index ["organization_id"], name: "index_organizations_test_plans_on_organization_id"
     t.index ["test_plan_id"], name: "index_organizations_test_plans_on_test_plan_id"
@@ -263,7 +263,7 @@ ActiveRecord::Schema.define(version: 2020_10_23_145501) do
   end
 
   create_table "test_plans_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.bigint "test_plan_id", null: false
     t.index ["test_plan_id"], name: "index_test_plans_users_on_test_plan_id"
     t.index ["user_id"], name: "index_test_plans_users_on_user_id"

@@ -7,7 +7,7 @@ module Mutations
     type Types::CteLogType
 
     def resolve(params={})
-      cte = Cte.find_by(serial_number: params[:serialNumber])
+      cte = Cte.find_or_create_by(serial_number: params[:serialNumber])
       CteLog.create!(cte_id: cte.id, timestamp: params[:timestamp], content: params[:content])
     end
   end

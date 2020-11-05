@@ -7,7 +7,7 @@ module Mutations
     type Types::CteDexType
 
     def resolve(params={})
-      cte = Cte.find_by(serial_number: params[:serialNumber])
+      cte = Cte.find_or_create_by(serial_number: params[:serialNumber])
       CteDx.create!(cte_id: cte.id, timestamp: params[:timestamp], content: params[:content])
     end
   end
